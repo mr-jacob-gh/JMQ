@@ -43,12 +43,19 @@ def monitor_log(filepath, q):
         for line in log_lines:
             match = get_match(line)
             if match is not None:
-                q.put({'phrase': match, 'name': extract_name(line)})
+                stats['requests'] = stats.get('requests') + 1
+                name = extract_name(line)
+                if name in roster.get('names'):  # only process queue items for guild members
+                    q.put({'type': 'add', 'phrase': match, 'name': name})
+                else:
+                    stats['ignored'] = stats.get('ignored') + 1
             elif 'updateroster' in line:
                 updateroster()
             elif 'Outputfile Complete' in line:
                 filename = line.split(': ')[1].strip('\n')
                 roster['names'] = extract_guild_roster(roster_filepath + filename)
+            elif 'status' in line:
+                q.put({'type': 'status', 'phrase': '', 'name': name})
 
 
 def get_match(line):
@@ -69,37 +76,78 @@ def get_match(line):
     return None
 
 
+def print_stats():
+    print('requests: ' + str(stats.get('requests')) + ' processed: ' + str(stats.get('processed')) +
+          ' ignored: ' + str(stats.get('ignored')))
+
+
+def process_group_port(line):
+    print('processing group port')
+
+
 def process_queue(q):
     while True:
         task = q.get()  # This blocks until a new item is available in the queue
+        req_type = task.get('type')
         phrase = task.get('phrase')
-        print(f"Detected phrase: {phrase}")
-        print(f"extracted name: {task.get('name')}")
-        # only process queue items for guild members
-        if task.get('name') not in roster.get('names'):
-            q.task_done()
-            continue
+        name = task.get('name')
+        if req_type == 'add':
+            q.put({'type': 'spell', 'phrase': phrase, 'name': name})
+            if q.qsize() > 1:
+                notify_queue_position(name, phrase, q.qsize())
+        elif req_type == 'spell':
+            process_spell_request(name, phrase)
+        elif req_type == 'status':
+            send_status(name)
 
-        # clear target
-        pydirectinput.press('esc')
-        # activate chat window
-        pydirectinput.press('enter')
-        # target the player
-        pydirectinput.write('/target ')
-        pydirectinput.keyDown('shift')
-        pydirectinput.write(task.get('name')[0].lower())
-        pydirectinput.keyUp('shift')
-        pydirectinput.write(task.get('name'))
-        pydirectinput.press('enter')
-        pydirectinput.press('enter')
-        pydirectinput.write('/tt ' + phrase + ' inc')
-        pydirectinput.press('enter')
-        # cast the spell
-        castspell(phrase)
         q.task_done()
         if q.qsize() == 0:
             stand()
             sit()
+
+
+def notify_queue_position(name, phrase, pos):
+    send_tell(name, phrase + ' in queue at pos: ' + pos)
+
+
+def process_spell_request(name, phrase):
+    print('casting ' + phrase + ' on ' + name)
+    # clear target
+    pydirectinput.press('esc')
+    # activate chat window
+    pydirectinput.press('enter')
+    # target the player
+    pydirectinput.write('/target ')
+    pydirectinput.keyDown('shift')
+    pydirectinput.write(name[0].lower())
+    pydirectinput.keyUp('shift')
+    pydirectinput.write(name)
+    pydirectinput.press('enter')
+    pydirectinput.press('enter')
+    pydirectinput.write('/tt ' + phrase + ' inc')
+    pydirectinput.press('enter')
+    # cast the spell
+    castspell(phrase)
+    keep_alive['time'] = datetime.datetime.now()
+    stats['processed'] = stats.get('processed') + 1
+
+
+def send_status(name):
+    if name in roster.get('names'):
+        send_tell(name, 'online')
+
+
+def send_tell(name, msg):
+    # activate chat window
+    pydirectinput.press('enter')
+    pydirectinput.write('/tell ')
+    pydirectinput.keyDown('shift')
+    pydirectinput.write(name[0].lower())
+    pydirectinput.keyUp('shift')
+    pydirectinput.write(name)
+    pydirectinput.write(msg)
+    pydirectinput.press('enter')
+    keep_alive['time'] = datetime.datetime.now()
 
 
 def sit():
@@ -165,11 +213,12 @@ def loaddefaultspells():
 
 def keepalive():
     diff = datetime.datetime.now() - keep_alive.get('time')
-    if diff.seconds > (600 + random.randint(1, 10)):
+    if q.qsize() == 0 and diff.seconds > (600 + random.randint(1, 10)):
         print('keep alive')
         stand()
         sit()
         keep_alive['time'] = datetime.datetime.now()
+        print_stats()
 
 
 def init():
@@ -263,6 +312,8 @@ if __name__ == "__main__":
     queue_processor_thread = threading.Thread(target=process_queue, args=(q,))
     queue_processor_thread.daemon = True
     queue_processor_thread.start()
+
+    stats = {'requests': 0, 'processed': 0, 'ignored': 0}
 
     init()
 
