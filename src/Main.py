@@ -92,6 +92,7 @@ def process_group_port(name, phrase):
     pydirectinput.press('enter')
     pydirectinput.write('/tt accept invite casting in 5sec')
     pydirectinput.press('enter')
+    time.sleep(5)
     castspell(phrase)
     pydirectinput.press('enter')
     pydirectinput.write('/disband')
