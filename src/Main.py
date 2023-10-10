@@ -55,7 +55,7 @@ def monitor_log(filepath, q):
                 filename = line.split(': ')[1].strip('\n')
                 roster['names'] = extract_guild_roster(roster_filepath + filename)
             elif 'status' in line:
-                q.put({'type': 'status', 'phrase': '', 'name': name})
+                q.put({'type': 'status', 'phrase': '', 'name': extract_name(line)})
 
 
 def get_match(line):
@@ -93,12 +93,13 @@ def process_queue(q):
         name = task.get('name')
         if req_type == 'add':
             q.put({'type': 'spell', 'phrase': phrase, 'name': name})
-            if q.qsize() > 1:
-                notify_queue_position(name, phrase, q.qsize())
+            #  if q.qsize() > 1:
+            #      notify_queue_position(name, phrase, q.qsize())
         elif req_type == 'spell':
             process_spell_request(name, phrase)
         elif req_type == 'status':
             send_status(name)
+            continue
 
         q.task_done()
         if q.qsize() == 0:
@@ -107,7 +108,7 @@ def process_queue(q):
 
 
 def notify_queue_position(name, phrase, pos):
-    send_tell(name, phrase + ' in queue at pos: ' + pos)
+    send_tell(name, phrase + ' in queue at pos: ' + str(pos))
 
 
 def process_spell_request(name, phrase):
@@ -145,7 +146,7 @@ def send_tell(name, msg):
     pydirectinput.write(name[0].lower())
     pydirectinput.keyUp('shift')
     pydirectinput.write(name)
-    pydirectinput.write(msg)
+    pydirectinput.write(' ' + msg)
     pydirectinput.press('enter')
     keep_alive['time'] = datetime.datetime.now()
 
@@ -228,7 +229,6 @@ def init():
     sit()
     updateroster()
     loaddefaultspells()
-    time.sleep(6)
 
 
 if __name__ == "__main__":
@@ -294,7 +294,8 @@ if __name__ == "__main__":
                          'icecladocean': 'ic', 'wakening lands': 'wl', 'wakeninglands': 'wl', 'dreadlands': 'dl',
                          'dread lands': 'dl', 'butcher': 'bb', 'butcherblock': 'bb', 'bbm': 'bb',
                          'butcherblock mountains': 'bb', 'butcher block': 'bb', 'ferrott': 'feerrott',
-                         'feerott': 'feerrott', 'feerrot': 'feerrott', 'feerroot': 'feerrott', 'ferot': 'feerrott'}
+                         'feerott': 'feerrott', 'feerrot': 'feerrott', 'feerroot': 'feerrott', 'ferot': 'feerrott',
+                         'tox': 'toxx', 'ferroot': 'feerrott'}
 
     memorized_spells = {1: None, 2: None, 3: None, 4: None, 5: None, 6: None, 7: None, 8: None}
     last_cast_time = {}
