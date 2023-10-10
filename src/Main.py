@@ -81,8 +81,21 @@ def print_stats():
           ' ignored: ' + str(stats.get('ignored')))
 
 
-def process_group_port(line):
-    print('processing group port')
+def process_group_port(name, phrase):
+    pydirectinput.press('enter')
+    pydirectinput.write('/invite ')
+    pydirectinput.keyDown('shift')
+    pydirectinput.write(name[0].lower())
+    pydirectinput.keyUp('shift')
+    pydirectinput.write(name)
+    pydirectinput.press('enter')
+    pydirectinput.press('enter')
+    pydirectinput.write('/tt accept invite casting in 5sec')
+    pydirectinput.press('enter')
+    castspell(phrase)
+    pydirectinput.press('enter')
+    pydirectinput.write('/disband')
+    pydirectinput.press('enter')
 
 
 def process_queue(q):
@@ -124,11 +137,16 @@ def process_spell_request(name, phrase):
     pydirectinput.keyUp('shift')
     pydirectinput.write(name)
     pydirectinput.press('enter')
-    pydirectinput.press('enter')
-    pydirectinput.write('/tt ' + phrase + ' inc')
-    pydirectinput.press('enter')
-    # cast the spell
-    castspell(phrase)
+
+    if phrase in group_ports:
+        process_group_port(name, phrase)
+    else:
+        pydirectinput.press('enter')
+        pydirectinput.write('/tt ' + phrase + ' inc')
+        pydirectinput.press('enter')
+        # cast the spell
+        castspell(phrase)
+
     keep_alive['time'] = datetime.datetime.now()
     stats['processed'] = stats.get('processed') + 1
 
@@ -267,7 +285,9 @@ if __name__ == "__main__":
         'ro': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'steamfont': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'sfg': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
-        'toxx': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0}
+        'toxx': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
+        'sf': {'slot': 8, 'casttime': 9.0, 'recasttime': 1.5},
+        'ej': {'slot': 8, 'casttime': 9.0, 'recasttime': 1.5}
     }
 
     spell_ids = {'heal': '1291', 'sow': '278', 'potg': '1442', 'cl': '25690', 'levi': '261',
@@ -275,7 +295,7 @@ if __name__ == "__main__":
                  'natureskin': '1559', 'stormstrength': '430', 'cs': '25693', 'gd': '25696',
                  'ic': '25698', 'wl': '25906', 'dl': '25694', 'bb': '25689', 'feerrott': '25695',
                  'nk': '25899', 'lava': '24771', 'misty': '25699', 'ro': '25901', 'steamfont': '25902',
-                 'sfg': '25900', 'toxx': '25904'}
+                 'sfg': '25900', 'toxx': '25904', 'sf': '1736', 'ej': '1737'}
 
     master_phrase_map = {'heal': 'heal', 'sow': 'sow', 'potg': 'potg', 'cl': 'cl', 'levi': 'levi',
                          'chloro': 'chloro', 'thorns': 'thorns', 'blades': 'blades', 'regrowth': 'regrowth',
@@ -288,14 +308,17 @@ if __name__ == "__main__":
                          'skin like nature': 'sln', 'cobalt scar': 'cs', 'northk': 'nk', 'north karana': 'nk',
                          'karana': 'nk', 'lavastorm': 'lava', 'lava storm': 'lava', 'misty thicket': 'misty',
                          'nro': 'ro', 'sro': 'ro', 'northro': 'ro', 'north ro': 'ro', 'northern desert of ro': 'ro',
-                         'south ro': 'ro', 'sf': 'steamfont', 'steam font': 'steamfont', 'surefall': 'sfg',
+                         'south ro': 'ro', 'sf': 'sf', 'steam font': 'steamfont', 'surefall': 'sfg',
                          'sure fall': 'sfg', 'surefall glade': 'sfg', 'surefallglade': 'sfg', 'toxxulia': 'toxx',
                          'toxxulia forest': 'toxx', 'great divide': 'gd', 'iceclad': 'ic', 'iceclad ocean': 'ic',
                          'icecladocean': 'ic', 'wakening lands': 'wl', 'wakeninglands': 'wl', 'dreadlands': 'dl',
                          'dread lands': 'dl', 'butcher': 'bb', 'butcherblock': 'bb', 'bbm': 'bb',
                          'butcherblock mountains': 'bb', 'butcher block': 'bb', 'ferrott': 'feerrott',
                          'feerott': 'feerrott', 'feerrot': 'feerrott', 'feerroot': 'feerrott', 'ferot': 'feerrott',
-                         'tox': 'toxx', 'ferroot': 'feerrott'}
+                         'tox': 'toxx', 'ferroot': 'feerrott', 'ej': 'ej', 'emerald jungle': 'ej', 'emerald': 'ej',
+                         'skyfire': 'sf', 'sky fire': 'sf', 'skyfire mountains': 'sf'}
+
+    group_ports = ['ej', 'sf']
 
     memorized_spells = {1: None, 2: None, 3: None, 4: None, 5: None, 6: None, 7: None, 8: None}
     last_cast_time = {}
