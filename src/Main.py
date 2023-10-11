@@ -48,6 +48,7 @@ def monitor_log(filepath, q):
                 if name in roster.get('names'):  # only process queue items for guild members
                     q.put({'type': 'add', 'phrase': match, 'name': name})
                 else:
+                    print('ignored message: '+line)
                     stats['ignored'] = stats.get('ignored') + 1
             elif 'updateroster' in line:
                 updateroster()
@@ -65,7 +66,7 @@ def get_match(line):
     # compare entire phrase to spell list
     start = line.index('\'') + 1
     end = len(line) - 2
-    phrase = line[start:end].lower().strip('!?.,;@#$%^&*')
+    phrase = line[start:end].lower().strip('!?.,;@#$%^&*').strip()
     if phrase in master_phrase_map.keys():
         return master_phrase_map.get(phrase)
     else:  # compare each word in phrase to spell list
@@ -96,6 +97,9 @@ def process_group_port(name, phrase):
     castspell(phrase)
     pydirectinput.press('enter')
     pydirectinput.write('/disband')
+    pydirectinput.press('enter')
+    pydirectinput.press('enter')
+    pydirectinput.write('/raiddisband')
     pydirectinput.press('enter')
 
 
@@ -132,7 +136,7 @@ def process_spell_request(name, phrase):
     # activate chat window
     pydirectinput.press('enter')
     # target the player
-    pydirectinput.write('/target ')
+    pydirectinput.write('/tar ')
     pydirectinput.keyDown('shift')
     pydirectinput.write(name[0].lower())
     pydirectinput.keyUp('shift')
@@ -142,10 +146,11 @@ def process_spell_request(name, phrase):
     if phrase in group_ports:
         process_group_port(name, phrase)
     else:
-        pydirectinput.press('enter')
-        pydirectinput.write('/tt ' + phrase + ' inc')
-        pydirectinput.press('enter')
+        # pydirectinput.press('enter')
+        # pydirectinput.write('/tt ' + phrase + ' inc')
+        # pydirectinput.press('enter')
         # cast the spell
+        time.sleep(0.1)
         castspell(phrase)
 
     keep_alive['time'] = datetime.datetime.now()
@@ -190,22 +195,31 @@ def clearspell(slot):
 
 def memspell(spell, slot):
     # print('spell in slot: '+str(slot)+' is '+str(memorized_spells.get(slot)))
-    if memorized_spells.get(slot) != spell:
-        clearspell(slot)
-        pydirectinput.press('enter', 1, 0.0)
-        pydirectinput.write('/memspellslot ' + str(slot) + ' ' + spell_ids.get(spell), 0.0)
-        pydirectinput.press('enter', 1, 0.0)
-        time.sleep(spells.get(spell).get('recasttime') + 4.0)
-        memorized_spells[slot] = spell
-        # print(spell + ' memorized')
+    #  clearspell(slot)
+    pydirectinput.press('enter', 1, 0.0)
+    pydirectinput.write('/memspellslot ' + str(slot) + ' ' + spell_ids.get(spell), 0.0)
+    pydirectinput.press('enter', 1, 0.0)
+    time.sleep(2.0)
+    memorized_spells[slot] = spell
+    last_cast_time[spell] = datetime.datetime.now()
+    # print(spell + ' memorized')
 
 
 def castspell(spell):
-    memspell(spell, spells.get(spell).get('slot'))
+    slot = spells.get(spell).get('slot')
+    if memorized_spells.get(slot) != spell:
+        pydirectinput.press('1', 1, 0.0)
+        memspell(spell, spells.get(spell).get('slot'))
+        if slot == 8:
+            tell_spell_inc(spell)
+    else:
+        if slot == 8:
+            tell_spell_inc(spell)
+
     if last_cast_time.get(spell) is not None:
         diff = datetime.datetime.now() - last_cast_time.get(spell)
         if diff.seconds < spells.get(spell).get('recasttime'):
-            time.sleep(spells.get(spell).get('recasttime') - diff.seconds)
+            time.sleep((spells.get(spell).get('recasttime') - diff.seconds)+2.0)
             # print('pausing for recast time')
 
     print('now casting: ' + spell)
@@ -214,6 +228,11 @@ def castspell(spell):
     time.sleep(spells.get(spell).get('casttime') + 2.0)
     last_cast_time[spell] = datetime.datetime.now()
 
+
+def tell_spell_inc(spell):
+    pydirectinput.press('enter')
+    pydirectinput.write('/tt ' + spell + ' inc')
+    pydirectinput.press('enter')
 
 def updateroster():
     pydirectinput.press('enter', 1, 0.0)
@@ -225,7 +244,7 @@ def loaddefaultspells():
     memspell('heal', spells.get('heal').get('slot'))
     memspell('sow', spells.get('sow').get('slot'))
     memspell('potg', spells.get('potg').get('slot'))
-    memspell('levi', spells.get('levi').get('slot'))
+    memspell('feerrott', spells.get('feerrott').get('slot'))
     memspell('cl', spells.get('cl').get('slot'))
     memspell('gd', spells.get('gd').get('slot'))
     memspell('cs', spells.get('cs').get('slot'))
@@ -264,7 +283,7 @@ if __name__ == "__main__":
         'heal': {'slot': 1, 'casttime': 3.8, 'recasttime': 1.5},
         'sow': {'slot': 2, 'casttime': 4.5, 'recasttime': 3.5},
         'potg': {'slot': 3, 'casttime': 6.0, 'recasttime': 18.0},
-        'levi': {'slot': 4, 'casttime': 3.0, 'recasttime': 5.0},
+        'levi': {'slot': 8, 'casttime': 3.0, 'recasttime': 5.0},
         'cl': {'slot': 5, 'casttime': 10.0, 'recasttime': 6.0},
         'chloro': {'slot': 8, 'casttime': 6.0, 'recasttime': 1.5},
         'thorns': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
@@ -279,7 +298,7 @@ if __name__ == "__main__":
         'wl': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'dl': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'bb': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
-        'feerrott': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
+        'feerrott': {'slot': 4, 'casttime': 10.0, 'recasttime': 6.0},
         'nk': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'lava': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'misty': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
@@ -288,7 +307,8 @@ if __name__ == "__main__":
         'sfg': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'toxx': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'sf': {'slot': 8, 'casttime': 9.0, 'recasttime': 1.5},
-        'ej': {'slot': 8, 'casttime': 9.0, 'recasttime': 1.5}
+        'ej': {'slot': 8, 'casttime': 9.0, 'recasttime': 1.5},
+        'ba': {'slot': 8, 'casttime': 6.0, 'recasttime': 1.5}
     }
 
     spell_ids = {'heal': '1291', 'sow': '278', 'potg': '1442', 'cl': '25690', 'levi': '261',
@@ -296,7 +316,7 @@ if __name__ == "__main__":
                  'natureskin': '1559', 'stormstrength': '430', 'cs': '25693', 'gd': '25696',
                  'ic': '25698', 'wl': '25906', 'dl': '25694', 'bb': '25689', 'feerrott': '25695',
                  'nk': '25899', 'lava': '24771', 'misty': '25699', 'ro': '25901', 'steamfont': '25902',
-                 'sfg': '25900', 'toxx': '25904', 'sf': '1736', 'ej': '1737'}
+                 'sfg': '25900', 'toxx': '25904', 'sf': '1736', 'ej': '1737', 'ba': '35'}
 
     master_phrase_map = {'heal': 'heal', 'sow': 'sow', 'potg': 'potg', 'cl': 'cl', 'levi': 'levi',
                          'chloro': 'chloro', 'thorns': 'thorns', 'blades': 'blades', 'regrowth': 'regrowth',
@@ -317,9 +337,10 @@ if __name__ == "__main__":
                          'butcherblock mountains': 'bb', 'butcher block': 'bb', 'ferrott': 'feerrott',
                          'feerott': 'feerrott', 'feerrot': 'feerrott', 'feerroot': 'feerrott', 'ferot': 'feerrott',
                          'tox': 'toxx', 'ferroot': 'feerrott', 'ej': 'ej', 'emerald jungle': 'ej', 'emerald': 'ej',
-                         'skyfire': 'sf', 'sky fire': 'sf', 'skyfire mountains': 'sf'}
+                         'skyfire': 'sf', 'sky fire': 'sf', 'skyfire mountains': 'sf', 'ba': 'ba', 'bind': 'ba',
+                         'bind affinity': 'ba', 'fear': 'feerrott'}
 
-    group_ports = ['ej', 'sf']
+    group_ports = ['ej', 'sf', 'ba']
 
     memorized_spells = {1: None, 2: None, 3: None, 4: None, 5: None, 6: None, 7: None, 8: None}
     last_cast_time = {}
