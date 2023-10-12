@@ -90,9 +90,10 @@ def process_group_port(name, phrase):
     pydirectinput.keyUp('shift')
     pydirectinput.write(name)
     pydirectinput.press('enter')
-    pydirectinput.press('enter')
-    pydirectinput.write('/tt accept invite casting in 5sec')
-    pydirectinput.press('enter')
+    # pydirectinput.press('enter')
+    # pydirectinput.write('/tt accept invite casting in 5sec')
+    # pydirectinput.press('enter')
+    pydirectinput.press('-')
     time.sleep(5)
     castspell(phrase)
     pydirectinput.press('enter')
@@ -234,6 +235,7 @@ def tell_spell_inc(spell):
     pydirectinput.write('/tt ' + spell + ' inc')
     pydirectinput.press('enter')
 
+
 def updateroster():
     pydirectinput.press('enter', 1, 0.0)
     pydirectinput.write('/outputfile guild', 0.0)
@@ -275,7 +277,7 @@ if __name__ == "__main__":
     roster_filename_default = "Relentless Insomnia_oakwynd-default.txt"
     roster = {'names': []}
 
-    spell_slot_keys = {1: '2', 2: '3', 3: '4', 5: '7', 6: '8', 7: '9', 8: '0'}
+    spell_slot_keys = {1: '2', 2: '3', 3: '4', 4: '5', 5: '7', 6: '8', 7: '9', 8: '0'}
 
     # slot is spell gem slot that spell should be memmed to every time.
     #
