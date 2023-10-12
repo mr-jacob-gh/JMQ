@@ -82,7 +82,7 @@ def print_stats():
           ' ignored: ' + str(stats.get('ignored')))
 
 
-def process_group_port(name, phrase):
+def process_group_spell(name, phrase):
     pydirectinput.press('enter')
     pydirectinput.write('/invite ')
     pydirectinput.keyDown('shift')
@@ -106,6 +106,7 @@ def process_group_port(name, phrase):
 
 def process_queue(q):
     while True:
+        sitstand = True
         task = q.get()  # This blocks until a new item is available in the queue
         req_type = task.get('type')
         phrase = task.get('phrase')
@@ -118,10 +119,13 @@ def process_queue(q):
             process_spell_request(name, phrase)
         elif req_type == 'status':
             send_status(name)
-            continue
+            sitstand = False
+        elif req_type == 'keep_alive':
+            pydirectinput.press('shift')
+            sitstand = False
 
         q.task_done()
-        if q.qsize() == 0:
+        if q.qsize() == 0 and sitstand:
             stand()
             sit()
 
@@ -144,14 +148,14 @@ def process_spell_request(name, phrase):
     pydirectinput.write(name)
     pydirectinput.press('enter')
 
-    if phrase in group_ports:
-        process_group_port(name, phrase)
+    if phrase in group_spells:
+        process_group_spell(name, phrase)
     else:
         # pydirectinput.press('enter')
         # pydirectinput.write('/tt ' + phrase + ' inc')
         # pydirectinput.press('enter')
         # cast the spell
-        time.sleep(0.1)
+        time.sleep(0.2)
         castspell(phrase)
 
     keep_alive['time'] = datetime.datetime.now()
@@ -255,9 +259,10 @@ def loaddefaultspells():
 def keepalive():
     diff = datetime.datetime.now() - keep_alive.get('time')
     if q.qsize() == 0 and diff.seconds > (600 + random.randint(1, 10)):
-        print('keep alive')
-        stand()
-        sit()
+        print('keep alive: '+str(datetime.datetime.now()))
+        q.put({'type': 'keep_alive', 'phrase': None, 'name': None})
+        # stand()
+        # sit()
         keep_alive['time'] = datetime.datetime.now()
         print_stats()
 
@@ -342,10 +347,14 @@ if __name__ == "__main__":
                          'skyfire': 'sf', 'sky fire': 'sf', 'skyfire mountains': 'sf', 'ba': 'ba', 'bind': 'ba',
                          'bind affinity': 'ba', 'fear': 'feerrott'}
 
-    group_ports = ['ej', 'sf', 'ba']
+    group_spells = ['ej', 'sf', 'ba']
 
     memorized_spells = {1: None, 2: None, 3: None, 4: None, 5: None, 6: None, 7: None, 8: None}
     last_cast_time = {}
+
+    stats = {'requests': 0, 'processed': 0, 'ignored': 0}
+
+    init()
 
     keep_alive = {'time': datetime.datetime.now()}
 
@@ -360,10 +369,6 @@ if __name__ == "__main__":
     queue_processor_thread = threading.Thread(target=process_queue, args=(q,))
     queue_processor_thread.daemon = True
     queue_processor_thread.start()
-
-    stats = {'requests': 0, 'processed': 0, 'ignored': 0}
-
-    init()
 
     try:
         while True:
