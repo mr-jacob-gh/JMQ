@@ -354,8 +354,6 @@ if __name__ == "__main__":
 
     stats = {'requests': 0, 'processed': 0, 'ignored': 0}
 
-    init()
-
     keep_alive = {'time': datetime.datetime.now()}
 
     q = queue.Queue()
@@ -369,6 +367,8 @@ if __name__ == "__main__":
     queue_processor_thread = threading.Thread(target=process_queue, args=(q,))
     queue_processor_thread.daemon = True
     queue_processor_thread.start()
+
+    init()
 
     try:
         while True:
