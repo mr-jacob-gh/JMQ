@@ -20,6 +20,12 @@ def extract_guild_roster(filename):
     return names
 
 
+def write_to_log(message):
+    timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+    with open(log_file_path, "a") as log_file:
+        log_file.write(f"{timestamp} - {message}\n")
+
+
 def tail(f):
     f.seek(0, 2)  # Go to the end of the file
     while True:
@@ -43,15 +49,16 @@ def monitor_log(filepath, q):
         for line in log_lines:
             match = get_match(line)
             if match is not None:
+                write_to_log('match found: ' + line)
                 stats['requests'] = stats.get('requests') + 1
                 name = extract_name(line)
                 if name in roster.get('names'):  # only process queue items for guild members
-                    q.put({'type': 'add', 'phrase': match, 'name': name})
+                    q.put({'type': 'spell', 'phrase': match, 'name': name})
                 else:
-                    print('ignored message: '+line)
+                    print('ignored message: ' + line)
                     stats['ignored'] = stats.get('ignored') + 1
-            elif 'updateroster' in line:
-                updateroster()
+            elif 'has joined your guild' in line or 'no longer a member of your guild' in line:
+                q.put({'type': 'updateroster', 'phrase': None, 'name': None})
             elif 'Outputfile Complete' in line:
                 filename = line.split(': ')[1].strip('\n')
                 roster['names'] = extract_guild_roster(roster_filepath + filename)
@@ -75,6 +82,57 @@ def get_match(line):
                 return master_phrase_map.get(word)
 
     return None
+
+
+def process_queue(q):
+    req_type = None
+    phrase = None
+    name = None
+    while True:
+        try:
+            standsit = True
+            task = q.get()  # This blocks until a new item is available in the queue
+            req_type = task.get('type')
+            phrase = task.get('phrase')
+            name = task.get('name')
+            write_to_log('processing queue task: ' + req_type + ', ' + phrase + ', ' + name)
+            if req_type == 'spell' and not already_in_queue(phrase, name):
+                process_spell_request(name, phrase)
+            elif req_type == 'status':
+                send_status(name)
+                standsit = False
+            elif req_type == 'keep_alive':
+                pydirectinput.press('shift')
+                standsit = False
+            elif req_type == 'updateRoster':
+                updateroster()
+        finally:
+            write_to_log('removing queue task: ' + req_type + ', ' + phrase + ', ' + name)
+            q.task_done()
+            q_list.get('items').remove({'type': req_type, 'phrase': phrase, 'name': name})
+
+        # q.task_done()
+        if q.qsize() == 0 and standsit:
+            stand()
+            sit()
+
+
+def add_item_to_queue(_type, phrase, name):
+    match = False
+    for item in q_list.get('items'):
+        if item.get('type') == _type and item.get('phrase') == phrase and item.get('name') == name:
+            match = True
+            break
+
+    if not match:
+        q.put({'type': _type, 'phrase': phrase, 'name': name})
+        q_list['items'].append({'type': _type, 'phrase': phrase, 'name': name})
+
+
+def already_in_queue(phrase, name):
+    if {'type': 'spell', 'phrase': phrase, 'name': name} in q_list:
+        return True
+    return False
 
 
 def print_stats():
@@ -102,32 +160,6 @@ def process_group_spell(name, phrase):
     pydirectinput.press('enter')
     pydirectinput.write('/raiddisband')
     pydirectinput.press('enter')
-
-
-def process_queue(q):
-    while True:
-        sitstand = True
-        task = q.get()  # This blocks until a new item is available in the queue
-        req_type = task.get('type')
-        phrase = task.get('phrase')
-        name = task.get('name')
-        if req_type == 'add':
-            q.put({'type': 'spell', 'phrase': phrase, 'name': name})
-            #  if q.qsize() > 1:
-            #      notify_queue_position(name, phrase, q.qsize())
-        elif req_type == 'spell':
-            process_spell_request(name, phrase)
-        elif req_type == 'status':
-            send_status(name)
-            sitstand = False
-        elif req_type == 'keep_alive':
-            pydirectinput.press('shift')
-            sitstand = False
-
-        q.task_done()
-        if q.qsize() == 0 and sitstand:
-            stand()
-            sit()
 
 
 def notify_queue_position(name, phrase, pos):
@@ -224,7 +256,7 @@ def castspell(spell):
     if last_cast_time.get(spell) is not None:
         diff = datetime.datetime.now() - last_cast_time.get(spell)
         if diff.seconds < spells.get(spell).get('recasttime'):
-            time.sleep((spells.get(spell).get('recasttime') - diff.seconds)+2.0)
+            time.sleep((spells.get(spell).get('recasttime') - diff.seconds) + 2.0)
             # print('pausing for recast time')
 
     print('now casting: ' + spell)
@@ -259,7 +291,7 @@ def loaddefaultspells():
 def keepalive():
     diff = datetime.datetime.now() - keep_alive.get('time')
     if q.qsize() == 0 and diff.seconds > (600 + random.randint(1, 10)):
-        print('keep alive: '+str(datetime.datetime.now()))
+        print('keep alive: ' + str(datetime.datetime.now()))
         q.put({'type': 'keep_alive', 'phrase': None, 'name': None})
         # stand()
         # sit()
@@ -280,6 +312,7 @@ if __name__ == "__main__":
     log_filepath = "C:/Users/Public/Daybreak Game Company/Installed Games/EverQuest/Logs/eqlog_Zlem_oakwynd.txt"
     roster_filepath = "C:/Users/Public/Daybreak Game Company/Installed Games/EverQuest/"
     roster_filename_default = "Relentless Insomnia_oakwynd-default.txt"
+    log_file_path = "jmq.log"
     roster = {'names': []}
 
     spell_slot_keys = {1: '2', 2: '3', 3: '4', 4: '5', 5: '7', 6: '8', 7: '9', 8: '0'}
@@ -357,6 +390,7 @@ if __name__ == "__main__":
     keep_alive = {'time': datetime.datetime.now()}
 
     q = queue.Queue()
+    q_list = {'items': []}
 
     # Start the log monitor thread
     log_monitor_thread = threading.Thread(target=monitor_log, args=(log_filepath, q))
