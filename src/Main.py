@@ -81,9 +81,15 @@ def get_match(line):
     if phrase in master_phrase_map.keys():
         return master_phrase_map.get(phrase)
     else:  # compare each word in phrase to spell list
-        for word in phrase.split(' '):
+        split_phrase = phrase.split(' ')
+        for word in split_phrase:
             if word in master_phrase_map.keys():
                 return master_phrase_map.get(word)
+
+        for i in range(split_phrase.count()-1):
+            two_word_combo = split_phrase[i]+' '+split_phrase[i+1]
+            if two_word_combo in master_phrase_map.keys():
+                return master_phrase_map.get(two_word_combo)
 
     return None
 
@@ -249,7 +255,7 @@ def memspell(spell, slot):
     pydirectinput.press('enter', 1, 0.0)
     pydirectinput.write('/memspellslot ' + str(slot) + ' ' + spell_ids.get(spell), 0.0)
     pydirectinput.press('enter', 1, 0.0)
-    # accounts for spellbar cooldown timer6
+    # accounts for spellbar cooldown timer
 
     time.sleep(2.0)
     memorized_spells[slot] = spell
@@ -337,7 +343,7 @@ if __name__ == "__main__":
         'heal': {'slot': 1, 'casttime': 3.8, 'recasttime': 1.5},
         'sow': {'slot': 2, 'casttime': 4.5, 'recasttime': 3.5},
         'potg': {'slot': 3, 'casttime': 6.0, 'recasttime': 18.0},
-        'levi': {'slot': 8, 'casttime': 3.0, 'recasttime': 5.0},
+        'lev': {'slot': 8, 'casttime': 3.0, 'recasttime': 5.0},
         'cl': {'slot': 5, 'casttime': 10.0, 'recasttime': 6.0},
         'chloro': {'slot': 8, 'casttime': 6.0, 'recasttime': 1.5},
         'thorns': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
@@ -362,24 +368,32 @@ if __name__ == "__main__":
         'toxx': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'sf': {'slot': 8, 'casttime': 9.0, 'recasttime': 1.5},
         'ej': {'slot': 8, 'casttime': 9.0, 'recasttime': 1.5},
-        'ba': {'slot': 8, 'casttime': 6.0, 'recasttime': 1.5}
+        'ba': {'slot': 8, 'casttime': 6.0, 'recasttime': 1.5},
+        'invis': {'slot': 8, 'casttime': 5.0, 'recasttime': 1.5},
+        'counteractdisease': {'slot': 8, 'casttime': 4.0, 'recasttime': 1.5},
+        'resistdisease': {'slot': 8, 'casttime': 4.5, 'recasttime': 1.5}
     }
 
-    spell_ids = {'heal': '1291', 'sow': '278', 'potg': '1442', 'cl': '25690', 'levi': '261',
+    spell_ids = {'heal': '1291', 'sow': '278', 'potg': '1442', 'cl': '25690', 'lev': '261',
                  'chloro': '145', 'thorns': '356', 'blades': '1560', 'regrowth': '1568', 'sln': '423',
                  'natureskin': '1559', 'stormstrength': '430', 'cs': '25693', 'gd': '25696',
                  'ic': '25698', 'wl': '25906', 'dl': '25694', 'bb': '25689', 'feerrott': '25695',
                  'nk': '25899', 'lava': '24771', 'misty': '25699', 'ro': '25901', 'steamfont': '25902',
-                 'sfg': '25900', 'toxx': '25904', 'sf': '1736', 'ej': '1737', 'ba': '35'}
+                 'sfg': '25900', 'toxx': '25904', 'sf': '1736', 'ej': '1737', 'ba': '35', 'invis': '34',
+                 'conteractdisease': '96', 'resistdisease': '63'}
 
-    master_phrase_map = {'heal': 'heal', 'sow': 'sow', 'potg': 'potg', 'cl': 'cl', 'levi': 'levi',
+    master_phrase_map = {'ds': 'blades',  # update to the highest version available
+                         'dspl': 'blades',  # update to the highest version that will land on a lvl 1
+                         'regen': 'regrowth',  # update to the highest version available
+                         'regenpl': 'chloro',  # update to the highest version that will land on a lvl 1
+                         'heal': 'heal', 'sow': 'sow', 'potg': 'potg', 'cl': 'cl', 'levi': 'lev', 'lev': 'lev',
                          'chloro': 'chloro', 'thorns': 'thorns', 'blades': 'blades', 'regrowth': 'regrowth',
                          'sln': 'sln', 'natureskin': 'natureskin', 'stormstrength': 'stormstrength', 'cs': 'cs',
                          'gd': 'gd', 'ic': 'ic', 'wl': 'wl', 'dl': 'dl', 'bb': 'bb', 'feerrott': 'feerrott',
                          'nk': 'nk', 'lava': 'lava', 'misty': 'misty', 'ro': 'ro', 'steamfont': 'steamfont',
                          'sfg': 'sfg', 'toxx': 'toxx', 'spirit of wolf': 'sow', 'glades': 'potg',
                          'protection of the glades': 'potg', 'ec': 'cl', 'commons': 'cl', 'commonlands': 'cl',
-                         'common lands': 'cl', 'east commons': 'cl', 'levitate': 'levi', 'chloroplast': 'chloro',
+                         'common lands': 'cl', 'east commons': 'cl', 'levitate': 'lev', 'chloroplast': 'chloro',
                          'skin like nature': 'sln', 'cobalt scar': 'cs', 'northk': 'nk', 'north karana': 'nk',
                          'karana': 'nk', 'lavastorm': 'lava', 'lava storm': 'lava', 'misty thicket': 'misty',
                          'nro': 'ro', 'sro': 'ro', 'northro': 'ro', 'north ro': 'ro', 'northern desert of ro': 'ro',
@@ -392,9 +406,13 @@ if __name__ == "__main__":
                          'feerott': 'feerrott', 'feerrot': 'feerrott', 'feerroot': 'feerrott', 'ferot': 'feerrott',
                          'tox': 'toxx', 'ferroot': 'feerrott', 'ej': 'ej', 'emerald jungle': 'ej', 'emerald': 'ej',
                          'skyfire': 'sf', 'sky fire': 'sf', 'skyfire mountains': 'sf', 'ba': 'ba', 'bind': 'ba',
-                         'bind affinity': 'ba', 'fear': 'feerrott'}
+                         'bind affinity': 'ba', 'fear': 'feerrott', 'invis': 'invis', 'camo': 'invis',
+                         'camouflage': 'invis', 'superior camouflage': 'invis', 'conteractdisease': 'conteractdisease',
+                         'cure disease': 'conteractdisease', 'resistdisease': 'resistdisease',
+                         'resist disease': 'resistdisease', 'disease resist': 'resistdisease', 'fearrott': 'feerrott',
+                         'ct': 'feerrott', 'mistythicket': 'misty'}
 
-    group_spells = ['ej', 'sf', 'ba']
+    group_spells = ['ej', 'sf', 'ba', 'invis']
 
     memorized_spells = {1: None, 2: None, 3: None, 4: None, 5: None, 6: None, 7: None, 8: None}
     last_cast_time = {}
