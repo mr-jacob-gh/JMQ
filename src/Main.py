@@ -52,13 +52,17 @@ def monitor_log(filepath, q):
                 write_to_log('match found: ' + line)
                 stats['requests'] = stats.get('requests') + 1
                 name = extract_name(line)
-                if name in roster.get('names'):  # only process queue items for guild members
+                if name in roster.get('names') and not already_in_queue(match,
+                                                                        name):  # only process queue items for guild members
                     q.put({'type': 'spell', 'phrase': match, 'name': name})
+                    q_list.get('items').append({'type': 'spell', 'phrase': match, 'name': name})
                 else:
                     print('ignored message: ' + line)
                     stats['ignored'] = stats.get('ignored') + 1
             elif 'has joined your guild' in line or 'no longer a member of your guild' in line:
                 q.put({'type': 'updateroster', 'phrase': None, 'name': None})
+            elif 'updateroster' in line:
+                updateroster()
             elif 'Outputfile Complete' in line:
                 filename = line.split(': ')[1].strip('\n')
                 roster['names'] = extract_guild_roster(roster_filepath + filename)
@@ -95,8 +99,9 @@ def process_queue(q):
             req_type = task.get('type')
             phrase = task.get('phrase')
             name = task.get('name')
-            write_to_log('processing queue task: ' + req_type + ', ' + phrase + ', ' + name)
-            if req_type == 'spell' and not already_in_queue(phrase, name):
+            write_to_log('processing queue task: ' + str(req_type) + ', ' + str(phrase) + ', ' + str(name))
+
+            if req_type == 'spell':
                 process_spell_request(name, phrase)
             elif req_type == 'status':
                 send_status(name)
@@ -104,12 +109,15 @@ def process_queue(q):
             elif req_type == 'keep_alive':
                 pydirectinput.press('shift')
                 standsit = False
-            elif req_type == 'updateRoster':
+            elif req_type == 'updateroster':
                 updateroster()
+                standsit = False
+
         finally:
-            write_to_log('removing queue task: ' + req_type + ', ' + phrase + ', ' + name)
+            write_to_log('removing queue task: ' + str(req_type) + ', ' + str(phrase) + ', ' + str(name))
             q.task_done()
-            q_list.get('items').remove({'type': req_type, 'phrase': phrase, 'name': name})
+            if {'type': req_type, 'phrase': phrase, 'name': name} in q_list.get('items'):
+                q_list.get('items').remove({'type': req_type, 'phrase': phrase, 'name': name})
 
         # q.task_done()
         if q.qsize() == 0 and standsit:
@@ -130,7 +138,7 @@ def add_item_to_queue(_type, phrase, name):
 
 
 def already_in_queue(phrase, name):
-    if {'type': 'spell', 'phrase': phrase, 'name': name} in q_list:
+    if {'type': 'spell', 'phrase': phrase, 'name': name} in q_list.get('items'):
         return True
     return False
 
@@ -233,9 +241,16 @@ def clearspell(slot):
 def memspell(spell, slot):
     # print('spell in slot: '+str(slot)+' is '+str(memorized_spells.get(slot)))
     #  clearspell(slot)
+    # can't have anything on cursor when trying to mem spells, stop mod rods from breaking script
+    pydirectinput.press('enter', 1, 0.0)
+    pydirectinput.write('/autoinv', 0.0)
+    pydirectinput.press('enter', 1, 0.0)
+    # mem the spell
     pydirectinput.press('enter', 1, 0.0)
     pydirectinput.write('/memspellslot ' + str(slot) + ' ' + spell_ids.get(spell), 0.0)
     pydirectinput.press('enter', 1, 0.0)
+    # accounts for spellbar cooldown timer6
+
     time.sleep(2.0)
     memorized_spells[slot] = spell
     last_cast_time[spell] = datetime.datetime.now()
@@ -304,7 +319,6 @@ def init():
     time.sleep(10)
     stand()
     sit()
-    updateroster()
     loaddefaultspells()
 
 
@@ -392,6 +406,8 @@ if __name__ == "__main__":
     q = queue.Queue()
     q_list = {'items': []}
 
+    init()
+
     # Start the log monitor thread
     log_monitor_thread = threading.Thread(target=monitor_log, args=(log_filepath, q))
     log_monitor_thread.daemon = True
@@ -402,7 +418,7 @@ if __name__ == "__main__":
     queue_processor_thread.daemon = True
     queue_processor_thread.start()
 
-    init()
+    updateroster()
 
     try:
         while True:
