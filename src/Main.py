@@ -52,9 +52,12 @@ def monitor_log(filepath, q):
                 write_to_log('match found: ' + line)
                 stats['requests'] = stats.get('requests') + 1
                 name = extract_name(line)
-                if name in roster.get('names') and not already_in_queue(match,
-                                                                        name):  # only process queue items for guild members
-                    q.put({'type': 'spell', 'phrase': match, 'name': name})
+                if name in roster.get('names') and not already_in_queue(match, name):  # only for guild members.
+                    if 'vip' in line.lower():
+                        q.insert(0, {'type': 'spell', 'phrase': match, 'name': name})
+                    else:
+                        q.put({'type': 'spell', 'phrase': match, 'name': name})
+
                     q_list.get('items').append({'type': 'spell', 'phrase': match, 'name': name})
                 else:
                     print('ignored message: ' + line)
