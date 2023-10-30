@@ -59,7 +59,7 @@ def monitor_log(filepath, q):
                             q.task_done()
 
                         q.put({'type': 'spell', 'phrase': match, 'name': name})
-                        for item in q_list:
+                        for item in q_list.get('items'):
                             q.put(item)
                     else:
                         q.put({'type': 'spell', 'phrase': match, 'name': name})
