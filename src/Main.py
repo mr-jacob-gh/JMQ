@@ -86,7 +86,7 @@ def get_match(line):
             if word in master_phrase_map.keys():
                 return master_phrase_map.get(word)
 
-        for i in range(split_phrase.count()-1):
+        for i in range(len(split_phrase)-1):
             two_word_combo = split_phrase[i]+' '+split_phrase[i+1]
             if two_word_combo in master_phrase_map.keys():
                 return master_phrase_map.get(two_word_combo)
@@ -380,7 +380,7 @@ if __name__ == "__main__":
                  'ic': '25698', 'wl': '25906', 'dl': '25694', 'bb': '25689', 'feerrott': '25695',
                  'nk': '25899', 'lava': '24771', 'misty': '25699', 'ro': '25901', 'steamfont': '25902',
                  'sfg': '25900', 'toxx': '25904', 'sf': '1736', 'ej': '1737', 'ba': '35', 'invis': '34',
-                 'conteractdisease': '96', 'resistdisease': '63'}
+                 'counteractdisease': '96', 'resistdisease': '63'}
 
     master_phrase_map = {'ds': 'blades',  # update to the highest version available
                          'dspl': 'blades',  # update to the highest version that will land on a lvl 1
@@ -407,8 +407,8 @@ if __name__ == "__main__":
                          'tox': 'toxx', 'ferroot': 'feerrott', 'ej': 'ej', 'emerald jungle': 'ej', 'emerald': 'ej',
                          'skyfire': 'sf', 'sky fire': 'sf', 'skyfire mountains': 'sf', 'ba': 'ba', 'bind': 'ba',
                          'bind affinity': 'ba', 'fear': 'feerrott', 'invis': 'invis', 'camo': 'invis',
-                         'camouflage': 'invis', 'superior camouflage': 'invis', 'conteractdisease': 'conteractdisease',
-                         'cure disease': 'conteractdisease', 'resistdisease': 'resistdisease',
+                         'camouflage': 'invis', 'superior camouflage': 'invis', 'counteractdisease': 'counteractdisease',
+                         'cure disease': 'counteractdisease', 'resistdisease': 'resistdisease',
                          'resist disease': 'resistdisease', 'disease resist': 'resistdisease', 'fearrott': 'feerrott',
                          'ct': 'feerrott', 'mistythicket': 'misty'}
 
