@@ -54,7 +54,13 @@ def monitor_log(filepath, q):
                 name = extract_name(line)
                 if name in roster.get('names') and not already_in_queue(match, name):  # only for guild members.
                     if 'vip' in line.lower():
-                        q.insert(0, {'type': 'spell', 'phrase': match, 'name': name})
+                        while not q.empty():
+                            q.get_nowait()
+                            q.task_done()
+
+                        q.put({'type': 'spell', 'phrase': match, 'name': name})
+                        for item in q_list:
+                            q.put(item)
                     else:
                         q.put({'type': 'spell', 'phrase': match, 'name': name})
 
