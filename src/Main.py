@@ -53,20 +53,19 @@ def monitor_log(filepath, q):
                 stats['requests'] = stats.get('requests') + 1
                 name = extract_name(line)
                 if name in roster.get('names') and not already_in_queue(match, name):  # only for guild members.
-                    if 'vip' in line.lower():
+                    if 'vip' in line.lower() and q.qsize() > 0:
+                        old_q = []
                         while not q.empty():
-                            q.get_nowait()
+                            task = q.get_nowait()
+                            old_q.append(task)
                             q.task_done()
 
-                        q.put({'type': 'spell', 'phrase': match, 'name': name})
-                        for item in q_list.get('items'):
-                            if q_list.get('items').index(item) != 0:
-                                q.put(item)
+                        add_item_to_queue('spell', match, name)
+                        for item in old_q:
+                            q.put(item)
 
-                        q_list.get('items').insert(0, {'type': 'spell', 'phrase': match, 'name': name})
                     else:
-                        q.put({'type': 'spell', 'phrase': match, 'name': name})
-                        q_list.get('items').append({'type': 'spell', 'phrase': match, 'name': name})
+                        add_item_to_queue('spell', match, name)
                 else:
                     print('ignored message: ' + line)
                     stats['ignored'] = stats.get('ignored') + 1
