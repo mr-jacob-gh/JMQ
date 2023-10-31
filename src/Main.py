@@ -59,13 +59,14 @@ def monitor_log(filepath, q):
                             q.task_done()
 
                         q.put({'type': 'spell', 'phrase': match, 'name': name})
-                        for item, index in q_list.get('items'):
-                            if index != 0:
+                        for item in q_list.get('items'):
+                            if q_list.get('items').index(item) != 0:
                                 q.put(item)
+
+                        q_list.get('items').insert(0, {'type': 'spell', 'phrase': match, 'name': name})
                     else:
                         q.put({'type': 'spell', 'phrase': match, 'name': name})
-
-                    q_list.get('items').append({'type': 'spell', 'phrase': match, 'name': name})
+                        q_list.get('items').append({'type': 'spell', 'phrase': match, 'name': name})
                 else:
                     print('ignored message: ' + line)
                     stats['ignored'] = stats.get('ignored') + 1
