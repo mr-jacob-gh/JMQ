@@ -2,7 +2,7 @@ import queue
 import threading
 from pathlib import Path
 
-import pydirectinput
+import pyKey
 import time
 import re
 import datetime
@@ -125,7 +125,7 @@ def process_queue(q):
                 send_status(name)
                 standsit = False
             elif req_type == 'keep_alive':
-                pydirectinput.press('shift')
+                press('LSHIFT')
                 standsit = False
             elif req_type == 'updateroster':
                 updateroster()
@@ -166,26 +166,32 @@ def print_stats():
           ' ignored: ' + str(stats.get('ignored')))
 
 
+def press(key):
+    pyKey.press(key)
+    time.sleep(0.1)
+
+
 def process_group_spell(name, phrase):
-    pydirectinput.press('enter')
-    pydirectinput.write('/invite ')
-    pydirectinput.keyDown('shift')
-    pydirectinput.write(name[0].lower())
-    pydirectinput.keyUp('shift')
-    pydirectinput.write(name)
-    pydirectinput.press('enter')
-    # pydirectinput.press('enter')
-    # pydirectinput.write('/tt accept invite casting in 5sec')
-    # pydirectinput.press('enter')
-    pydirectinput.press('-')
-    time.sleep(5)
+    press('ENTER')
+    pyKey.sendSequence('/invite')
+    press('SPACEBAR')
+    pyKey.pressKey('LSHIFT')
+    pyKey.sendSequence(name[0].lower())
+    pyKey.releaseKey('LSHIFT')
+    pyKey.sendSequence(name[1:])
+    press('ENTER')
+    # press('ENTER')
+    # pyKey.sendSequence('/tt accept invite casting in 5sec')
+    # press('ENTER')
+    send_tell_to_current_target('Accept group invite - casting in 5 seconds!')
+    time.sleep(6)
     castspell(phrase)
-    pydirectinput.press('enter')
-    pydirectinput.write('/disband')
-    pydirectinput.press('enter')
-    pydirectinput.press('enter')
-    pydirectinput.write('/raiddisband')
-    pydirectinput.press('enter')
+    press('ENTER')
+    pyKey.sendSequence('/disband')
+    press('ENTER')
+    press('ENTER')
+    pyKey.sendSequence('/raiddisband')
+    press('ENTER')
 
 
 def notify_queue_position(name, phrase, pos):
@@ -195,23 +201,24 @@ def notify_queue_position(name, phrase, pos):
 def process_spell_request(name, phrase):
     print('casting ' + phrase + ' on ' + name)
     # clear target
-    pydirectinput.press('esc')
+    press('ESC')
     # activate chat window
-    pydirectinput.press('enter')
+    press('ENTER')
     # target the player
-    pydirectinput.write('/tar ', 0.0, None, False)
-    pydirectinput.keyDown('shift')
-    pydirectinput.write(name[0].lower())
-    pydirectinput.keyUp('shift')
-    pydirectinput.write(name, 0.0, None, False)
-    pydirectinput.press('enter')
+    pyKey.sendSequence('/tar')
+    press('SPACEBAR')
+    pyKey.pressKey('LSHIFT')
+    pyKey.sendSequence(name[0].lower())
+    pyKey.releaseKey('LSHIFT')
+    pyKey.sendSequence(name[1:3])
+    press('ENTER')
 
     if phrase in group_spells:
         process_group_spell(name, phrase)
     else:
-        # pydirectinput.press('enter')
-        # pydirectinput.write('/tt ' + phrase + ' inc')
-        # pydirectinput.press('enter')
+        # press('ENTER')
+        # pyKey.sendSequence('/tt ' + phrase + ' inc')
+        # press('ENTER')
         # cast the spell
         time.sleep(0.2)
         castspell(phrase)
@@ -227,49 +234,71 @@ def send_status(name):
 
 def send_tell(name, msg):
     # activate chat window
-    pydirectinput.press('enter')
-    pydirectinput.write('/tell ')
-    pydirectinput.keyDown('shift')
-    pydirectinput.write(name[0].lower())
-    pydirectinput.keyUp('shift')
-    pydirectinput.write(name)
-    pydirectinput.write(' ' + msg)
-    pydirectinput.press('enter')
+    press('ENTER')
+    pyKey.sendSequence('/tell')
+    press('SPACEBAR')
+    pyKey.pressKey('LSHIFT')
+    pyKey.sendSequence(name[0].lower())
+    pyKey.releaseKey('LSHIFT')
+    pyKey.sendSequence(name)
+    press('SPACEBAR')
+    pyKey.sendSequence(msg)
+    press('ENTER')
+    keep_alive['time'] = datetime.datetime.now()
+
+
+def send_tell_to_current_target(msg):
+    # activate chat window
+    press('ENTER')
+    pyKey.sendSequence('/tt')
+    press('SPACEBAR')
+    for token in msg.split(' '):
+        pyKey.sendSequence(token)
+        press('SPACEBAR')
+    press('ENTER')
     keep_alive['time'] = datetime.datetime.now()
 
 
 def sit():
-    pydirectinput.press('enter', 1, 0.0)
-    pydirectinput.write('/sit', 0.0, None, False)
-    pydirectinput.press('enter', 1, 0.0)
+    press('ENTER')
+    pyKey.sendSequence('/sit')
+    press('ENTER')
 
 
 def stand():
-    pydirectinput.press('enter', 1, 0.0)
-    pydirectinput.write('/stand', 0.0, None, False)
-    pydirectinput.press('enter', 1, 0.0)
+    press('ENTER')
+    pyKey.sendSequence('/stand')
+    press('ENTER')
 
 
 def clearspell(slot):
-    pydirectinput.press('enter', 1, 0.0)
-    pydirectinput.write('/memspellslot ' + str(slot) + ' ' + '0', 0.0)
-    pydirectinput.press('enter', 1, 0.0)
+    press('ENTER')
+    pyKey.sendSequence('/memspellslot')
+    press('SPACEBAR')
+    pyKey.sendSequence(str(slot))
+    press('SPACEBAR')
+    pyKey.sendSequence('0')
+    press('ENTER')
 
 
 def memspell(spell, slot):
     # print('spell in slot: '+str(slot)+' is '+str(memorized_spells.get(slot)))
     #  clearspell(slot)
     # can't have anything on cursor when trying to mem spells, stop mod rods from breaking script
-    pydirectinput.press('enter', 1, 0.0)
-    pydirectinput.write('/autoinv', 0.0)
-    pydirectinput.press('enter', 1, 0.0)
+    press('ENTER')
+    pyKey.sendSequence('/autoinv')
+    press('ENTER')
     # mem the spell
-    pydirectinput.press('enter', 1, 0.0)
-    pydirectinput.write('/memspellslot ' + str(slot) + ' ' + spell_ids.get(spell), 0.0)
-    pydirectinput.press('enter', 1, 0.0)
+    press('ENTER')
+    pyKey.sendSequence('/memspellslot')
+    press('SPACEBAR')
+    pyKey.sendSequence(str(slot))
+    press('SPACEBAR')
+    pyKey.sendSequence(spell_ids.get(spell))
+    press('ENTER')
     # accounts for spellbar cooldown timer
 
-    time.sleep(2.0)
+    time.sleep(2.8)
     memorized_spells[slot] = spell
     last_cast_time[spell] = datetime.datetime.now()
     # print(spell + ' memorized')
@@ -278,13 +307,8 @@ def memspell(spell, slot):
 def castspell(spell):
     slot = spells.get(spell).get('slot')
     if memorized_spells.get(slot) != spell:
-        pydirectinput.press('1', 1, 0.0)
+        send_tell_to_current_target('memorizing spell - one moment')
         memspell(spell, spells.get(spell).get('slot'))
-        if slot == 8:
-            tell_spell_inc(spell)
-    else:
-        if slot == 8:
-            tell_spell_inc(spell)
 
     if last_cast_time.get(spell) is not None:
         diff = datetime.datetime.now() - last_cast_time.get(spell)
@@ -294,23 +318,36 @@ def castspell(spell):
 
     print('now casting: ' + spell)
     key = spell_slot_keys.get(spells.get(spell).get('slot'))
-    pydirectinput.press(key, 1, 0.0)
+    tell_spell_inc(spell)
+    pyKey.sendSequence('/cast')
+    press('SPACEBAR')
+    pyKey.sendSequence(str(spells.get(spell).get('slot')))
+    press('ENTER')
     cast_time = spells.get(spell).get('casttime')
     focus_reduction = cast_time * 0.15
-    time.sleep(cast_time - focus_reduction + 2.0)
+    time.sleep(cast_time + 2.5)
     last_cast_time[spell] = datetime.datetime.now()
 
 
 def tell_spell_inc(spell):
-    pydirectinput.press('enter')
-    pydirectinput.write('/tt ' + spell + ' inc')
-    pydirectinput.press('enter')
+    press('ENTER')
+    pyKey.sendSequence('/tt')
+    press('SPACEBAR')
+    pyKey.sendSequence(spell)
+    press('SPACEBAR')
+    pyKey.sendSequence('inc')
+    press('ENTER')
 
 
 def updateroster():
-    pydirectinput.press('enter', 1, 0.0)
-    pydirectinput.write('/outputfile guild gr', 0.0)
-    pydirectinput.press('enter', 1, 0.0)
+    press('ENTER')
+    pyKey.sendSequence('/outputfile')
+    press('SPACEBAR')
+    pyKey.sendSequence('guild')
+    press('SPACEBAR')
+    pyKey.sendSequence('gr')
+    print('pause')
+    press('ENTER')
 
 
 def loaddefaultspells(xpac):
@@ -319,9 +356,12 @@ def loaddefaultspells(xpac):
         memspell('sow', spells.get('sow').get('slot'))
         memspell('natureskin', spells.get('natureskin').get('slot'))
         memspell('feerrott', spells.get('feerrott').get('slot'))
-        memspell('cl', spells.get('cl').get('slot'))
-        memspell('ej', spells.get('ej').get('slot'))
+        memspell('bb', spells.get('bb').get('slot'))
         memspell('sf', spells.get('sf').get('slot'))
+        memspell('ej', spells.get('ej').get('slot'))
+        memspell('toxx', spells.get('toxx').get('slot'))
+
+        #memspell('sf', spells.get('sf').get('slot'))
     elif xpac == 'velious':
         memspell('heal', spells.get('heal').get('slot'))
         memspell('sow', spells.get('sow').get('slot'))
@@ -338,6 +378,8 @@ def loaddefaultspells(xpac):
         memspell('grim', spells.get('grim').get('slot'))
         memspell('nexus', spells.get('nexus').get('slot'))
         memspell('twi', spells.get('twi').get('slot'))
+
+    press('ESC')
 
 
 def keepalive():
@@ -356,7 +398,7 @@ def init():
     time.sleep(10)
     stand()
     sit()
-    #loaddefaultspells('kunark')
+    loaddefaultspells('kunark')
 
 
 if __name__ == "__main__":
@@ -375,7 +417,7 @@ if __name__ == "__main__":
         'sow': {'slot': 2, 'casttime': 3.0, 'recasttime': 3.5},
         'potg': {'slot': 8, 'casttime': 4.0, 'recasttime': 18.0},
         'lev': {'slot': 8, 'casttime': 3.0, 'recasttime': 5.0},
-        'cl': {'slot': 5, 'casttime': 10.0, 'recasttime': 6.0},
+        'cl': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'chloro': {'slot': 8, 'casttime': 4.0, 'recasttime': 1.5},
         'thorns': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
         'blades': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
@@ -388,7 +430,7 @@ if __name__ == "__main__":
         'ic': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'wl': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'dl': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
-        'bb': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
+        'bb': {'slot': 5, 'casttime': 10.0, 'recasttime': 6.0},
         'feerrott': {'slot': 4, 'casttime': 10.0, 'recasttime': 6.0},
         'nk': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'lava': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
@@ -421,7 +463,7 @@ if __name__ == "__main__":
                  'counteractdisease': '96', 'resistdisease': '63', 'dawn': '24772', 'grim': '25697',
                  'nexus': '25898', 'twi': '25905', 'soe': '2517', 'potc': '2188', 'cos': '2519'}
 
-    master_phrase_map = {'ds': 'blades',  # update to the highest version available
+    master_phrase_map = {'ds': 'thorns',  # update to the highest version available
                          'dspl': 'blades',  # update to the highest version that will land on a lvl 1
                          'regen': 'regrowth',  # update to the highest version available
                          'regenpl': 'chloro',  # update to the highest version that will land on a lvl 1
@@ -482,6 +524,7 @@ if __name__ == "__main__":
     queue_processor_thread.start()
 
     updateroster()
+    print('started...')
 
     try:
         while True:
