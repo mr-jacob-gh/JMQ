@@ -419,13 +419,17 @@ if __name__ == "__main__":
     spells = {
         'heal': {'slot': 1, 'casttime': 3.8, 'recasttime': 1.5},
         'sow': {'slot': 2, 'casttime': 3.0, 'recasttime': 3.5},
+        'gsow': {'slot': 8, 'casttime': 6.5, 'recasttime': 9.0},
         'potg': {'slot': 8, 'casttime': 4.0, 'recasttime': 18.0},
         'lev': {'slot': 8, 'casttime': 3.0, 'recasttime': 5.0},
         'cl': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'chloro': {'slot': 8, 'casttime': 4.0, 'recasttime': 1.5},
+        'gchloro': {'slot': 8, 'casttime': 9.0, 'recasttime': 12},
         'thorns': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
+        'gthorns': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
         'blades': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
         'regrowth': {'slot': 8, 'casttime': 4.0, 'recasttime': 1.5},
+        'gregrowth': {'slot': 8, 'casttime': 6.0, 'recasttime': 1.5},
         'sln': {'slot': 8, 'casttime': 4.0, 'recasttime': 12.0},
         'natureskin': {'slot': 3, 'casttime': 4.0, 'recasttime': 1.5},
         'stormstrength': {'slot': 8, 'casttime': 3.25, 'recasttime': 1.5},
@@ -465,7 +469,8 @@ if __name__ == "__main__":
                  'nk': '25899', 'lava': '24771', 'misty': '25699', 'ro': '25901', 'steamfont': '25902',
                  'sfg': '25900', 'toxx': '25904', 'sf': '1736', 'ej': '1737', 'ba': '35', 'invis': '34',
                  'counteractdisease': '96', 'resistdisease': '63', 'dawn': '24772', 'grim': '25697',
-                 'nexus': '25898', 'twi': '25905', 'soe': '2517', 'potc': '2188', 'cos': '2519'}
+                 'nexus': '25898', 'twi': '25905', 'soe': '2517', 'potc': '2188', 'cos': '2519',
+                 'gchloro': '138', 'gregrowth': '1569', 'gsow': '169', 'gthorns': '1727'}
 
     master_phrase_map = {'ds': 'thorns',  # update to the highest version available
                          'dspl': 'thorns',  # update to the highest version that will land on a lvl 1
@@ -500,7 +505,8 @@ if __name__ == "__main__":
                          'twilight': 'twi', 'twi': 'twi', 'moon': 'nexus', 'ts': 'twi', 'dsp': 'dawn',
                          'soe': 'soe', 'spirit of eagle': 'soe', 'eagle': 'soe', 'eagles': 'soe', 'potc': 'potc',
                          'cabbage': 'potc', 'protection of the cabbage': 'potc', 'cos': 'cos', 'season': 'cos',
-                         'seasons': 'cos'}
+                         'seasons': 'cos', 'gregenpl': 'gchloro', 'gregrowth': 'gregrowth', 'gsow': 'gsow',
+                         'gthorns': 'gthorns'}
 
     # must be grouped to cast these spells
     group_spells = ['ej', 'sf', 'ba', 'invis']
