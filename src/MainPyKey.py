@@ -78,6 +78,10 @@ def monitor_log(filepath, q):
                 filename = line.split(': ')[1].strip('\n')
                 print('roster filename: ' + filename)
                 roster['names'] = extract_guild_roster(roster_filepath + filename)
+            elif 'jwiestadd' in line:
+                name = line.split('jwiestadd')[1].strip('\n\'').strip()
+                print(name)
+                roster['names'].append(name)
             elif 'status' in line:
                 q.put({'type': 'status', 'phrase': '', 'name': extract_name(line)})
 
@@ -464,7 +468,7 @@ if __name__ == "__main__":
                  'nexus': '25898', 'twi': '25905', 'soe': '2517', 'potc': '2188', 'cos': '2519'}
 
     master_phrase_map = {'ds': 'thorns',  # update to the highest version available
-                         'dspl': 'blades',  # update to the highest version that will land on a lvl 1
+                         'dspl': 'thorns',  # update to the highest version that will land on a lvl 1
                          'regen': 'regrowth',  # update to the highest version available
                          'regenpl': 'chloro',  # update to the highest version that will land on a lvl 1
                          'heal': 'heal', 'sow': 'sow', 'potg': 'potg', 'cl': 'cl', 'levi': 'lev', 'lev': 'lev',
