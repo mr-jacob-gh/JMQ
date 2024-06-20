@@ -214,7 +214,7 @@ def process_spell_request(name, phrase):
     pyKey.pressKey('LSHIFT')
     pyKey.sendSequence(name[0].lower())
     pyKey.releaseKey('LSHIFT')
-    pyKey.sendSequence(name[1:3])
+    pyKey.sendSequence(name[1:])
     press('ENTER')
 
     if phrase in group_spells:
@@ -418,7 +418,7 @@ if __name__ == "__main__":
     #
     spells = {
         'heal': {'slot': 1, 'casttime': 3.8, 'recasttime': 1.5},
-        'sow': {'slot': 2, 'casttime': 3.0, 'recasttime': 3.5},
+        'sow': {'slot': 2, 'casttime': 4.5, 'recasttime': 3.5},
         'gsow': {'slot': 8, 'casttime': 6.5, 'recasttime': 9.0},
         'potg': {'slot': 8, 'casttime': 4.0, 'recasttime': 18.0},
         'lev': {'slot': 8, 'casttime': 3.0, 'recasttime': 5.0},
