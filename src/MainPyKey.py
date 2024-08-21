@@ -420,9 +420,9 @@ if __name__ == "__main__":
         'heal': {'slot': 1, 'casttime': 3.8, 'recasttime': 1.5},
         'sow': {'slot': 2, 'casttime': 4.5, 'recasttime': 3.5},
         'gsow': {'slot': 8, 'casttime': 6.5, 'recasttime': 9.0},
-        'potg': {'slot': 8, 'casttime': 4.0, 'recasttime': 18.0},
+        'potg': {'slot': 3, 'casttime': 4.0, 'recasttime': 18.0},
         'lev': {'slot': 8, 'casttime': 3.0, 'recasttime': 5.0},
-        'cl': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
+        'cl': {'slot': 5, 'casttime': 10.0, 'recasttime': 6.0},
         'chloro': {'slot': 8, 'casttime': 4.0, 'recasttime': 1.5},
         'gchloro': {'slot': 8, 'casttime': 9.0, 'recasttime': 12},
         'thorns': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
@@ -431,14 +431,14 @@ if __name__ == "__main__":
         'regrowth': {'slot': 8, 'casttime': 4.0, 'recasttime': 1.5},
         'gregrowth': {'slot': 8, 'casttime': 6.0, 'recasttime': 1.5},
         'sln': {'slot': 8, 'casttime': 4.0, 'recasttime': 12.0},
-        'natureskin': {'slot': 3, 'casttime': 4.0, 'recasttime': 1.5},
+        'natureskin': {'slot': 8, 'casttime': 4.0, 'recasttime': 1.5},
         'stormstrength': {'slot': 8, 'casttime': 3.25, 'recasttime': 1.5},
         'cs': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
-        'gd': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
-        'ic': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
+        'gd': {'slot': 6, 'casttime': 10.0, 'recasttime': 6.0},
+        'ic': {'slot': 7, 'casttime': 10.0, 'recasttime': 6.0},
         'wl': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'dl': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
-        'bb': {'slot': 5, 'casttime': 10.0, 'recasttime': 6.0},
+        'bb': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'feerrott': {'slot': 4, 'casttime': 10.0, 'recasttime': 6.0},
         'nk': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'lava': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
@@ -447,8 +447,8 @@ if __name__ == "__main__":
         'steamfont': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'sfg': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'toxx': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
-        'sf': {'slot': 7 , 'casttime': 9.0, 'recasttime': 1.5},
-        'ej': {'slot': 6, 'casttime': 9.0, 'recasttime': 1.5},
+        'sf': {'slot': 8, 'casttime': 9.0, 'recasttime': 1.5},
+        'ej': {'slot': 8, 'casttime': 9.0, 'recasttime': 1.5},
         'ba': {'slot': 8, 'casttime': 6.0, 'recasttime': 1.5},
         'invis': {'slot': 8, 'casttime': 3.25, 'recasttime': 1.5},
         'counteractdisease': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
@@ -456,10 +456,24 @@ if __name__ == "__main__":
         'dawn': {'slot': 4, 'casttime': 10.0, 'recasttime': 6.0},
         'grim': {'slot': 5, 'casttime': 10.0, 'recasttime': 6.0},
         'nexus': {'slot': 6, 'casttime': 10.0, 'recasttime': 6.0},
-        'twi': {'slot': 7, 'casttime': 10.0, 'recasttime': 6.0},
+        'twi': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'soe': {'slot': 2, 'casttime': 3.0, 'recasttime': 1.5},
         'potc': {'slot': 3, 'casttime': 4.0, 'recasttime': 8.0},
-        'cos': {'slot': 8, 'casttime': 5.0, 'recasttime': 1.5}
+        'cos': {'slot': 8, 'casttime': 5.0, 'recasttime': 1.5},
+        'gic': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0},
+        'ggd': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0},
+        'gwl': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0},
+        'gcs': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0},
+        'gkarana': {'slot': 8, 'casttime': 16.0, 'recasttime': 12.0},
+        'gtoxx': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0},
+        'gbb': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0},
+        'gsfg': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0},
+        'gcl': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0},
+        'glava': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0},
+        'gsteamfont': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0},
+        'gro': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0},
+        'gfear': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0},
+        'gmisty': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0}
     }
 
     spell_ids = {'heal': '6876', 'sow': '278', 'potg': '1442', 'cl': '25690', 'lev': '261',
@@ -470,9 +484,12 @@ if __name__ == "__main__":
                  'sfg': '25900', 'toxx': '25904', 'sf': '1736', 'ej': '1737', 'ba': '35', 'invis': '34',
                  'counteractdisease': '96', 'resistdisease': '63', 'dawn': '24772', 'grim': '25697',
                  'nexus': '25898', 'twi': '25905', 'soe': '2517', 'potc': '2188', 'cos': '2519',
-                 'gchloro': '138', 'gregrowth': '1569', 'gsow': '169', 'gthorns': '1727'}
+                 'gchloro': '138', 'gregrowth': '1569', 'gsow': '169', 'gthorns': '1727', 'gic': '1434',
+                 'ggd': '1438', 'gwl': '1398', 'gcs': '1440', 'gkarana': '550', 'gtoxx': '552', 'gbb': '553',
+                 'gsfg': '2020', 'gcl': '551', 'glava': '554', 'gsteamfont': '557', 'gro': '555', 'gfear': '556',
+                 'gmisty': '558'}
 
-    master_phrase_map = {'ds': 'thorns',  # update to the highest version available
+    master_phrase_map = {'ds': 'blades',  # update to the highest version available
                          'dspl': 'thorns',  # update to the highest version that will land on a lvl 1
                          'regen': 'regrowth',  # update to the highest version available
                          'regenpl': 'chloro',  # update to the highest version that will land on a lvl 1
@@ -506,10 +523,14 @@ if __name__ == "__main__":
                          'soe': 'soe', 'spirit of eagle': 'soe', 'eagle': 'soe', 'eagles': 'soe', 'potc': 'potc',
                          'cabbage': 'potc', 'protection of the cabbage': 'potc', 'cos': 'cos', 'season': 'cos',
                          'seasons': 'cos', 'gregenpl': 'gchloro', 'gregrowth': 'gregrowth', 'gsow': 'gsow',
-                         'gthorns': 'gthorns'}
+                         'gthorns': 'gthorns', 'gic': 'gic', 'ggd': 'ggd', 'gwl': 'gwl', 'gcs': 'gcs',
+                         'gkarana': 'gkarana', 'gtoxx': 'gtoxx', 'gbb': 'gbb', 'gsfg': 'gsfg', 'gcl': 'gcl',
+                         'glava': 'glava', 'gsteamfont': 'gsteamfont', 'gro': 'gro', 'gfear': 'gfear',
+                         'gmisty': 'gmisty'}
 
     # must be grouped to cast these spells
-    group_spells = ['ej', 'sf', 'ba', 'invis']
+    group_spells = ['ej', 'sf', 'ba', 'invis', 'gic', 'ggd', 'gwl', 'gcs', 'gkarana', 'gtoxx', 'gbb', 'gsfg', 'gcl',
+                    'glava', 'gsteamfont', 'gro', 'gfear', 'gmisty']
 
     memorized_spells = {1: None, 2: None, 3: None, 4: None, 5: None, 6: None, 7: None, 8: None}
     last_cast_time = {}
