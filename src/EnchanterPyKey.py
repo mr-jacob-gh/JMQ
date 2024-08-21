@@ -44,18 +44,6 @@ def extract_name(log_line):
     return None
 
 
-def process_vip(_type, match, name, _q):
-    old_q = []
-    while not _q.empty():
-        task = _q.get_nowait()
-        old_q.append(task)
-        _q.task_done()
-
-    add_item_to_queue(_type, match, name)
-    for item in old_q:
-        _q.put(item)
-
-
 def monitor_log(filepath, q):
     with open(filepath, 'r') as f:
         log_lines = tail(f)
@@ -67,25 +55,29 @@ def monitor_log(filepath, q):
                 name = extract_name(line)
                 if name in roster.get('names') and not already_in_queue(match, name):  # only for guild members.
                     if 'vip' in line.lower() and q.qsize() > 0:
-                        process_vip('spell', match, name, q)
+                        old_q = []
+                        while not q.empty():
+                            task = q.get_nowait()
+                            old_q.append(task)
+                            q.task_done()
+
+                        add_item_to_queue('spell', match, name)
+                        for item in old_q:
+                            q.put(item)
+
                     else:
                         add_item_to_queue('spell', match, name)
-                        process_vip('notifyq', match, name, q)
                 else:
                     print('ignored message: ' + line)
                     stats['ignored'] = stats.get('ignored') + 1
             elif 'has joined your guild' in line or 'no longer a member of your guild' in line:
                 q.put({'type': 'updateroster', 'phrase': None, 'name': None})
             elif 'updateroster' in line:
-                q.put({'type': 'updateroster', 'phrase': None, 'name': None})
+                updateroster()
             elif 'Outputfile Complete' in line:
                 filename = line.split(': ')[1].strip('\n')
                 print('roster filename: ' + filename)
                 roster['names'] = extract_guild_roster(roster_filepath + filename)
-            elif 'jwiestadd' in line:
-                name = line.split('jwiestadd')[1].strip('\n\'').strip()
-                print(name)
-                roster['names'].append(name)
             elif 'status' in line:
                 q.put({'type': 'status', 'phrase': '', 'name': extract_name(line)})
 
@@ -129,8 +121,6 @@ def process_queue(q):
 
             if req_type == 'spell':
                 process_spell_request(name, phrase)
-            elif req_type == 'notifyq' and get_current_q_size() > 1:
-                notify_queue_position(name, phrase + ' in queue at pos: ' + str(get_current_q_size()))
             elif req_type == 'status':
                 send_status(name)
                 standsit = False
@@ -170,13 +160,6 @@ def already_in_queue(phrase, name):
         return True
     return False
 
-
-def get_current_q_size():
-    count = 0
-    for item in q_list.get('items'):
-        if item.get('type') == 'spell':
-            count += 1
-    return count
 
 def print_stats():
     print('requests: ' + str(stats.get('requests')) + ' processed: ' + str(stats.get('processed')) +
@@ -227,7 +210,7 @@ def process_spell_request(name, phrase):
     pyKey.pressKey('LSHIFT')
     pyKey.sendSequence(name[0].lower())
     pyKey.releaseKey('LSHIFT')
-    pyKey.sendSequence(name[1:])
+    pyKey.sendSequence(name[1:3])
     press('ENTER')
 
     if phrase in group_spells:
@@ -315,7 +298,7 @@ def memspell(spell, slot):
     press('ENTER')
     # accounts for spellbar cooldown timer
 
-    time.sleep(2.0)
+    time.sleep(2.8)
     memorized_spells[slot] = spell
     last_cast_time[spell] = datetime.datetime.now()
     # print(spell + ' memorized')
@@ -330,7 +313,7 @@ def castspell(spell):
     if last_cast_time.get(spell) is not None:
         diff = datetime.datetime.now() - last_cast_time.get(spell)
         if diff.seconds < spells.get(spell).get('recasttime'):
-            time.sleep((spells.get(spell).get('recasttime') - diff.seconds) + 1.0)
+            time.sleep((spells.get(spell).get('recasttime') - diff.seconds) + 2.0)
             # print('pausing for recast time')
 
     print('now casting: ' + spell)
@@ -341,8 +324,8 @@ def castspell(spell):
     pyKey.sendSequence(str(spells.get(spell).get('slot')))
     press('ENTER')
     cast_time = spells.get(spell).get('casttime')
-    focus_reduction = cast_time * 0  # 0.15
-    time.sleep(cast_time + focus_reduction)
+    focus_reduction = cast_time * 0.15
+    time.sleep(cast_time + 2.5)
     last_cast_time[spell] = datetime.datetime.now()
 
 
@@ -377,6 +360,8 @@ def loaddefaultspells(xpac):
         memspell('sf', spells.get('sf').get('slot'))
         memspell('ej', spells.get('ej').get('slot'))
         memspell('toxx', spells.get('toxx').get('slot'))
+
+        #memspell('sf', spells.get('sf').get('slot'))
     elif xpac == 'velious':
         memspell('heal', spells.get('heal').get('slot'))
         memspell('sow', spells.get('sow').get('slot'))
@@ -413,7 +398,7 @@ def init():
     time.sleep(10)
     stand()
     sit()
-    loaddefaultspells('velious')
+    loaddefaultspells('kunark')
 
 
 if __name__ == "__main__":
@@ -429,18 +414,14 @@ if __name__ == "__main__":
     #
     spells = {
         'heal': {'slot': 1, 'casttime': 3.8, 'recasttime': 1.5},
-        'sow': {'slot': 2, 'casttime': 3.0, 'recasttime': 4.5},
-        'gsow': {'slot': 8, 'casttime': 6.5, 'recasttime': 9.0},
+        'sow': {'slot': 2, 'casttime': 3.0, 'recasttime': 3.5},
         'potg': {'slot': 8, 'casttime': 4.0, 'recasttime': 18.0},
         'lev': {'slot': 8, 'casttime': 3.0, 'recasttime': 5.0},
         'cl': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'chloro': {'slot': 8, 'casttime': 4.0, 'recasttime': 1.5},
-        'gchloro': {'slot': 8, 'casttime': 9.0, 'recasttime': 12},
         'thorns': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
-        'gthorns': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
         'blades': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
         'regrowth': {'slot': 8, 'casttime': 4.0, 'recasttime': 1.5},
-        'gregrowth': {'slot': 8, 'casttime': 6.0, 'recasttime': 1.5},
         'sln': {'slot': 8, 'casttime': 4.0, 'recasttime': 12.0},
         'natureskin': {'slot': 3, 'casttime': 4.0, 'recasttime': 1.5},
         'stormstrength': {'slot': 8, 'casttime': 3.25, 'recasttime': 1.5},
@@ -480,11 +461,10 @@ if __name__ == "__main__":
                  'nk': '25899', 'lava': '24771', 'misty': '25699', 'ro': '25901', 'steamfont': '25902',
                  'sfg': '25900', 'toxx': '25904', 'sf': '1736', 'ej': '1737', 'ba': '35', 'invis': '34',
                  'counteractdisease': '96', 'resistdisease': '63', 'dawn': '24772', 'grim': '25697',
-                 'nexus': '25898', 'twi': '25905', 'soe': '2517', 'potc': '2188', 'cos': '2519',
-                 'gchloro': '138', 'gregrowth': '1569', 'gsow': '169', 'gthorns': '1727'}
+                 'nexus': '25898', 'twi': '25905', 'soe': '2517', 'potc': '2188', 'cos': '2519'}
 
     master_phrase_map = {'ds': 'thorns',  # update to the highest version available
-                         'dspl': 'thorns',  # update to the highest version that will land on a lvl 1
+                         'dspl': 'blades',  # update to the highest version that will land on a lvl 1
                          'regen': 'regrowth',  # update to the highest version available
                          'regenpl': 'chloro',  # update to the highest version that will land on a lvl 1
                          'heal': 'heal', 'sow': 'sow', 'potg': 'potg', 'cl': 'cl', 'levi': 'lev', 'lev': 'lev',
@@ -516,8 +496,7 @@ if __name__ == "__main__":
                          'twilight': 'twi', 'twi': 'twi', 'moon': 'nexus', 'ts': 'twi', 'dsp': 'dawn',
                          'soe': 'soe', 'spirit of eagle': 'soe', 'eagle': 'soe', 'eagles': 'soe', 'potc': 'potc',
                          'cabbage': 'potc', 'protection of the cabbage': 'potc', 'cos': 'cos', 'season': 'cos',
-                         'seasons': 'cos', 'gregenpl': 'gchloro', 'gregrowth': 'gregrowth', 'gsow': 'gsow',
-                         'gthorns': 'gthorns', 'gchloro': 'gchloro'}
+                         'seasons': 'cos'}
 
     # must be grouped to cast these spells
     group_spells = ['ej', 'sf', 'ba', 'invis']
