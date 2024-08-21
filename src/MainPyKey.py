@@ -73,7 +73,7 @@ def monitor_log(filepath, q):
             elif 'has joined your guild' in line or 'no longer a member of your guild' in line:
                 q.put({'type': 'updateroster', 'phrase': None, 'name': None})
             elif 'updateroster' in line:
-                updateroster()
+                q.put({'type': 'updateroster', 'phrase': None, 'name': None})
             elif 'Outputfile Complete' in line:
                 filename = line.split(': ')[1].strip('\n')
                 print('roster filename: ' + filename)
