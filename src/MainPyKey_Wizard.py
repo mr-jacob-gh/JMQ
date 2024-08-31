@@ -415,6 +415,7 @@ if __name__ == "__main__":
     # slot is spell gem slot that spell should be memmed to every time.
     #
     spells = {
+        'cl': {'slot': 5, 'casttime': 10.0, 'recasttime': 6.0},
         'cs': {'slot': 7, 'casttime': 10.0, 'recasttime': 6.0},
         'gd': {'slot': 6, 'casttime': 10.0, 'recasttime': 6.0},
         'ic': {'slot': 3, 'casttime': 10.0, 'recasttime': 6.0},
