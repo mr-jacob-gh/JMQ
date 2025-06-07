@@ -491,7 +491,7 @@ if __name__ == "__main__":
                          'twilight': 'twi', 'twi': 'twi', 'moon': 'nexus', 'ts': 'twi', 'dsp': 'dawn',
                          'cos': 'cos', 'season': 'cos',
                          'gic': 'gic', 'ggd': 'ggd', 'gwl': 'gwl', 'gcs': 'gcs',
-                         'gkarana': 'gkarana', 'gtoxx': 'gtoxx', 'gbb': 'gbb', 'gsfg': 'gsfg', 'gcl': 'gcl',
+                         'gkarana': 'gkarana', 'gtoxx': 'gtoxx', 'gsfg': 'gsfg', 'gcl': 'gcl',
                          'glava': 'glava', 'gsteamfont': 'gsteamfont', 'gro': 'gro', 'gfear': 'gfear',
                          'gmisty': 'gmisty', 'gfay': 'gfay', 'fay': 'gfay', 'greater faydark': 'gfay',
                          'faydark': 'gfay', 'nek': 'lava', 'nektulos': 'lava', 'ggfay': 'ggfay'}
