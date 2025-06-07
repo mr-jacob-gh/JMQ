@@ -546,7 +546,12 @@ if __name__ == "__main__":
     group_spells = ['ej', 'sf', 'ba', 'invis', 'gic', 'ggd', 'gwl', 'gcs', 'gkarana', 'gtoxx', 'gbb', 'gsfg', 'gcl',
                     'glava', 'gsteamfont', 'gro', 'gfear', 'gmisty', 'gdawn', 'dawn', 'ggrim', 'gtwi']
 
-    # all group port blocks 2424 553 1440 551 2429 556 1438 2419 1434 550 554 558 555 557 2020 552 1398 1517
+    # /blockspell add me 2424 553 1440 551 2429 556 1438 2419 1434 550 554 558 555
+    # /blockspell add me 557 2020 552 1398 1517 2199 2198 1736 1737 1736 1737 1738 1739
+    #
+    #
+    # /blockspell remove me 2424 553 1440 551 2429 556 1438 2419 1434 550 554 558 555
+    # /blockspell remove me 557 2020 552 1398 1517 2199 2198 1736 1737 1736 1737 1738 1739
 
     memorized_spells = {1: None, 2: None, 3: None, 4: None, 5: None, 6: None, 7: None, 8: None}
     last_cast_time = {}
