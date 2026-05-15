@@ -69,7 +69,7 @@ def castspell(spell):
     cast_time = config.spells.get(spell).get('casttime')
     focus_reduction = cast_time * 0.15
     # cast_time = cast_time - focus_reduction
-    time.sleep(cast_time + 0.5)
+    time.sleep(0.5)
     if any('You must first select a target for this spell' in item['failure'] for item in state.failure_events):
         state.failure_events.clear()
         return
