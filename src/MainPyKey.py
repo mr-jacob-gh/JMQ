@@ -42,8 +42,6 @@ def tail(f):
             continue
 
 
-
-
 def extract_name(log_line):
     match = re.search(r'\[\w+ \w+ \d+ \d+:\d+:\d+ \d+] (\w+) tells you,', log_line)
     if match:
@@ -52,6 +50,7 @@ def extract_name(log_line):
 
 
 def monitor_log(filepath, q):
+    block_roster = False
     with open(filepath, 'r', encoding="utf-8", errors="replace") as f:
         log_lines = tail(f)
         for line in log_lines:
@@ -79,7 +78,7 @@ def monitor_log(filepath, q):
                     stats['ignored'] = stats.get('ignored') + 1
             elif 'has joined your guild' in line or 'no longer a member of your guild' in line:
                 q.put({'type': 'updateroster', 'phrase': None, 'name': None})
-            elif 'updateroster' in line:
+            elif 'updateroster' in line and block_roster is False:
                 q.put({'type': 'updateroster', 'phrase': None, 'name': None})
             elif 'Outputfile Complete' in line:
                 filename = line.split(': ')[1].strip('\n')
@@ -89,6 +88,13 @@ def monitor_log(filepath, q):
                 name = line.split('jwiestadd')[1].strip('\n\'').strip()
                 print(name)
                 roster['names'].append(name)
+            elif 'jwiestremove' in line:
+                name = line.split('jwiestremove')[1].strip('\n\'').strip()
+                print(name)
+                roster['names'].remove(name)
+            elif 'blockroster' in line:
+                block_roster = not block_roster
+                roster['names'] = ['melz']
             elif 'status' in line:
                 q.put({'type': 'status', 'phrase': '', 'name': extract_name(line)})
 
@@ -109,8 +115,8 @@ def get_match(line):
             if word in master_phrase_map.keys():
                 return master_phrase_map.get(word)
 
-        for i in range(len(split_phrase)-1):
-            two_word_combo = split_phrase[i]+' '+split_phrase[i+1]
+        for i in range(len(split_phrase) - 1):
+            two_word_combo = split_phrase[i] + ' ' + split_phrase[i + 1]
             if two_word_combo in master_phrase_map.keys():
                 return master_phrase_map.get(two_word_combo)
 
@@ -205,6 +211,16 @@ def process_group_spell(name, phrase):
     press('ENTER')
 
 
+def process_pet_spell(name, phrase):
+    print('casting PET SPELL ' + phrase + ' on ' + name)
+    press('ESC')
+    press('ESC')
+    time.sleep(0.1)
+    press('BSLASH')
+    time.sleep(0.1)
+    castspell(phrase)
+
+
 def notify_queue_position(name, phrase, pos):
     send_tell(name, phrase + ' in queue at pos: ' + str(pos))
 
@@ -220,12 +236,16 @@ def process_spell_request(name, phrase):
     press('SPACEBAR')
     pyKey.pressKey('LSHIFT')
     pyKey.sendSequence(name[0].lower())
+    time.sleep(0.1)
     pyKey.releaseKey('LSHIFT')
     pyKey.sendSequence(name[1:])
+    time.sleep(0.1)
     press('ENTER')
 
     if phrase in group_spells:
         process_group_spell(name, phrase)
+    elif phrase in pet_spells:
+        process_pet_spell(name, pet_spell_map.get(phrase))
     else:
         # press('ENTER')
         # pyKey.sendSequence('/tt ' + phrase + ' inc')
@@ -336,6 +356,7 @@ def castspell(spell):
     press('ENTER')
     cast_time = spells.get(spell).get('casttime')
     focus_reduction = cast_time * 0.15
+    # cast_time = cast_time - focus_reduction
     time.sleep(cast_time + 2.5)
     last_cast_time[spell] = datetime.datetime.now()
 
@@ -351,6 +372,7 @@ def tell_spell_inc(spell):
 
 
 def updateroster():
+    print('updateroster')
     press('ENTER')
     pyKey.sendSequence('/outputfile')
     press('SPACEBAR')
@@ -382,15 +404,15 @@ def loaddefaultspells(xpac):
         memspell('gd', spells.get('gd').get('slot'))
         memspell('cs', spells.get('cs').get('slot'))
     elif xpac == 'luclin':
-        # memspell('heal', spells.get('heal').get('slot'))
+        memspell('heal', spells.get('heal').get('slot'))
         # memspell('soe', spells.get('soe').get('slot'))
         # memspell('potc', spells.get('potc').get('slot'))
-        memspell('sow', spells.get('sow').get('slot'))
-        memspell('sln', spells.get('sln').get('slot'))
+        memspell('soe', spells.get('soe').get('slot'))
+        memspell('pot9', spells.get('pot9').get('slot'))
         memspell('cl', spells.get('cl').get('slot'))
-        memspell('dawn', spells.get('dawn').get('slot'))
+        # memspell('dawn', spells.get('dawn').get('slot'))
         memspell('grim', spells.get('grim').get('slot'))
-        memspell('chloro', spells.get('chloro').get('slot'))
+        memspell('replenishment', spells.get('replenishment').get('slot'))
         memspell('twi', spells.get('twi').get('slot'))
 
     press('ESC')
@@ -428,21 +450,26 @@ if __name__ == "__main__":
     #
     spells = {
         'heal': {'slot': 1, 'casttime': 3.8, 'recasttime': 1.5},
-        'sow': {'slot': 2, 'casttime': 4.5, 'recasttime': 3.5},
+        'sow': {'slot': 8, 'casttime': 4.5, 'recasttime': 3.5},
         'gsow': {'slot': 8, 'casttime': 6.5, 'recasttime': 9.0},
         'potg': {'slot': 8, 'casttime': 4.0, 'recasttime': 18.0},
-        'lev': {'slot': 8, 'casttime': 3.0, 'recasttime': 5.0},
+        'pot9': {'slot': 3, 'casttime': 6.0, 'recasttime': 1.5},
+        'lev': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
         'cl': {'slot': 4, 'casttime': 10.0, 'recasttime': 6.0},
-        'chloro': {'slot': 6, 'casttime': 4.0, 'recasttime': 1.5},
+        'chloro': {'slot': 8, 'casttime': 4.0, 'recasttime': 1.5},
         'gchloro': {'slot': 8, 'casttime': 9.0, 'recasttime': 12},
         'thorns': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
         'gthorns': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
         'blades': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
+        'bracken': {'slot': 8, 'casttime': 2.5, 'recasttime': 1.5},
         'regrowth': {'slot': 8, 'casttime': 4.0, 'recasttime': 1.5},
+        'replenishment': {'slot': 6, 'casttime': 6.5, 'recasttime': 1.5},
         'gregrowth': {'slot': 8, 'casttime': 6.0, 'recasttime': 1.5},
-        'sln': {'slot': 3, 'casttime': 4.0, 'recasttime': 12.0},
+        'sln': {'slot': 8, 'casttime': 4.0, 'recasttime': 12.0},
         'natureskin': {'slot': 8, 'casttime': 4.0, 'recasttime': 1.5},
         'stormstrength': {'slot': 8, 'casttime': 3.25, 'recasttime': 1.5},
+        'girdleofkarana': {'slot': 8, 'casttime': 5.0, 'recasttime': 7.5},
+        'nmight': {'slot': 8, 'casttime': 2.5, 'recasttime': 1.5},
         'cs': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'gd': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'ic': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
@@ -467,7 +494,7 @@ if __name__ == "__main__":
         'grim': {'slot': 5, 'casttime': 10.0, 'recasttime': 6.0},
         'nexus': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
         'twi': {'slot': 7, 'casttime': 10.0, 'recasttime': 6.0},
-        'soe': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
+        'soe': {'slot': 2, 'casttime': 3.0, 'recasttime': 1.5},
         'potc': {'slot': 8, 'casttime': 4.0, 'recasttime': 8.0},
         'cos': {'slot': 8, 'casttime': 5.0, 'recasttime': 1.5},
         'gic': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0},
@@ -486,11 +513,15 @@ if __name__ == "__main__":
         'gmisty': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0},
         'gdawn': {'slot': 8, 'casttime': 24.0, 'recasttime': 10.0},
         'ggrim': {'slot': 8, 'casttime': 24.0, 'recasttime': 10.0},
-        'gtwi': {'slot': 8, 'casttime': 24.0, 'recasttime': 10.0}
+        'gtwi': {'slot': 8, 'casttime': 24.0, 'recasttime': 10.0},
+        'gdl': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0},
+        'pot': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
+        'pok': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
+        'dena': {'slot': 8, 'casttime': 6.0, 'recasttime': 12.0},
     }
 
-    spell_ids = {'heal': '6876', 'sow': '278', 'potg': '1442', 'cl': '25690', 'lev': '261',
-                 'chloro': '145', 'thorns': '356', 'blades': '1560', 'regrowth': '1568', 'sln': '423',
+    spell_ids = {'heal': '1291', 'sow': '278', 'potg': '1442', 'cl': '25690', 'lev': '2894',
+                 'chloro': '145', 'thorns': '356', 'blades': '2125', 'regrowth': '1568', 'sln': '423',
                  'natureskin': '1559', 'stormstrength': '430', 'cs': '25693', 'gd': '25696',
                  'ic': '25698', 'wl': '25906', 'dl': '25694', 'bb': '25689', 'feerrott': '25695',
                  'nk': '25899', 'lava': '24771', 'misty': '25699', 'ro': '25901', 'steamfont': '25902',
@@ -500,13 +531,15 @@ if __name__ == "__main__":
                  'gchloro': '138', 'gregrowth': '1569', 'gsow': '169', 'gthorns': '1727', 'gic': '1434',
                  'ggd': '1438', 'gwl': '1398', 'gcs': '1440', 'gkarana': '550', 'gtoxx': '552', 'gbb': '553',
                  'gsfg': '2020', 'gcl': '551', 'glava': '554', 'gsteamfont': '557', 'gro': '555', 'gfear': '556',
-                 'gmisty': '558', 'gdawn': '2429', 'ggrim': '2419', 'gtwi': '2424'}
+                 'gmisty': '558', 'gdawn': '2429', 'ggrim': '2419', 'gtwi': '2424', 'gdl': '1517',
+                 'girdleofkarana': '1557', 'pot': '53155', 'pok': '24773', 'replenishment': '3433',
+                 'pot9': '3234', "bracken": "3448", "nmight": "3439", 'dena': '3579'}
 
-    master_phrase_map = {'ds': 'thorns',  # update to the highest version available
+    master_phrase_map = {'ds': 'bracken',  # update to the highest version available
                          'dspl': 'thorns',  # update to the highest version that will land on a lvl 1
-                         'regen': 'chloro',  # update to the highest version available
+                         'regen': 'replenishment',  # update to the highest version available
                          'regenpl': 'chloro',  # update to the highest version that will land on a lvl 1
-                         'heal': 'heal', 'sow': 'sow', 'potg': 'potg', 'cl': 'cl', 'levi': 'lev', 'lev': 'lev',
+                         'heal': 'heal', 'sow': 'soe', 'potg': 'potg', 'cl': 'cl', 'levi': 'lev', 'lev': 'lev',
                          'chloro': 'chloro', 'thorns': 'thorns', 'blades': 'blades', 'regrowth': 'regrowth',
                          'sln': 'sln', 'natureskin': 'natureskin', 'stormstrength': 'stormstrength', 'cs': 'cs',
                          'gd': 'gd', 'ic': 'ic', 'wl': 'wl', 'dl': 'dl', 'bb': 'bb', 'feerrott': 'feerrott',
@@ -527,24 +560,33 @@ if __name__ == "__main__":
                          'tox': 'toxx', 'ferroot': 'feerrott', 'ej': 'ej', 'emerald jungle': 'ej', 'emerald': 'ej',
                          'skyfire': 'sf', 'sky fire': 'sf', 'skyfire mountains': 'sf', 'ba': 'ba', 'bind': 'ba',
                          'bind affinity': 'ba', 'fear': 'feerrott', 'invis': 'invis', 'camo': 'invis',
-                         'camouflage': 'invis', 'superior camouflage': 'invis', 'counteractdisease': 'counteractdisease',
+                         'camouflage': 'invis', 'superior camouflage': 'invis',
+                         'counteractdisease': 'counteractdisease',
                          'cure disease': 'counteractdisease', 'resistdisease': 'resistdisease',
                          'resist disease': 'resistdisease', 'disease resist': 'resistdisease', 'fearrott': 'feerrott',
-                         'ct': 'feerrott', 'mistythicket': 'misty', 'dawn': 'gdawn', 'dawnshroud': 'gdawn',
+                         'ct': 'feerrott', 'mistythicket': 'misty', 'dawn': 'dawn', 'dawnshroud': 'dawn',
                          'grimling': 'grim', 'grim': 'grim', 'nexus': 'nexus', 'nex': 'nexus',
-                         'twilight': 'twi', 'twi': 'twi', 'moon': 'nexus', 'ts': 'twi', 'dsp': 'gdawn',
+                         'twilight': 'twi', 'twi': 'twi', 'moon': 'nexus', 'ts': 'twi', 'dsp': 'dawn',
                          'soe': 'soe', 'spirit of eagle': 'soe', 'eagle': 'soe', 'eagles': 'soe', 'potc': 'potc',
                          'cabbage': 'potc', 'protection of the cabbage': 'potc', 'cos': 'cos', 'season': 'cos',
                          'seasons': 'cos', 'gregenpl': 'gchloro', 'gregrowth': 'gregrowth', 'gsow': 'gsow',
                          'gthorns': 'gthorns', 'gic': 'gic', 'ggd': 'ggd', 'gwl': 'gwl', 'gcs': 'gcs',
                          'gkarana': 'gkarana', 'gtoxx': 'gtoxx', 'gbb': 'gbb', 'gsfg': 'gsfg', 'gcl': 'gcl',
                          'glava': 'glava', 'gsteamfont': 'gsteamfont', 'gro': 'gro', 'gfear': 'gfear',
-                         'gmisty': 'gmisty', 'strength': 'stormstrength', 'gdawn': 'gdawn', 'ggrim': 'ggrim',
-                         'gtwi': 'gtwi'}
+                         'gmisty': 'gmisty', 'strength': 'nmight', 'gdawn': 'gdawn', 'ggrim': 'ggrim',
+                         'gtwi': 'gtwi', 'gdl': 'gdl', 'gchloro': 'gchloro', 'pot': 'pot', 'pok': 'pok',
+                         'tranq': 'pot', 'tranquility': 'pot', 'knowledge': 'pok', 'healpet': 'healpet',
+                         'potgpet': 'potgpet', 'regenpet': 'regenpet', 'replenishment': 'replenishment',
+                         'pot9': 'pot9', '9': 'pot9', 'nine': 'pot9', 'potn': 'pot9', "bracken": "bracken",
+                         "sob": "bracken", "nmight": "nmight", "might": "nmight", 'dena': 'dena'}
 
     # must be grouped to cast these spells
     group_spells = ['ej', 'sf', 'ba', 'invis', 'gic', 'ggd', 'gwl', 'gcs', 'gkarana', 'gtoxx', 'gbb', 'gsfg', 'gcl',
-                    'glava', 'gsteamfont', 'gro', 'gfear', 'gmisty', 'gdawn', 'dawn', 'ggrim', 'gtwi']
+                    'glava', 'gsteamfont', 'gro', 'gfear', 'gmisty', 'gdawn', 'ggrim', 'gtwi', 'gdl', 'dena']
+
+    pet_spells = ['healpet', 'potgpet', 'regenpet']
+
+    pet_spell_map = {'healpet': 'heal', 'potgpet': 'potg', 'regenpet': 'regrowth'}
 
     # /blockspell add me 2424 553 1440 551 2429 556 1438 2419 1434 550 554 558 555
     # /blockspell add me 557 2020 552 1398 1517 2199 2198 1736 1737 1736 1737 1738 1739
