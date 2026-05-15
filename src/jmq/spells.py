@@ -129,7 +129,8 @@ def process_spell_request(name, phrase):
     press('ENTER')
 
     time.sleep(0.5)
-    if any('You must first select a target for this spell' in item['failure'] for item in state.failure_events):
+    target_failure_strings = ['You must first select a target for this spell', "I don't see anyone by that name around here"]
+    if any(any(f in item['failure'] for f in target_failure_strings) for item in state.failure_events):
         state.failure_events.clear()
         state.q_list['items'] = [item for item in state.q_list['items'] if item.get('name') != name]
         remaining = []
