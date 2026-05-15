@@ -153,8 +153,8 @@ pet_spell_map = {'healpet': 'heal', 'potgpet': 'potg', 'regenpet': 'regrowth'}
 
 failure_strings = [
     'spell fizzles',
-    'You must first select a target for this spell',
-    "I don't see anyone by that name around here",
-    'Your spell is too powerful for your intended target',
+    'You must first select a target for this spell!',
+    "I don't see anyone by that name around here...",
+    'Your spell is too powerful for your intended target.',
     'You have joined the group.'
 ]

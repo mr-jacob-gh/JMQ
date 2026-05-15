@@ -36,7 +36,7 @@ def memspell(spell, slot):
 
 
 def tell_spell_too_powerful(name, phrase):
-    send_tell(name, phrase + ' is too powerful for your level')
+    send_tell_to_current_target(phrase + ' is too powerful for your level')
 
 
 def tell_spell_inc(spell):
@@ -128,7 +128,7 @@ def process_spell_request(name, phrase):
     time.sleep(0.1)
     press('ENTER')
 
-    time.sleep(0.2)
+    time.sleep(0.5)
     if any('You must first select a target for this spell' in item['failure'] for item in state.failure_events):
         state.failure_events.clear()
         state.q_list['items'] = [item for item in state.q_list['items'] if item.get('name') != name]
@@ -152,19 +152,19 @@ def process_spell_request(name, phrase):
         time.sleep(0.2)
         castspell(phrase)
 
-    time.sleep(0.2)
+    time.sleep(0.5)
     for _ in range(2):
         if not any('spell fizzles' in item['failure'] and 'Your' in item['line'] for item in state.failure_events):
             break
         state.failure_events.clear()
         if phrase in config.group_spells:
-            time.sleep(0.2)
+            time.sleep(0.5)
             process_group_spell(name, phrase)
         elif phrase in config.pet_spells:
-            time.sleep(0.2)
+            time.sleep(0.5)
             process_pet_spell(name, config.pet_spell_map.get(phrase))
         else:
-            time.sleep(0.2)
+            time.sleep(0.5)
             castspell(phrase)
 
     if any('Your spell is too powerful for your intended target' in item['failure'] for item in state.failure_events):
