@@ -152,5 +152,6 @@ failure_strings = [
     'You must first select a target for this spell!',
     "I don't see anyone by that name around here...",
     'Your spell is too powerful for your intended target.',
-    'You have joined the group.'
+    'You have joined the group.',
+    'You cannot memorize this spell.'
 ]

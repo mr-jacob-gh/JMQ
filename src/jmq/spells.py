@@ -30,8 +30,13 @@ def memspell(spell, slot):
     press('SPACEBAR')
     pyKey.sendSequence(config.spell_ids.get(spell))
     press('ENTER')
+    time.sleep(0.5)
+    if any('You cannot memorize this spell' in item['failure'] for item in state.failure_events):
+        state.failure_events.clear()
+        send_tell_to_current_target('I don\'t have this spell memorized, sorry!')
+        return
     # accounts for spellbar cooldown timer
-    time.sleep(2.8)
+    time.sleep(2.3)
     state.memorized_spells[slot] = spell
     state.last_cast_time[spell] = datetime.datetime.now()
 
