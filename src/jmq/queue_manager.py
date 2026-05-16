@@ -1,5 +1,5 @@
 from jmq import state
-from jmq.actions import press, send_status, updateroster, stand, sit, send_stats
+from jmq.actions import press, send_status, updateroster, stand, sit, send_stats, send_total_stats
 from jmq.spells import process_spell_request
 from jmq.utils import write_to_log
 
