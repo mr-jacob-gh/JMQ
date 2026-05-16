@@ -136,8 +136,7 @@ master_phrase_map = {
     'glava': 'glava', 'gsteamfont': 'gsteamfont', 'gro': 'gro', 'gfear': 'gfear',
     'gmisty': 'gmisty', 'strength': 'nmight', 'gdawn': 'gdawn', 'ggrim': 'ggrim',
     'gtwi': 'gtwi', 'gdl': 'gdl', 'gchloro': 'gchloro', 'pot': 'pot', 'pok': 'pok',
-    'tranq': 'pot', 'tranquility': 'pot', 'knowledge': 'pok', 'healpet': 'healpet',
-    'potgpet': 'potgpet', 'regenpet': 'regenpet', 'replenishment': 'replenishment',
+    'tranq': 'pot', 'tranquility': 'pot', 'knowledge': 'pok', 'replenishment': 'replenishment',
     'pot9': 'pot9', '9': 'pot9', 'nine': 'pot9', 'potn': 'pot9', "bracken": "bracken",
     "sob": "bracken", "nmight": "nmight", "might": "nmight", 'dena': 'dena',
 }
@@ -147,10 +146,6 @@ group_spells = [
     'ej', 'sf', 'ba', 'invis', 'gic', 'ggd', 'gwl', 'gcs', 'gkarana', 'gtoxx', 'gbb', 'gsfg', 'gcl',
     'glava', 'gsteamfont', 'gro', 'gfear', 'gmisty', 'gdawn', 'ggrim', 'gtwi', 'gdl', 'dena',
 ]
-
-pet_spells = ['healpet', 'potgpet', 'regenpet']
-
-pet_spell_map = {'healpet': 'heal', 'potgpet': 'potg', 'regenpet': 'regrowth'}
 
 failure_strings = [
     'spell fizzles',

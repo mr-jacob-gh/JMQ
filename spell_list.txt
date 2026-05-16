@@ -1,0 +1,58 @@
+**Zlem Spell Bot** — whisper any keyword to request a spell
+
+**Solo Spells**
+`heal`
+`soe` — sow / soe / eagle / eagles / spirit of eagle
+`sow` — spirit of wolf
+`gsow`
+`lev` — lev / levi / levitate
+`cl` — cl / ec / commons / commonlands / east commons / common lands
+`potg` — potg / glades / protection of the glades
+`potc` — potc / cabbage / protection of the cabbage
+`pot9` — pot9 / 9 / nine / potn
+`pot` — pot / tranq / tranquility
+`pok` — pok / knowledge
+`cos` — cos / season / seasons
+`replenishment` — replenishment / regen
+`chloro` — chloro / regenpl / chloroplast
+`gchloro (group)` — gchloro / gregenpl
+`regrowth`
+`gregrowth (group)`
+`bracken` — bracken / ds / sob
+`thorns` — thorns / dspl
+`gthorns`
+`blades`
+`sln` — sln / skin like nature
+`natureskin`
+`stormstrength`
+`nmight` — nmight / might / strength
+`girdleofkarana`
+`dawn` — dawn / dawnshroud / dsp
+`grim` — grim / grimling
+`nexus` — nexus / nex / moon
+`twi` — twi / twilight / ts
+`cs` — cs / cobalt scar
+`gd` — gd / great divide
+`ic` — ic / iceclad / iceclad ocean
+`wl` — wl / wakening lands
+`dl` — dl / dreadlands / dread lands
+`bb` — bb / butcher / butcherblock / bbm / butcher block
+`feerrott` — feerrott / fear / ct / ferrott / feerott / feerrot / fearrott
+`nk` — nk / karana / north karana / northk
+`lava` — lava / lavastorm / lava storm
+`misty` — misty / misty thicket
+`ro` — ro / nro / sro / north ro / south ro / northern desert of ro
+`steamfont` — steamfont / steam font
+`sfg` — sfg / surefall / surefall glade
+`toxx` — toxx / toxxulia / tox
+`counteractdisease` — counteractdisease / cure disease
+`resistdisease` — resistdisease / resist disease / disease resist
+
+**Group Spells** *(accept the group invite first)*
+`ej` — ej / emerald / emerald jungle
+`sf` — sf / skyfire / sky fire / skyfire mountains
+`ba` — ba / bind / bind affinity
+`invis` — invis / camo / camouflage / superior camouflage
+`gic`    `ggd`    `gwl`    `gcs`    `gkarana`    `gtoxx`    `gbb`    `gsfg`
+`gcl`    `glava`    `gsteamfont`    `gro`    `gfear`    `gmisty`
+`gdawn`    `ggrim`    `gtwi`    `gdl`    `dena`

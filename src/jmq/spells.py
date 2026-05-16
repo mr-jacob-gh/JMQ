@@ -59,7 +59,7 @@ def castspell(spell):
     if state.last_cast_time.get(spell) is not None:
         diff = datetime.datetime.now() - state.last_cast_time.get(spell)
         if diff.seconds < config.spells.get(spell).get('recasttime'):
-            time.sleep((config.spells.get(spell).get('recasttime') - diff.seconds) + 2.0)
+            time.sleep((config.spells.get(spell).get('recasttime') - diff.seconds) + 1.0)
 
     print('now casting: ' + spell)
     tell_spell_inc(spell)
@@ -74,7 +74,7 @@ def castspell(spell):
     if any('You must first select a target for this spell' in item['failure'] for item in state.failure_events):
         state.failure_events.clear()
         return
-    time.sleep(cast_time + 2.0)
+    time.sleep(cast_time + 1.0)
     state.last_cast_time[spell] = datetime.datetime.now()
 
 
@@ -104,15 +104,6 @@ def process_group_spell(name, phrase):
     pyKey.sendSequence('/raiddisband')
     press('ENTER')
 
-
-def process_pet_spell(name, phrase):
-    print('casting PET SPELL ' + phrase + ' on ' + name)
-    press('ESC')
-    press('ESC')
-    time.sleep(0.1)
-    press('BSLASH')
-    time.sleep(0.1)
-    castspell(phrase)
 
 
 def process_spell_request(name, phrase):
@@ -151,9 +142,6 @@ def process_spell_request(name, phrase):
     if phrase in config.group_spells:
         time.sleep(0.2)
         process_group_spell(name, phrase)
-    elif phrase in config.pet_spells:
-        time.sleep(0.2)
-        process_pet_spell(name, config.pet_spell_map.get(phrase))
     else:
         time.sleep(0.2)
         castspell(phrase)
@@ -166,9 +154,6 @@ def process_spell_request(name, phrase):
         if phrase in config.group_spells:
             time.sleep(0.5)
             process_group_spell(name, phrase)
-        elif phrase in config.pet_spells:
-            time.sleep(0.5)
-            process_pet_spell(name, config.pet_spell_map.get(phrase))
         else:
             time.sleep(0.5)
             castspell(phrase)

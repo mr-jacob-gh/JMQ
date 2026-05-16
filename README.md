@@ -47,12 +47,3 @@ Make EverQuest the active window within 10 seconds of starting. The bot will:
 
 
 ## TODO
-- /disband before inviting for group spells - done
-- account for fizzles
-  - Your XXX spell fizzles!
-- account for players zoning prematurely
-  - You must first select a target for this spell!
-  - I don't see anyone by that name around here...
-- notify players when they are too low lvl for a spell
-  - Your spell is too powerful for your intended target.
-- track player request stats
