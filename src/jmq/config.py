@@ -153,5 +153,6 @@ failure_strings = [
     "I don't see anyone by that name around here...",
     'Your spell is too powerful for your intended target.',
     'You have joined the group.',
-    'You cannot memorize this spell.'
+    'You cannot memorize this spell.',
+    'Insufficient Mana to cast this spell!'
 ]

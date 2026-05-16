@@ -165,6 +165,18 @@ def process_spell_request(name, phrase):
             time.sleep(0.5)
             castspell(phrase)
 
+    time.sleep(0.5)
+    for _ in range(5):
+        if not any('Insufficient Mana to cast this spell' in item['failure'] for item in state.failure_events):
+            break
+        state.failure_events.clear()
+        if phrase in config.group_spells:
+            time.sleep(5.0)
+            process_group_spell(name, phrase)
+        else:
+            time.sleep(5.0)
+            castspell(phrase)
+
     if any('Your spell is too powerful for your intended target' in item['failure'] for item in state.failure_events):
         tell_spell_too_powerful(name, phrase)
 
