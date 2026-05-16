@@ -1,3 +1,5 @@
+import json
+import os
 import time
 
 from jmq import config, state
@@ -12,3 +14,14 @@ def write_to_log(message):
 def print_stats():
     print('requests: ' + str(state.stats.get('requests')) + ' processed: ' + str(state.stats.get('processed')) +
           ' ignored: ' + str(state.stats.get('ignored')))
+
+
+def load_player_stats():
+    if os.path.exists(config.player_stats_file_path):
+        with open(config.player_stats_file_path, 'r') as f:
+            state.player_stats.update(json.load(f))
+
+
+def write_player_stats():
+    with open(config.player_stats_file_path, 'w') as f:
+        json.dump(state.player_stats, f, indent=2)

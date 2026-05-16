@@ -5,6 +5,7 @@ import pyKey
 
 from jmq import config, state
 from jmq.actions import press, send_tell, send_tell_to_current_target
+from jmq.utils import write_player_stats
 
 
 def clearspell(slot):
@@ -176,6 +177,9 @@ def process_spell_request(name, phrase):
         tell_spell_too_powerful(name, phrase)
 
     state.failure_events.clear()
+    state.player_stats.setdefault(name, {})
+    state.player_stats[name][phrase] = state.player_stats[name].get(phrase, 0) + 1
+    write_player_stats()
     state.keep_alive['time'] = datetime.datetime.now()
     state.stats['processed'] = state.stats.get('processed') + 1
 

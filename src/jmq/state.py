@@ -9,3 +9,4 @@ q = queue.Queue()
 q_list = {'items': []}
 roster = {'names': []}
 failure_events = []
+player_stats = {}

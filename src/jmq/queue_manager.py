@@ -1,5 +1,5 @@
 from jmq import state
-from jmq.actions import press, send_status, updateroster, stand, sit
+from jmq.actions import press, send_status, updateroster, stand, sit, send_stats
 from jmq.spells import process_spell_request
 from jmq.utils import write_to_log
 
@@ -23,6 +23,9 @@ def process_queue(q):
                 process_spell_request(name, phrase)
             elif req_type == 'status':
                 send_status(name)
+                standsit = False
+            elif req_type == 'stats':
+                send_stats(name)
                 standsit = False
             elif req_type == 'keep_alive':
                 press('LSHIFT')

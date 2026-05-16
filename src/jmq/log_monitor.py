@@ -139,3 +139,5 @@ def monitor_log(filepath, q):
                 state.roster['names'] = ['melz']
             elif 'status' in line:
                 q.put({'type': 'status', 'phrase': '', 'name': extract_name(line)})
+            elif 'my stats' in line:
+                q.put({'type': 'stats', 'phrase': '', 'name': extract_name(line)})
