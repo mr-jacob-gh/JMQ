@@ -57,7 +57,7 @@ def send_stats(name):
             stats_str = 'total requests: ' + str(sum(spells.values()))
         else:
             stats_str = 'no requests yet'
-        send_tell_to_current_target(stats_str)
+        send_tell(name, stats_str)
 
 
 def notify_queue_position(name, phrase, pos):
