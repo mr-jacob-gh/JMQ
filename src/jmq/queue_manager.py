@@ -27,6 +27,9 @@ def process_queue(q):
             elif req_type == 'stats':
                 send_stats(name)
                 standsit = False
+            elif req_type == 'totalstats':
+                send_total_stats(name)
+                standsit = False
             elif req_type == 'keep_alive':
                 press('LSHIFT')
                 standsit = False

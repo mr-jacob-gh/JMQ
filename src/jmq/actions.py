@@ -62,6 +62,13 @@ def send_stats(name):
         send_tell(name, stats_str)
 
 
+def send_total_stats(name):
+    if name in state.roster.get('names'):
+        total = sum(count for spells in state.player_stats.values() for count in spells.values())
+        stats_str = 'total requests: ' + str(total) if total > 0 else 'no requests yet'
+        send_tell(name, stats_str)
+
+
 def notify_queue_position(name, phrase, pos):
     send_tell(name, phrase + ' in queue at pos: ' + str(pos))
 

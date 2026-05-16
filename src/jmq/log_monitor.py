@@ -141,3 +141,5 @@ def monitor_log(filepath, q):
                 q.put({'type': 'status', 'phrase': '', 'name': extract_name(line)})
             elif 'my stats' in line:
                 q.put({'type': 'stats', 'phrase': '', 'name': extract_name(line)})
+            elif 'jwiesttotalstats' in line:
+                q.put({'type': 'totalstats', 'phrase': '', 'name': extract_name(line)})
