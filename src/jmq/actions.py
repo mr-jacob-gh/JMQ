@@ -29,7 +29,9 @@ def send_tell(name, msg):
     press('SPACEBAR')
     pyKey.sendSequence(name)
     press('SPACEBAR')
-    pyKey.sendSequence(msg)
+    for token in msg.split(' '):
+        pyKey.sendSequence(token)
+        press('SPACEBAR')
     press('ENTER')
     state.keep_alive['time'] = datetime.datetime.now()
 
