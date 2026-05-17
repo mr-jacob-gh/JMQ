@@ -89,7 +89,7 @@ def process_group_spell(name, phrase):
     press('ENTER')
     pyKey.sendSequence('/disband')
     press('ENTER')
-    time.sleep(0.2)
+    time.sleep(1.0)
     press('ENTER')
     pyKey.sendSequence('/invite')
     press('SPACEBAR')
