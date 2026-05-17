@@ -46,4 +46,12 @@ Make EverQuest the active window within 10 seconds of starting. The bot will:
 3. Begin monitoring the EQ log for spell requests via tells
 
 
+## Druid Block Spells
+/blockspell add me 2424 553 1440 551 2429 556 1438 2419 1434 550 554 558 555
+/blockspell add me 557 2020 552 1398 1517 2199 2198 1736 1737 1736 1737 1738 1739
+
+
+/blockspell remove me 2424 553 1440 551 2429 556 1438 2419 1434 550 554 558 555
+/blockspell remove me 557 2020 552 1398 1517 2199 2198 1736 1737 1736 1737 1738 1739
+
 ## TODO
