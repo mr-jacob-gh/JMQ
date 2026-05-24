@@ -96,13 +96,13 @@ def process_group_spell(name, phrase):
     press('ENTER')
     send_tell_to_current_target('Accept group invite - casting in 5 seconds!')
     time.sleep(6)
-    if not any('You have joined the group.' in item['failure'] for item in state.failure_events):
-        send_tell_to_current_target('You did not join the group in time!')
+    if not any('To invite another group into yours, please invite the leader of the other group.' in item['failure'] for item in state.failure_events):
+        send_tell_to_current_target('You must be the leader of the group to request a group spell.')
         state.failure_events.clear()
         return
 
-    if not any('To invite another group into yours, please invite the leader of the other group.' in item['failure'] for item in state.failure_events):
-        send_tell_to_current_target('You must be the leader of the group to request a group spell.')
+    if not any('You have joined the group.' in item['failure'] for item in state.failure_events):
+        send_tell_to_current_target('You did not join the group in time!')
         state.failure_events.clear()
         return
 
