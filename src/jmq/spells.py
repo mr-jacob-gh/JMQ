@@ -39,10 +39,6 @@ def memspell(spell, slot):
     state.last_cast_time[spell] = datetime.datetime.now()
 
 
-def tell_spell_too_powerful(name, phrase):
-    send_tell_to_current_target(phrase + ' is too powerful for your level')
-
-
 def tell_spell_inc(spell):
     press('ENTER')
     pyKey.sendSequence('/tt')
@@ -104,6 +100,12 @@ def process_group_spell(name, phrase):
         send_tell_to_current_target('You did not join the group in time!')
         state.failure_events.clear()
         return
+
+    if not any('To invite another group into yours, please invite the leader of the other group.' in item['failure'] for item in state.failure_events):
+        send_tell_to_current_target('You must be the leader of the group to request a group spell.')
+        state.failure_events.clear()
+        return
+
     castspell(phrase)
     press('ENTER')
     pyKey.sendSequence('/disband')
@@ -184,7 +186,11 @@ def process_spell_request(name, phrase):
             castspell(phrase)
 
     if any('Your spell is too powerful for your intended target' in item['failure'] for item in state.failure_events):
-        tell_spell_too_powerful(name, phrase)
+        send_tell_to_current_target(phrase + ' is too powerful for your level')
+
+    range_failure_strings = ['Your target is out of range, get closer']
+    if any(any(f in item['failure'] for f in range_failure_strings) for item in state.failure_events):
+        send_tell_to_current_target('You were out of range for ' + phrase)
 
     state.failure_events.clear()
     state.player_stats.setdefault(name, {})

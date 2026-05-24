@@ -20,7 +20,7 @@
 `gregrowth (group)`
 `bracken` — bracken / ds / sob
 `thorns` — thorns / dspl
-`gthorns`
+`gthorns (group)`
 `blades`
 `sln` — sln / skin like nature
 `natureskin`
