@@ -115,6 +115,7 @@ def monitor_log(filepath, q):
             match = get_match(line)
             failure = get_failure_match(line)
             if failure is not None:
+                print(failure)
                 state.failure_events.append({'timestamp': timestamp, 'failure': failure, 'line': line})
             if match is not None:
                 process_match(line, match, timestamp, q)
