@@ -214,7 +214,7 @@ def loaddefaultspells(xpac):
 
         #memspell('sf', config.spells.get('sf').get('slot'))
     elif xpac == 'velious':
-        memspell('regrowth', config.spells.get('heal').get('slot'))
+        memspell('regrowth', config.spells.get('regrowth').get('slot'))
         memspell('sow', config.spells.get('sow').get('slot'))
         memspell('potg', config.spells.get('potg').get('slot'))
         memspell('feerrott', config.spells.get('feerrott').get('slot'))

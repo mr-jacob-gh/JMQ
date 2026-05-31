@@ -100,7 +100,7 @@ master_phrase_map = {
     'dspl': 'thorns',
     'regen': 'regrowth',
     'regenpl': 'chloro',
-    'heal': 'heal', 'sow': 'soe', 'potg': 'potg', 'cl': 'cl', 'levi': 'lev', 'lev': 'lev',
+    'heal': 'heal', 'sow': 'sow', 'potg': 'potg', 'cl': 'cl', 'levi': 'lev', 'lev': 'lev',
     'chloro': 'chloro', 'thorns': 'thorns', 'blades': 'blades', 'regrowth': 'regrowth',
     'sln': 'sln', 'natureskin': 'natureskin', 'stormstrength': 'stormstrength', 'cs': 'cs',
     'gd': 'gd', 'ic': 'ic', 'wl': 'wl', 'dl': 'dl', 'bb': 'bb', 'feerrott': 'feerrott',
