@@ -4,7 +4,7 @@ import time
 import pyKey
 
 from jmq import config, state
-from jmq.actions import press, send_tell_to_current_target
+from jmq.actions import press, send_tell_to_current_target, sit
 from jmq.utils import write_player_stats
 
 
@@ -173,6 +173,7 @@ def process_spell_request(name, phrase):
         if not any('Insufficient Mana to cast this spell' in item['failure'] for item in state.failure_events):
             break
         if attempt == 0:
+            sit()
             send_tell_to_current_target('low mana - will retry momentarily')
         if attempt == 5:
             send_tell_to_current_target('still not enough mana, please request again.')
