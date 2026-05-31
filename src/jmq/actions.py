@@ -56,11 +56,20 @@ def send_stats(name):
     if name in state.roster.get('names'):
         spells = state.player_stats.get(name, {})
         if spells:
-            breakdown = ' '.join(f"{spell}:{count}" for spell, count in spells.items())
-            stats_str = 'total requests: ' + str(sum(spells.values())) + ' - ' + breakdown
+            send_tell(name, 'total requests: ' + str(sum(spells.values())))
+            tokens = [f"{spell}:{count}" for spell, count in spells.items()]
+            chunk = ''
+            for token in tokens:
+                candidate = (chunk + ' ' + token).strip()
+                if len(candidate) > 150:
+                    send_tell(name, chunk)
+                    chunk = token
+                else:
+                    chunk = candidate
+            if chunk:
+                send_tell(name, chunk)
         else:
-            stats_str = 'no requests yet'
-        send_tell(name, stats_str)
+            send_tell(name, 'no requests yet')
 
 
 def send_total_stats(name):
