@@ -96,9 +96,9 @@ spell_ids = {
 }
 
 master_phrase_map = {
-    'ds': 'bracken',
+    'ds': 'blades',
     'dspl': 'thorns',
-    'regen': 'replenishment',
+    'regen': 'regrowth',
     'regenpl': 'chloro',
     'heal': 'heal', 'sow': 'soe', 'potg': 'potg', 'cl': 'cl', 'levi': 'lev', 'lev': 'lev',
     'chloro': 'chloro', 'thorns': 'thorns', 'blades': 'blades', 'regrowth': 'regrowth',
@@ -134,7 +134,7 @@ master_phrase_map = {
     'gthorns': 'gthorns', 'gic': 'gic', 'ggd': 'ggd', 'gwl': 'gwl', 'gcs': 'gcs',
     'gkarana': 'gkarana', 'gtoxx': 'gtoxx', 'gbb': 'gbb', 'gsfg': 'gsfg', 'gcl': 'gcl',
     'glava': 'glava', 'gsteamfont': 'gsteamfont', 'gro': 'gro', 'gfear': 'gfear',
-    'gmisty': 'gmisty', 'strength': 'nmight', 'gdawn': 'gdawn', 'ggrim': 'ggrim',
+    'gmisty': 'gmisty', 'strength': 'stormstrength', 'gdawn': 'gdawn', 'ggrim': 'ggrim',
     'gtwi': 'gtwi', 'gdl': 'gdl', 'gchloro': 'gchloro', 'pot': 'pot', 'pok': 'pok',
     'tranq': 'pot', 'tranquility': 'pot', 'knowledge': 'pok', 'replenishment': 'replenishment',
     'pot9': 'pot9', '9': 'pot9', 'nine': 'pot9', 'potn': 'pot9', "bracken": "bracken",
