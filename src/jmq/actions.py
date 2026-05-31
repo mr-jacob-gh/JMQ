@@ -61,7 +61,7 @@ def send_stats(name):
             chunk = ''
             for token in tokens:
                 candidate = (chunk + ' ' + token).strip()
-                if len(candidate) > 150:
+                if len(candidate) > 130:
                     send_tell(name, chunk)
                     chunk = token
                 else:

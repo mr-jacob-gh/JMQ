@@ -1,9 +1,8 @@
 **Zlem Spell Bot** — whisper any keyword to request a spell
 
 **Solo Spells**
-`heal`
-`soe` — sow / soe / eagle / eagles / spirit of eagle
-`sow` — spirit of wolf
+`soe` — soe / eagle / eagles / spirit of eagle
+`sow` — sow / spirit of wolf
 `gsow`
 `lev` — lev / levi / levitate
 `cl` — cl / ec / commons / commonlands / east commons / common lands
