@@ -1,4 +1,4 @@
-log_filepath = "C:/Users/Public/Daybreak Game Company/Installed Games/EverQuest/Logs/eqlog_Zlem_fangbreaker.txt"
+log_filepath = "C:/Users/Public/Daybreak Game Company/Installed Games/EverQuest/Logs/eqlog_Zlem_frostreaver.txt"
 roster_filepath = "C:/Users/Public/Daybreak Game Company/Installed Games/EverQuest/"
 roster_filename_default = "gr.txt"
 log_file_path = "jmq.log"
@@ -7,11 +7,11 @@ player_stats_file_path = "player_stats.json"
 spell_slot_keys = {1: '2', 2: '3', 3: '4', 4: '5', 5: '7', 6: '8', 7: '9', 8: '0'}
 
 spells = {
-    'heal': {'slot': 1, 'casttime': 3.8, 'recasttime': 1.5},
-    'sow': {'slot': 8, 'casttime': 4.5, 'recasttime': 3.5},
+    'heal': {'slot': 8, 'casttime': 3.8, 'recasttime': 1.5},
+    'sow': {'slot': 2, 'casttime': 4.5, 'recasttime': 3.5},
     'gsow': {'slot': 8, 'casttime': 6.5, 'recasttime': 9.0},
-    'potg': {'slot': 8, 'casttime': 4.0, 'recasttime': 18.0},
-    'pot9': {'slot': 3, 'casttime': 6.0, 'recasttime': 1.5},
+    'potg': {'slot': 3, 'casttime': 4.0, 'recasttime': 18.0},
+    'pot9': {'slot': 8, 'casttime': 6.0, 'recasttime': 1.5},
     'lev': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
     'cl': {'slot': 4, 'casttime': 10.0, 'recasttime': 6.0},
     'chloro': {'slot': 8, 'casttime': 4.0, 'recasttime': 1.5},
@@ -20,21 +20,21 @@ spells = {
     'gthorns': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
     'blades': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
     'bracken': {'slot': 8, 'casttime': 2.5, 'recasttime': 1.5},
-    'regrowth': {'slot': 8, 'casttime': 4.0, 'recasttime': 1.5},
-    'replenishment': {'slot': 6, 'casttime': 6.5, 'recasttime': 1.5},
+    'regrowth': {'slot': 1, 'casttime': 4.0, 'recasttime': 1.5},
+    'replenishment': {'slot': 8, 'casttime': 6.5, 'recasttime': 1.5},
     'gregrowth': {'slot': 8, 'casttime': 6.0, 'recasttime': 1.5},
     'sln': {'slot': 8, 'casttime': 4.0, 'recasttime': 12.0},
     'natureskin': {'slot': 8, 'casttime': 4.0, 'recasttime': 1.5},
     'stormstrength': {'slot': 8, 'casttime': 3.25, 'recasttime': 1.5},
     'girdleofkarana': {'slot': 8, 'casttime': 5.0, 'recasttime': 7.5},
     'nmight': {'slot': 8, 'casttime': 2.5, 'recasttime': 1.5},
-    'cs': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
-    'gd': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
+    'cs': {'slot': 7, 'casttime': 10.0, 'recasttime': 6.0},
+    'gd': {'slot': 6, 'casttime': 10.0, 'recasttime': 6.0},
     'ic': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
     'wl': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
     'dl': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
     'bb': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
-    'feerrott': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
+    'feerrott': {'slot': 5, 'casttime': 10.0, 'recasttime': 6.0},
     'nk': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
     'lava': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
     'misty': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
@@ -49,10 +49,10 @@ spells = {
     'counteractdisease': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
     'resistdisease': {'slot': 8, 'casttime': 3.5, 'recasttime': 1.5},
     'dawn': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
-    'grim': {'slot': 5, 'casttime': 10.0, 'recasttime': 6.0},
+    'grim': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
     'nexus': {'slot': 8, 'casttime': 10.0, 'recasttime': 6.0},
     'twi': {'slot': 7, 'casttime': 10.0, 'recasttime': 6.0},
-    'soe': {'slot': 2, 'casttime': 3.0, 'recasttime': 1.5},
+    'soe': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
     'potc': {'slot': 8, 'casttime': 4.0, 'recasttime': 8.0},
     'cos': {'slot': 8, 'casttime': 5.0, 'recasttime': 1.5},
     'gic': {'slot': 8, 'casttime': 16.0, 'recasttime': 10.0},
@@ -79,7 +79,7 @@ spells = {
 }
 
 spell_ids = {
-    'heal': '1291', 'sow': '278', 'potg': '1442', 'cl': '25690', 'lev': '2894',
+    'heal': '1291', 'sow': '278', 'potg': '1442', 'cl': '25690', 'lev': '261',
     'chloro': '145', 'thorns': '356', 'blades': '2125', 'regrowth': '1568', 'sln': '423',
     'natureskin': '1559', 'stormstrength': '430', 'cs': '25693', 'gd': '25696',
     'ic': '25698', 'wl': '25906', 'dl': '25694', 'bb': '25689', 'feerrott': '25695',
