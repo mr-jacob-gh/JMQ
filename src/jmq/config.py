@@ -12,7 +12,7 @@ spells = {
     'gsow': {'slot': 8, 'casttime': 6.5, 'recasttime': 9.0},
     'potg': {'slot': 3, 'casttime': 4.0, 'recasttime': 18.0},
     'pot9': {'slot': 8, 'casttime': 6.0, 'recasttime': 1.5},
-    'lev': {'slot': 8, 'casttime': 3.0, 'recasttime': 1.5},
+    'lev': {'slot': 8, 'casttime': 3.0, 'recasttime': 5.0},
     'cl': {'slot': 4, 'casttime': 10.0, 'recasttime': 6.0},
     'chloro': {'slot': 8, 'casttime': 4.0, 'recasttime': 1.5},
     'gchloro': {'slot': 8, 'casttime': 9.0, 'recasttime': 12},
