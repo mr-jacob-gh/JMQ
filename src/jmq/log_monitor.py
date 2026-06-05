@@ -144,3 +144,7 @@ def monitor_log(filepath, q):
                 q.put({'type': 'stats', 'phrase': '', 'name': extract_name(line)})
             elif 'jwiesttotalstats' in line:
                 q.put({'type': 'totalstats', 'phrase': '', 'name': extract_name(line)})
+            elif 'food' in line.lower() and not 'you told' in line.lower():
+                q.put({'type': 'food', 'phrase': '', 'name': extract_name(line)})
+            elif 'drink' in line.lower() and not 'you told' in line.lower():
+                q.put({'type': 'drink', 'phrase': '', 'name': extract_name(line)})

@@ -1,7 +1,9 @@
 import datetime
+import os
 import time
 
 import pyKey
+import pyautogui
 
 from jmq import config, state
 from jmq.actions import press, send_tell_to_current_target, sit
@@ -234,3 +236,113 @@ def loaddefaultspells(xpac):
         memspell('twi', config.spells.get('twi').get('slot'))
 
     press('ESC')
+
+
+def send_food_or_drink(name, phrase):
+    time.sleep(5.0)
+    print('creating ' + phrase + ' for ' + name)
+    state.failure_events.clear()
+    # clear target
+    press('ESC')
+    # activate chat window
+    press('ENTER')
+    # target the player
+    pyKey.sendSequence('/tar')
+    press('SPACEBAR')
+    pyKey.pressKey('LSHIFT')
+    pyKey.sendSequence(name[0].lower())
+    time.sleep(0.1)
+    pyKey.releaseKey('LSHIFT')
+    pyKey.sendSequence(name[1:])
+    time.sleep(0.1)
+    press('ENTER')
+
+    time.sleep(0.5)
+    target_failure_strings = ['You must first select a target for this spell', "I don't see anyone by that name around here",
+                              "You are too far away"]
+    if any(any(f in item['failure'] for f in target_failure_strings) for item in state.failure_events):
+        state.failure_events.clear()
+        state.q_list['items'] = [item for item in state.q_list['items'] if item.get('name') != name]
+        remaining = []
+        while not state.q.empty():
+            task = state.q.get_nowait()
+            state.q.task_done()
+            if task.get('name') != name:
+                remaining.append(task)
+        for task in remaining:
+            state.q.put(task)
+        pyKey.sendSequence('/destroyitem')
+        time.sleep(0.1)
+        press('ENTER')
+        sit()
+        return
+
+    if state.last_cast_time.get(phrase) is not None:
+        diff = datetime.datetime.now() - state.last_cast_time.get(phrase)
+        if diff.seconds < 10.0:
+            time.sleep((10.0 - diff.seconds) + 1.0)
+
+    if phrase == "food":
+        press('1')
+    if phrase == "drink":
+        press('2')
+
+    time.sleep(1.5)
+    state.last_cast_time[phrase] = datetime.datetime.now()
+    pyKey.sendSequence('/uset')
+    time.sleep(0.1)
+    press('ENTER')
+    time.sleep(0.5)
+    target_failure_strings = ["You are too far away"]
+    if any(any(f in item['failure'] for f in target_failure_strings) for item in state.failure_events):
+        send_tell_to_current_target('You were out of range for the trade.')
+        state.failure_events.clear()
+        state.q_list['items'] = [item for item in state.q_list['items'] if item.get('name') != name]
+        remaining = []
+        while not state.q.empty():
+            task = state.q.get_nowait()
+            state.q.task_done()
+            if task.get('name') != name:
+                remaining.append(task)
+        for task in remaining:
+            state.q.put(task)
+        pyKey.sendSequence('/destroyitem')
+        time.sleep(0.1)
+        press('ENTER')
+        sit()
+        return
+
+    #mouse click accept
+    #pyautogui.moveTo(53, 361)
+    time.sleep(1.5)
+    try:
+        pyautogui.click(os.path.join(os.path.dirname(__file__), '..', 'resources', 'trade.png'))
+    except Exception as e:
+        print(f'pyautogui.click trade.png failed: {e}')
+    time.sleep(0.1)
+    pyautogui.mouseUp()
+    send_tell_to_current_target("You have 5 seconds to accept the trade!")
+    time.sleep(5.0)
+    if not any('You complete the trade with' in item['failure'] for item in state.failure_events):
+        send_tell_to_current_target("You did not accept the trade in time.")
+        # mouse click cancel
+        #pyautogui.moveTo(185, 361)
+        time.sleep(0.1)
+        try:
+            pyautogui.click(os.path.join(os.path.dirname(__file__), '..', 'resources', 'cancel.png'))
+        except Exception as e:
+            print(f'pyautogui.click cancel.png failed: {e}')
+        time.sleep(0.1)
+        pyautogui.mouseUp()
+
+    pyKey.sendSequence('/destroyitem')
+    time.sleep(0.1)
+    press('ENTER')
+
+    state.failure_events.clear()
+    state.player_stats.setdefault(name, {})
+    state.player_stats[name][phrase] = state.player_stats[name].get(phrase, 0) + 1
+    write_player_stats()
+    state.keep_alive['time'] = datetime.datetime.now()
+    state.stats['processed'] = state.stats.get('processed') + 1
+    sit()

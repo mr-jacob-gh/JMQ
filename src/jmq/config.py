@@ -1,4 +1,4 @@
-log_filepath = "C:/Users/Public/Daybreak Game Company/Installed Games/EverQuest/Logs/eqlog_Zlem_frostreaver.txt"
+log_filepath = "C:/Users/Public/Daybreak Game Company/Installed Games/EverQuest/Logs/eqlog_Melz_frostreaver.txt"
 roster_filepath = "C:/Users/Public/Daybreak Game Company/Installed Games/EverQuest/"
 roster_filename_default = "gr.txt"
 log_file_path = "jmq.log"
@@ -138,7 +138,7 @@ master_phrase_map = {
     'gtwi': 'gtwi', 'gdl': 'gdl', 'gchloro': 'gchloro', 'pot': 'pot', 'pok': 'pok',
     'tranq': 'pot', 'tranquility': 'pot', 'knowledge': 'pok', 'replenishment': 'replenishment',
     'pot9': 'pot9', '9': 'pot9', 'nine': 'pot9', 'potn': 'pot9', "bracken": "bracken",
-    "sob": "bracken", "nmight": "nmight", "might": "nmight", 'dena': 'dena',
+    "sob": "bracken", "nmight": "nmight", "might": "nmight", 'dena': 'dena'
 }
 
 # must be grouped to cast these spells
@@ -156,5 +156,7 @@ failure_strings = [
     'You cannot memorize this spell.',
     'Insufficient Mana to cast this spell!',
     'To invite another group into yours, please invite the leader of the other group.',
-    'Your target is out of range, get closer!'
+    'Your target is out of range, get closer!',
+    "You complete the trade with",
+    "You are too far away"
 ]

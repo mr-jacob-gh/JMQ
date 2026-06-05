@@ -1,6 +1,6 @@
 from jmq import state
 from jmq.actions import press, send_status, updateroster, stand, sit, send_stats, send_total_stats
-from jmq.spells import process_spell_request
+from jmq.spells import process_spell_request, send_food_or_drink
 from jmq.utils import write_to_log
 
 
@@ -35,6 +35,12 @@ def process_queue(q):
                 standsit = False
             elif req_type == 'updateroster':
                 updateroster()
+                standsit = False
+            elif req_type == 'food':
+                send_food_or_drink(name, "food")
+                standsit = False
+            elif req_type == 'drink':
+                send_food_or_drink(name, "drink")
                 standsit = False
 
         finally:
