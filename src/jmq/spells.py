@@ -292,7 +292,7 @@ def send_food_or_drink(name, phrase):
     pyKey.sendSequence('/uset')
     time.sleep(0.1)
     press('ENTER')
-    time.sleep(0.5)
+    time.sleep(1.0)
     target_failure_strings = ["You are too far away"]
     if any(any(f in item['failure'] for f in target_failure_strings) for item in state.failure_events):
         send_tell_to_current_target('You were out of range for the trade.')
