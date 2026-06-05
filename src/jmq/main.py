@@ -17,7 +17,7 @@ def init():
     time.sleep(10)
     stand()
     sit()
-    #loaddefaultspells('luclin')
+    loaddefaultspells('luclin')
 
 
 def keepalive():

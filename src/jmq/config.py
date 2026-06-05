@@ -1,4 +1,4 @@
-log_filepath = "C:/Users/Public/Daybreak Game Company/Installed Games/EverQuest/Logs/eqlog_Melz_frostreaver.txt"
+log_filepath = "C:/Users/Public/Daybreak Game Company/Installed Games/EverQuest/Logs/eqlog_Zlem_frostreaver.txt"
 roster_filepath = "C:/Users/Public/Daybreak Game Company/Installed Games/EverQuest/"
 roster_filename_default = "gr.txt"
 log_file_path = "jmq.log"

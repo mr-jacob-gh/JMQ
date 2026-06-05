@@ -239,7 +239,7 @@ def loaddefaultspells(xpac):
 
 
 def send_food_or_drink(name, phrase):
-    time.sleep(5.0)
+    # time.sleep(5.0)
     print('creating ' + phrase + ' for ' + name)
     state.failure_events.clear()
     # clear target
