@@ -7,6 +7,13 @@ from jmq import config, state
 from jmq.utils import write_to_log
 from jmq.queue_manager import add_item_to_queue, already_in_queue
 
+VIP_PLAYERS = [
+    'Vicious', 'Melz', 'Porco', 'Avenue', 'Lachmar', 'Savory', 'Straxus',
+    'Atiesh', 'Avenuetwo', 'Colonclysm', 'Hotfudge', 'Lachdawg', 'Lachdogg',
+    'Mini', 'Vicc', 'Viccleric', 'Vicclrone', 'Vicdoze', 'Vicmage', 'Vicrog',
+    'Vicwar', 'Vicwiz', 'Vindicus', 'Yani', 'Bloodthirst',
+]
+
 
 def tail(f):
     f.seek(0, 2)  # Go to the end of the file
@@ -88,7 +95,7 @@ def process_match(line, match, timestamp, q):
     state.stats['requests'] = state.stats.get('requests') + 1
     name = extract_name(line)
     if name in state.roster.get('names') and not already_in_queue(match, name):  # only for guild members.
-        if 'vip' in line.lower() and q.qsize() > 0:
+        if 'vip' in line.lower() and name in VIP_PLAYERS and q.qsize() > 0:
             old_q = []
             while not q.empty():
                 task = q.get_nowait()
@@ -100,6 +107,8 @@ def process_match(line, match, timestamp, q):
                 q.put(item)
 
         else:
+            if 'vip' in line.lower() and name not in VIP_PLAYERS:
+                add_item_to_queue('vipmessage', match, name, timestamp)
             add_item_to_queue('spell', match, name, timestamp)
     else:
         print('ignored message: ' + line)
