@@ -8,12 +8,13 @@ from jmq.actions import stand, sit, updateroster
 from jmq.log_monitor import monitor_log
 from jmq.queue_manager import process_queue
 from jmq.spells import loaddefaultspells
-from jmq.utils import print_stats, load_player_stats
+from jmq.utils import print_stats, load_player_stats, load_priority_queue
 
 
 def init():
     print('Script starting. Make EQ active window now!')
     load_player_stats()
+    load_priority_queue()
     time.sleep(10)
     stand()
     sit()

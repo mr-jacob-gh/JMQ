@@ -10,3 +10,4 @@ q_list = {'items': []}
 roster = {'names': []}
 failure_events = []
 player_stats = {}
+priority_queue = ['Melz']

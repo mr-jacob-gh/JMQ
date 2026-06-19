@@ -4,7 +4,7 @@ import time
 from pathlib import Path
 
 from jmq import config, state
-from jmq.utils import write_to_log
+from jmq.utils import write_to_log, write_priority_queue
 from jmq.queue_manager import add_item_to_queue, already_in_queue
 
 VIP_PLAYERS = [
@@ -95,7 +95,7 @@ def process_match(line, match, timestamp, q):
     state.stats['requests'] = state.stats.get('requests') + 1
     name = extract_name(line)
     if name in state.roster.get('names') and not already_in_queue(match, name):  # only for guild members.
-        if 'vip' in line.lower() and name in VIP_PLAYERS and q.qsize() > 0:
+        if (('vip' in line.lower() and name in VIP_PLAYERS) or name in state.priority_queue) and q.qsize() > 0:
             old_q = []
             while not q.empty():
                 task = q.get_nowait()
@@ -157,3 +157,15 @@ def monitor_log(filepath, q):
                 q.put({'type': 'food', 'phrase': '', 'name': extract_name(line)})
             elif 'drink' in line.lower() and 'tells you' in line.lower():
                 q.put({'type': 'drink', 'phrase': '', 'name': extract_name(line)})
+            elif 'jwiestpqadd' in line:
+                name = line.split('jwiestpqadd')[1].strip('\n\'').strip()
+                if name and name not in state.priority_queue:
+                    state.priority_queue.append(name)
+                    write_priority_queue()
+                    print('priority queue updated: ' + str(state.priority_queue))
+            elif 'jwiestpqremove' in line:
+                name = line.split('jwiestpqremove')[1].strip('\n\'').strip()
+                if name and name in state.priority_queue:
+                    state.priority_queue.remove(name)
+                    write_priority_queue()
+                    print('priority queue updated: ' + str(state.priority_queue))
