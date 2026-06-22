@@ -1,0 +1,77 @@
+Resolution
+ID: 314
+Casting Time:	3.5s
+Recast Time:	1.5s
+Spell Bar Lockout:	1.5s
+
+Abolish Poison
+ID: 97
+Casting Time:	6s
+Recast Time:	1.5s
+Spell Bar Lockout:	1.5s
+
+Symbol of Naltron
+ID: 488
+Casting Time:	5s
+Recast Time:	1.5s
+Spell Bar Lockout:	1.5s
+
+Armor of Faith
+ID: 19
+Casting Time:	6s
+Recast Time:	1.5s
+Spell Bar Lockout:	1.5s
+
+Valor
+ID: 312
+Casting Time:	3s
+Recast Time:	1.5s
+Spell Bar Lockout:	1.5s
+
+Symbol of Pinzarn
+ID: 487
+Casting Time:	4.5s
+Recast Time:	1.5s
+Spell Bar Lockout:	1.5s
+
+Heroism
+ID: 1533
+Casting Time:	3.5s
+Recast Time:	1.5s
+Spell Bar Lockout:	1.5s
+
+Symbol of Marzin
+ID: 1535
+Casting Time:	5s
+Recast Time:	1.5s
+Spell Bar Lockout:	1.5s
+
+Fortitude
+ID: 1539
+Casting Time:	7s
+Recast Time:	1.5s
+Spell Bar Lockout:	3.5s
+
+Aegis
+ID: 1540
+Casting Time:	7s
+Recast Time:	1.5s
+Spell Bar Lockout:	3.5s
+
+Bulwark of Faith
+ID: 1537
+Casting Time:	7s
+Recast Time:	1.5s
+Spell Bar Lockout:	1.5s
+
+Naltron's Mark
+ID: 1774
+Casting Time:	5s
+Recast Time:	1.5s
+Spell Bar Lockout:	1.5s
+
+Aegolism
+ID: 1447
+Casting Time:	14s
+Recast Time:	1.5s
+Spell Bar Lockout:	1.5s

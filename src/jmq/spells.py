@@ -204,36 +204,8 @@ def process_spell_request(name, phrase):
 
 
 def loaddefaultspells(xpac):
-    if xpac == 'kunark':
-        memspell('heal', config.spells.get('heal').get('slot'))
-        memspell('sow', config.spells.get('sow').get('slot'))
-        memspell('natureskin', config.spells.get('natureskin').get('slot'))
-        memspell('feerrott', config.spells.get('feerrott').get('slot'))
-        memspell('bb', config.spells.get('bb').get('slot'))
-        memspell('sf', config.spells.get('sf').get('slot'))
-        memspell('ej', config.spells.get('ej').get('slot'))
-        memspell('toxx', config.spells.get('toxx').get('slot'))
-
-        #memspell('sf', config.spells.get('sf').get('slot'))
-    elif xpac == 'velious':
-        memspell('regrowth', config.spells.get('regrowth').get('slot'))
-        memspell('sow', config.spells.get('sow').get('slot'))
-        memspell('potg', config.spells.get('potg').get('slot'))
-        memspell('feerrott', config.spells.get('feerrott').get('slot'))
-        memspell('cl', config.spells.get('cl').get('slot'))
-        memspell('gd', config.spells.get('gd').get('slot'))
-        memspell('cs', config.spells.get('cs').get('slot'))
-    elif xpac == 'luclin':
-        memspell('heal', config.spells.get('heal').get('slot'))
-        # memspell('soe', config.spells.get('soe').get('slot'))
-        # memspell('potc', config.spells.get('potc').get('slot'))
-        memspell('soe', config.spells.get('soe').get('slot'))
-        memspell('pot9', config.spells.get('pot9').get('slot'))
-        memspell('cl', config.spells.get('cl').get('slot'))
-        # memspell('dawn', config.spells.get('dawn').get('slot'))
-        memspell('grim', config.spells.get('grim').get('slot'))
-        memspell('replenishment', config.spells.get('replenishment').get('slot'))
-        memspell('twi', config.spells.get('twi').get('slot'))
+    for spell in config.default_spells.get(xpac, []):
+        memspell(spell, config.spells.get(spell).get('slot'))
 
     press('ESC')
 
