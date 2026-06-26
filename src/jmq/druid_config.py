@@ -72,7 +72,7 @@ spells = {
 
 spell_ids = {
     'heal': '1291', 'sow': '278', 'potg': '1442', 'cl': '25690', 'lev': '261',
-    'chloro': '145', 'thorns': '356', 'blades': '1560', 'regrowth': '1568', 'sln': '423',
+    'chloro': '145', 'thorns': '356', 'blades': '2125', 'regrowth': '1568', 'sln': '423',
     'natureskin': '1559', 'stormstrength': '430', 'cs': '25693', 'gd': '25696',
     'ic': '25698', 'wl': '25906', 'dl': '25694', 'bb': '25689', 'feerrott': '25695',
     'nk': '25899', 'lava': '24771', 'misty': '25699', 'ro': '25901', 'steamfont': '25902',
