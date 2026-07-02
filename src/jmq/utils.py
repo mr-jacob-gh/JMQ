@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import time
 
 from jmq import config, state
@@ -16,7 +17,9 @@ _TYPOGRAPHIC_REPLACEMENTS = {
 def sanitize_for_typing(text):
     for src, dst in _TYPOGRAPHIC_REPLACEMENTS.items():
         text = text.replace(src, dst)
-    return text.encode('ascii', 'ignore').decode('ascii')
+    text = text.encode('ascii', 'ignore').decode('ascii')
+    text = re.sub(r'\s+', ' ', text)
+    return text.strip()
 
 
 def write_to_log(message):
