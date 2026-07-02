@@ -15,7 +15,9 @@ def _log(message):
 
 def _post_chat_completion(messages, model, base_url, timeout):
     url = base_url.rstrip('/') + '/chat/completions'
-    body = json.dumps({'model': model, 'messages': messages}).encode('utf-8')
+    payload = {'model': model, 'messages': messages}
+    payload.update(config.lm_studio_extra_body)
+    body = json.dumps(payload).encode('utf-8')
     request = urllib.request.Request(
         url, data=body, headers={'Content-Type': 'application/json'}, method='POST'
     )
