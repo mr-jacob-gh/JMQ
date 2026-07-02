@@ -10,9 +10,16 @@ from jmq.queue_manager import add_item_to_queue, already_in_queue
 from jmq.llm_client import send_prompt_for, classify_spell_phrase
 from jmq.zlem_persona import zlem
 
-SPELL_MATCH_HIGH_CONFIDENCE = 85
-SPELL_MATCH_LOW_CONFIDENCE = 65
+SPELL_MATCH_HIGH_CONFIDENCE = 95
+SPELL_MATCH_LOW_CONFIDENCE = 85
 COHERENCE_THRESHOLD = 30
+SUGGESTION_TTL_SECONDS = 120
+
+CONFIRMATION_PHRASES = {
+    'y', 'ya', 'yah', 'ye', 'yea', 'yeah', 'yep', 'yes', 'yup', 'yessir',
+    'yeh', 'confirm', 'correct', 'sure', 'aye', 'affirmative', 'please',
+    'pls', 'do it', 'let\'s go',
+}
 
 CONFUSION_REPLIES = [
     "didn't catch that, try again in actual words.",
@@ -198,6 +205,7 @@ def resolve_unrecognized_phrase(line, phrase, name, timestamp, q):
             process_match(line, spell, timestamp, q)
         elif spell and confidence > SPELL_MATCH_LOW_CONFIDENCE:
             write_to_log(f'spell correction: suggesting "{spell}" for "{phrase}" ({confidence}% confident)')
+            state.pending_suggestions[name] = {'spell': spell, 'timestamp': timestamp}
             suggestion = sanitize_for_typing(f"didn't catch that, did you mean '{spell}'?")
             add_item_to_queue('tell', suggestion, name, timestamp)
         elif coherence < COHERENCE_THRESHOLD:
@@ -207,6 +215,36 @@ def resolve_unrecognized_phrase(line, phrase, name, timestamp, q):
             send_persona_reply(phrase, name, timestamp, q)
 
     classify_spell_phrase(phrase, on_classified)
+
+
+def is_confirmation(phrase):
+    return phrase in CONFIRMATION_PHRASES
+
+
+def suggestion_is_fresh(suggestion, timestamp):
+    suggested_at = suggestion.get('timestamp')
+    if suggested_at is None or timestamp is None:
+        return True
+    return (timestamp - suggested_at).total_seconds() <= SUGGESTION_TTL_SECONDS
+
+
+def resolve_confirmed_suggestion(line, phrase, name, timestamp, q):
+    # Returns True if phrase was consumed as (or discarded as a stale) confirmation.
+    suggestion = state.pending_suggestions.pop(name, None)
+    if suggestion is None:
+        return False
+
+    if not is_confirmation(phrase):
+        return False
+
+    if not suggestion_is_fresh(suggestion, timestamp):
+        write_to_log(f'suggestion for {name} expired, ignoring confirmation "{phrase}"')
+        return False
+
+    spell = suggestion['spell']
+    write_to_log(f'{name} confirmed suggestion, queuing spell "{spell}"')
+    process_match(line, spell, timestamp, q)
+    return True
 
 
 def monitor_log(filepath, q):
@@ -285,5 +323,6 @@ def monitor_log(filepath, q):
                     and name in state.roster.get('names')
                     and (name).lower() not in state.ignore_list
                 ):
-                    resolve_unrecognized_phrase(line, phrase, name, timestamp, q)
-                    print('resolving unrecognized phrase: ' + phrase)
+                    if not resolve_confirmed_suggestion(line, phrase, name, timestamp, q):
+                        resolve_unrecognized_phrase(line, phrase, name, timestamp, q)
+                        print('resolving unrecognized phrase: ' + phrase)
