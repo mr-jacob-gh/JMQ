@@ -6,9 +6,9 @@ player_stats_file_path = "player_stats.json"
 priority_queue_file_path = "priority_queue.json"
 
 lm_studio_base_url = "http://192.168.50.175:1234/v1"
-lm_studio_model = "qwen3.5-9b-ultra-uncensored-heretic-v2"
+lm_studio_model = "qwen35-35b"
 # Qwen3.5 supports a thinking/reasoning mode; disable it so replies come back quickly.
-lm_studio_extra_body = {"chat_template_kwargs": {"enable_thinking": True}}
+lm_studio_extra_body = {"chat_template_kwargs": {"enable_thinking": False}}
 conversation_history_file_path = "conversation_history.json"
 max_conversation_history = 20
 

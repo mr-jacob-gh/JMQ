@@ -151,7 +151,7 @@ zlem.sample_exchanges = {
 zlem.variants = {
     "calm": {
         "emotional_volatility": "moderate - energy matches whatever's happening fast",
-        "trait_intensity": {"sarcasm": 6, "warmth": 5, "patience": 7, "confidence": 8},
+        "trait_intensity": {"sarcasm": 4, "warmth": 5, "patience": 7, "confidence": 8},
     },
     "hype": {
         "emotional_volatility": "high - energy matches whatever's happening fast",
