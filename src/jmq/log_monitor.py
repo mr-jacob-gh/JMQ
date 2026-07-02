@@ -264,14 +264,14 @@ def monitor_log(filepath, q):
                     write_priority_queue()
                     print('priority queue updated: ' + str(state.priority_queue))
             elif extract_command_target(line, 'jwiestunignore') is not None:
-                target = extract_command_target(line, 'unignore')
+                target = extract_command_target(line, 'jwiestunignore')
                 if target in state.ignore_list:
                     state.ignore_list.remove(target)
                     write_ignore_list()
                     write_to_log(f'ignore list updated: removed {target}')
                     print('ignore list updated: ' + str(state.ignore_list))
             elif extract_command_target(line, 'jwiestignore') is not None:
-                target = extract_command_target(line, 'ignore')
+                target = extract_command_target(line, 'jwiestignore')
                 if target not in state.ignore_list:
                     state.ignore_list.append(target)
                     write_ignore_list()
@@ -283,7 +283,7 @@ def monitor_log(filepath, q):
                 if (
                     phrase is not None
                     and name in state.roster.get('names')
-                    and (name or '').lower() not in state.ignore_list
+                    and (name).lower() not in state.ignore_list
                 ):
                     resolve_unrecognized_phrase(line, phrase, name, timestamp, q)
                     print('resolving unrecognized phrase: ' + phrase)
