@@ -10,8 +10,8 @@ from jmq.queue_manager import add_item_to_queue, already_in_queue
 from jmq.llm_client import send_prompt_for, classify_spell_phrase
 from jmq.zlem_persona import zlem
 
-SPELL_MATCH_HIGH_CONFIDENCE = 95
-SPELL_MATCH_LOW_CONFIDENCE = 85
+SPELL_MATCH_HIGH_CONFIDENCE = 90
+SPELL_MATCH_LOW_CONFIDENCE = 75
 COHERENCE_THRESHOLD = 30
 SUGGESTION_TTL_SECONDS = 120
 
