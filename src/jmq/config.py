@@ -1,4 +1,4 @@
-log_filepath = "C:/Users/Public/Daybreak Game Company/Installed Games/EverQuest/Logs/eqlog_Melz_frostreaver.txt"
+log_filepath = "C:/Users/Public/Daybreak Game Company/Installed Games/EverQuest/Logs/eqlog_Zlem_frostreaver.txt"
 roster_filepath = "C:/Users/Public/Daybreak Game Company/Installed Games/EverQuest/"
 roster_filename_default = "gr.txt"
 log_file_path = "jmq.log"
@@ -6,7 +6,7 @@ player_stats_file_path = "player_stats.json"
 priority_queue_file_path = "priority_queue.json"
 
 lm_studio_base_url = "http://192.168.50.175:1234/v1"
-lm_studio_model = "hermes-4.3-36b"
+lm_studio_model = "qwen3.5-9b-ultra-uncensored-heretic-v2"
 conversation_history_file_path = "conversation_history.json"
 max_conversation_history = 20
 
