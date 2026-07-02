@@ -12,3 +12,4 @@ failure_events = []
 player_stats = {}
 priority_queue = ['Melz']
 conversation_history = {}
+ignore_list = []

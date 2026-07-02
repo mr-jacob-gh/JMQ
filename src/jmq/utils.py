@@ -59,6 +59,21 @@ def write_priority_queue():
         json.dump(state.priority_queue, f, indent=2)
 
 
+def load_ignore_list():
+    if os.path.exists(config.ignore_list_file_path):
+        with open(config.ignore_list_file_path, 'r') as f:
+            loaded = json.load(f)
+            state.ignore_list.clear()
+            state.ignore_list.extend(loaded)
+    else:
+        write_ignore_list()
+
+
+def write_ignore_list():
+    with open(config.ignore_list_file_path, 'w') as f:
+        json.dump(state.ignore_list, f, indent=2)
+
+
 def load_conversation_history():
     if os.path.exists(config.conversation_history_file_path):
         with open(config.conversation_history_file_path, 'r') as f:

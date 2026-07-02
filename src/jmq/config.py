@@ -4,6 +4,7 @@ roster_filename_default = "gr.txt"
 log_file_path = "jmq.log"
 player_stats_file_path = "player_stats.json"
 priority_queue_file_path = "priority_queue.json"
+ignore_list_file_path = "ignore_list.json"
 
 lm_studio_base_url = "http://192.168.50.175:1234/v1"
 lm_studio_model = "qwen35-35b"

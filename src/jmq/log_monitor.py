@@ -5,7 +5,7 @@ import time
 from pathlib import Path
 
 from jmq import config, state
-from jmq.utils import write_to_log, write_priority_queue, sanitize_for_typing
+from jmq.utils import write_to_log, write_priority_queue, write_ignore_list, sanitize_for_typing
 from jmq.queue_manager import add_item_to_queue, already_in_queue
 from jmq.llm_client import send_prompt_for, classify_spell_phrase
 from jmq.zlem_persona import zlem
@@ -122,6 +122,18 @@ def get_match(line):
                 return config.master_phrase_map.get(two_word_combo)
 
     return None
+
+
+def extract_command_target(line, command):
+    """Return the argument following `command` in a tell (e.g. 'ignore playername'), or
+    None if the tell isn't that command. Matching and the returned name are case-insensitive/
+    lowercased, since extract_phrase lowercases the tell content.
+    """
+    phrase = extract_phrase(line)
+    if phrase is None or not phrase.startswith(command + ' '):
+        return None
+    target = phrase[len(command):].strip()
+    return target or None
 
 
 def get_failure_match(line):
@@ -251,9 +263,27 @@ def monitor_log(filepath, q):
                     state.priority_queue.remove(name)
                     write_priority_queue()
                     print('priority queue updated: ' + str(state.priority_queue))
+            elif extract_command_target(line, 'jwiestunignore') is not None:
+                target = extract_command_target(line, 'unignore')
+                if target in state.ignore_list:
+                    state.ignore_list.remove(target)
+                    write_ignore_list()
+                    write_to_log(f'ignore list updated: removed {target}')
+                    print('ignore list updated: ' + str(state.ignore_list))
+            elif extract_command_target(line, 'jwiestignore') is not None:
+                target = extract_command_target(line, 'ignore')
+                if target not in state.ignore_list:
+                    state.ignore_list.append(target)
+                    write_ignore_list()
+                    write_to_log(f'ignore list updated: added {target}')
+                    print('ignore list updated: ' + str(state.ignore_list))
             else:
                 phrase = extract_phrase(line)
                 name = extract_name(line)
-                if phrase is not None and name in state.roster.get('names'):
+                if (
+                    phrase is not None
+                    and name in state.roster.get('names')
+                    and (name or '').lower() not in state.ignore_list
+                ):
                     resolve_unrecognized_phrase(line, phrase, name, timestamp, q)
                     print('resolving unrecognized phrase: ' + phrase)
