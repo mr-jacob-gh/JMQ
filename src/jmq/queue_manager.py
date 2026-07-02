@@ -47,6 +47,7 @@ def process_queue(q):
                 standsit = False
             elif req_type == 'tell':
                 send_tell(name, phrase)
+                standsit = False
 
         finally:
             write_to_log('removing queue task: ' + str(req_type) + ', ' + str(phrase) + ', ' + str(name))
