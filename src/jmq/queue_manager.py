@@ -45,6 +45,8 @@ def process_queue(q):
             elif req_type == 'vipmessage':
                 send_tell(name, 'Sorry, but you are not a vip.')
                 standsit = False
+            elif req_type == 'tell':
+                send_tell(name, phrase)
 
         finally:
             write_to_log('removing queue task: ' + str(req_type) + ', ' + str(phrase) + ', ' + str(name))

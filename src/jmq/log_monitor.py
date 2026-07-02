@@ -1,11 +1,45 @@
 import datetime
+import random
 import re
 import time
 from pathlib import Path
 
 from jmq import config, state
-from jmq.utils import write_to_log, write_priority_queue
+from jmq.utils import write_to_log, write_priority_queue, sanitize_for_typing
 from jmq.queue_manager import add_item_to_queue, already_in_queue
+from jmq.llm_client import send_prompt_for, classify_spell_phrase
+from jmq.zlem_persona import zlem
+
+SPELL_MATCH_HIGH_CONFIDENCE = 85
+SPELL_MATCH_LOW_CONFIDENCE = 65
+COHERENCE_THRESHOLD = 30
+
+CONFUSION_REPLIES = [
+    "didn't catch that, try again in actual words.",
+    "that mean something? cause it didn't land.",
+    "not sure what you're going for there, chief.",
+    "keyboard cat again? try that one more time.",
+    "come again? that wasn't a sentence.",
+    "gonna need actual words for that one.",
+    "swing and a miss, try that again.",
+    "that's not a word, and definitely not a request.",
+    "run that by me again, slower this time.",
+    "no clue what that was, try english.",
+    "did your cat walk across the keyboard?",
+    "that didn't parse. use your words.",
+    "static on the line, say it again.",
+    "huh? try that again with less gibberish.",
+    "that's a whole lot of nothing, try again.",
+    "missed whatever that was supposed to be.",
+    "English motherfucker, do you speak it.",
+    "you good? that made no sense.",
+    "try that one again, actual words this time.",
+    "nope, didn't mean anything to me.",
+    "that's noise, not a request.",
+    "words, chief. i need words.",
+    "wut. try again.",
+    "you dumb or something, try again.",
+]
 
 VIP_PLAYERS = [
     'Vicious', 'Melz', 'Porco', 'Avenue', 'Lachmar', 'Savory', 'Straxus',
@@ -56,7 +90,7 @@ def extract_name(log_line):
     return None
 
 
-def get_match(line):
+def extract_phrase(line):
     if 'tells you' not in line:
         return None
 
@@ -66,7 +100,14 @@ def get_match(line):
         return None
     start = line.index(marker) + len(marker)
     end = len(line) - 2
-    phrase = line[start:end].lower().strip('!?.,;@#$%^&*').strip()
+    return line[start:end].lower().strip('!?.,;@#$%^&*').strip()
+
+
+def get_match(line):
+    phrase = extract_phrase(line)
+    if phrase is None:
+        return None
+
     if phrase in config.master_phrase_map.keys():
         return config.master_phrase_map.get(phrase)
     else:  # compare each word in phrase to spell list
@@ -113,6 +154,47 @@ def process_match(line, match, timestamp, q):
     else:
         print('ignored message: ' + line)
         state.stats['ignored'] = state.stats.get('ignored') + 1
+
+
+def build_persona_context(name):
+    if name in VIP_PLAYERS:
+        familiarity = 'vip/priority'
+    elif name in state.priority_queue:
+        familiarity = 'vip/priority'
+    else:
+        familiarity = 'guild regular'
+    return {'player_name': name, 'familiarity': familiarity}
+
+
+def send_persona_reply(phrase, name, timestamp, q):
+    def on_reply(reply, error):
+        if reply:
+            add_item_to_queue('tell', sanitize_for_typing(reply), name, timestamp)
+
+    system_prompt = zlem.render(context=build_persona_context(name))
+    send_prompt_for(name, phrase, callback=on_reply, system_prompt=system_prompt)
+
+
+def resolve_unrecognized_phrase(line, phrase, name, timestamp, q):
+    def on_classified(spell, confidence, coherence, error):
+        if error:
+            send_persona_reply(phrase, name, timestamp, q)
+            return
+
+        if spell and confidence >= SPELL_MATCH_HIGH_CONFIDENCE:
+            write_to_log(f'spell correction: treating "{phrase}" as "{spell}" ({confidence}% confident)')
+            process_match(line, spell, timestamp, q)
+        elif spell and confidence > SPELL_MATCH_LOW_CONFIDENCE:
+            write_to_log(f'spell correction: suggesting "{spell}" for "{phrase}" ({confidence}% confident)')
+            suggestion = sanitize_for_typing(f"didn't catch that, did you mean '{spell}'?")
+            add_item_to_queue('tell', suggestion, name, timestamp)
+        elif coherence < COHERENCE_THRESHOLD:
+            write_to_log(f'phrase "{phrase}" deemed incoherent ({coherence}% coherence), sending canned reply')
+            add_item_to_queue('tell', random.choice(CONFUSION_REPLIES), name, timestamp)
+        else:
+            send_persona_reply(phrase, name, timestamp, q)
+
+    classify_spell_phrase(phrase, on_classified)
 
 
 def monitor_log(filepath, q):
@@ -169,3 +251,9 @@ def monitor_log(filepath, q):
                     state.priority_queue.remove(name)
                     write_priority_queue()
                     print('priority queue updated: ' + str(state.priority_queue))
+            else:
+                phrase = extract_phrase(line)
+                name = extract_name(line)
+                if phrase is not None and name in state.roster.get('names'):
+                    resolve_unrecognized_phrase(line, phrase, name, timestamp, q)
+                    print('resolving unrecognized phrase: ' + phrase)
