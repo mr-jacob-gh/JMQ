@@ -1403,8 +1403,7 @@
             "short_name": "kael",
             "adjacent_zones": [
                 "Eastern Wastes",
-                "Wakening Land",
-                "Western Wastes"
+                "Wakening Land"
             ],
             "nearest_druid_port_zone": "Wakening Land",
             "nearest_druid_port_hops": 1,
@@ -1473,16 +1472,15 @@
             "name": "Western Wastes",
             "short_name": "westwastes",
             "adjacent_zones": [
-                "Kael Drakkal",
-                "Wakening Land",
+                "Temple of Veeshan",
                 "Siren's Grotto",
                 "Dragon Necropolis"
             ],
-            "nearest_druid_port_zone": "Wakening Land",
-            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_zone": "Cobalt Scar",
+            "nearest_druid_port_hops": 2,
             "nearest_druid_port_spells": [
-                "gwl",
-                "wl"
+                "gcs",
+                "cs"
             ]
         },
         {
@@ -1491,11 +1489,11 @@
             "adjacent_zones": [
                 "Western Wastes"
             ],
-            "nearest_druid_port_zone": "Wakening Land",
+            "nearest_druid_port_zone": "Cobalt Scar",
             "nearest_druid_port_hops": 2,
             "nearest_druid_port_spells": [
-                "gwl",
-                "wl"
+                "gcs",
+                "cs"
             ]
         },
         {
