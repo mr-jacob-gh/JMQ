@@ -9,7 +9,7 @@ from jmq.utils import (
     write_to_log, write_priority_queue, write_ignore_list, sanitize_for_typing, looks_like_persona_break,
 )
 from jmq.queue_manager import add_item_to_queue, already_in_queue
-from jmq.llm_client import send_prompt_for, classify_spell_phrase, classify_druid_spell_phrase, classify_zone_phrase
+from jmq.llm_client import send_prompt_for, classify_spell_phrase, classify_zone_phrase
 from jmq.zlem_persona import zlem
 
 SPELL_MATCH_HIGH_CONFIDENCE = 90
@@ -219,23 +219,9 @@ def resolve_unrecognized_phrase(line, phrase, name, timestamp, q):
             write_to_log(f'spell correction: treating "{phrase}" as "{spell}" ({confidence}% confident)')
             process_match(line, spell, timestamp, q)
         else:
-            resolve_spell_phrase(phrase, name, timestamp, q, coherence)
+            resolve_zone_phrase(phrase, name, timestamp, q, coherence)
 
     classify_spell_phrase(phrase, on_classified)
-
-
-def resolve_spell_phrase(phrase, name, timestamp, q, coherence):
-    def on_spell_classified(spell, confidence, error):
-        if not error and spell and confidence >= SPELL_MATCH_HIGH_CONFIDENCE:
-            write_to_log(f'spell correction: suggesting "{spell}" for "{phrase}" ({confidence}% confident)')
-            state.pending_suggestions[name] = {'spell': spell, 'timestamp': timestamp}
-            suggestion = sanitize_for_typing(f"didn't catch that, did you mean '{spell}'?")
-            add_item_to_queue('tell', suggestion, name, timestamp)
-            return
-
-        resolve_zone_phrase(phrase, name, timestamp, q, coherence)
-
-    classify_druid_spell_phrase(phrase, on_spell_classified)
 
 
 def resolve_zone_phrase(phrase, name, timestamp, q, coherence):
