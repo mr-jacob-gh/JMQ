@@ -5,7 +5,9 @@ import time
 from pathlib import Path
 
 from jmq import config, state, zones
-from jmq.utils import write_to_log, write_priority_queue, write_ignore_list, sanitize_for_typing
+from jmq.utils import (
+    write_to_log, write_priority_queue, write_ignore_list, sanitize_for_typing, looks_like_persona_break,
+)
 from jmq.queue_manager import add_item_to_queue, already_in_queue
 from jmq.llm_client import send_prompt_for, classify_spell_phrase, classify_zone_phrase
 from jmq.zlem_persona import zlem
@@ -186,9 +188,22 @@ def build_persona_context(name):
     return {'player_name': name, 'familiarity': familiarity}
 
 
+PERSONA_BREAK_REPLIES = [
+    "nice try, that's not happening.",
+    "cute attempt, still not answering that.",
+    "ask me for a buff instead, that one's not landing.",
+    "swing and a miss, try something useful.",
+]
+
+
 def send_persona_reply(phrase, name, timestamp, q):
     def on_reply(reply, error):
-        if reply:
+        if not reply:
+            return
+        if looks_like_persona_break(reply):
+            write_to_log(f'persona break filtered for {name}: {reply!r}')
+            add_item_to_queue('tell', random.choice(PERSONA_BREAK_REPLIES), name, timestamp)
+        else:
             add_item_to_queue('tell', sanitize_for_typing(reply), name, timestamp)
 
     system_prompt = zlem.render(context=build_persona_context(name))

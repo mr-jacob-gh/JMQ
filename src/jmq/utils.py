@@ -22,6 +22,37 @@ def sanitize_for_typing(text):
     return text.strip()
 
 
+_PERSONA_BREAK_PATTERNS = [
+    re.compile(pattern, re.IGNORECASE) for pattern in [
+        r"\bas an ai\b",
+        r"\bi'?m an ai\b",
+        r"\bi am an ai\b",
+        r"\blanguage model\b",
+        r"\bi'?m a bot\b",
+        r"\bi am a bot\b",
+        r"\bas a bot\b",
+        r"\bi'?m a chatbot\b",
+        r"\bi'?m an assistant\b",
+        r"\bas an assistant\b",
+        r"\bvirtual assistant\b",
+        r"\bsystem prompt\b",
+        r"\bmy instructions\b",
+        r"\bopenai\b",
+        r"\banthropic\b",
+        r"\bi'?m just a program\b",
+        r"\bi'?m a script\b",
+    ]
+]
+
+
+def looks_like_persona_break(text):
+    """True if the text contains a known identity-leak/persona-break signature
+    (e.g. "as an AI", "language model", "system prompt"), used as a deterministic
+    backstop against prompt injection before a reply is sent to a player.
+    """
+    return any(pattern.search(text) for pattern in _PERSONA_BREAK_PATTERNS)
+
+
 def write_to_log(message):
     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
     with open(config.log_file_path, "a") as log_file:
