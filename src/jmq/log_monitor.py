@@ -312,7 +312,7 @@ def monitor_log(filepath, q):
             if match is not None:
                 if "group" in line.lower():
                     handle_unmatched_line(line, timestamp, q)
-                else
+                else:
                     process_match(line, match, timestamp, q)
             elif 'has joined your guild' in line or 'no longer a member of your guild' in line:
                 q.put({'type': 'updateroster', 'phrase': None, 'name': None})
