@@ -210,15 +210,17 @@ def send_persona_reply(phrase, name, timestamp, q):
     send_prompt_for(name, phrase, callback=on_reply, system_prompt=system_prompt)
 
 
-def resolve_unrecognized_phrase(line, phrase, name, timestamp, q):
+def resolve_unrecognized_phrase(phrase, name, timestamp, q):
     def on_classified(spell, confidence, coherence, error):
         if error:
             send_persona_reply(phrase, name, timestamp, q)
             return
 
         if spell and confidence >= SPELL_MATCH_HIGH_CONFIDENCE:
-            write_to_log(f'spell correction: treating "{phrase}" as "{spell}" ({confidence}% confident)')
-            process_match(line, spell, timestamp, q)
+            write_to_log(f'spell correction: suggesting "{spell}" for "{phrase}" ({confidence}% confident)')
+            state.pending_suggestions[name] = {'spell': spell, 'timestamp': timestamp}
+            suggestion = f"don't recognize that spell, but sounds like you meant '{spell}'? want it?"
+            add_item_to_queue('tell', sanitize_for_typing(suggestion), name, timestamp)
         else:
             resolve_zone_phrase(phrase, name, timestamp, q, coherence)
 
@@ -294,7 +296,7 @@ def handle_unmatched_line(line, timestamp, q):
         and (name).lower() not in state.ignore_list
     ):
         if not resolve_confirmed_suggestion(line, phrase, name, timestamp, q):
-            resolve_unrecognized_phrase(line, phrase, name, timestamp, q)
+            resolve_unrecognized_phrase(phrase, name, timestamp, q)
             print('resolving unrecognized phrase: ' + phrase)
 
 
