@@ -35,10 +35,16 @@ def clamp_reply_length(text, max_sentences=2, max_words=30):
         return text
 
     sentences = [s.strip() for s in _SENTENCE_SPLIT_RE.findall(text) if s.strip()]
-    clamped = ' '.join(sentences[:max_sentences])
+    sentences = sentences[:max_sentences]
+
+    while len(sentences) > 1 and sum(len(s.split(' ')) for s in sentences) > max_words:
+        sentences.pop()
+
+    clamped = ' '.join(sentences)
 
     words = clamped.split(' ')
     if len(words) > max_words:
+        # No smaller full-sentence option fits under the cap - fall back to a hard cut.
         clamped = ' '.join(words[:max_words])
 
     return clamped
