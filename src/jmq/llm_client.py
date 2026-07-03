@@ -144,6 +144,14 @@ SPELL_CLASSIFIER_SYSTEM_PROMPT = (
     "because it starts with 'pot' - potato is a real, unrelated word. 'butt' does NOT match 'bb' just "
     "because they share letters - it's an unrelated word/insult, not a mangled version of 'bb'. "
     "'ronaldo' does NOT match anything just because it's a name.\n\n"
+    "Some spells are tagged [group-cast spell] in the list - these can only be cast on the caster's "
+    "full group, not a single player. Only match a message to a [group-cast spell] if it clearly asks "
+    "for something for the whole group (e.g. mentions 'group', 'party', 'everyone', 'guys', 'us'). "
+    "Do not pick a [group-cast spell] just because its key/alias looks similar to a single-target "
+    "spell's - e.g. 'sow' by itself should match the single-target 'sow', not the group-cast 'gsow', "
+    "and 'group sow' or 'gsow' should match the group-cast 'gsow' rather than plain 'sow'. If a "
+    "spell has both a single-target and group-cast version and the message doesn't clearly ask for "
+    "the group, prefer the non-group version.\n\n"
     "2. Coherence: separately, score whether the message contains ANY recognizable language - real "
     "words, common abbreviations, leetspeak, game slang, or profanity - no matter how short, rude, "
     "crude, low-effort, or off-topic. Recognizable language of any kind means HIGH coherence "
@@ -171,7 +179,8 @@ def _spell_options_text():
     for spell in sorted(grouped):
         aliases = set(grouped[spell]) | set(druid_spells.get_spell_names(spell))
         aliases = sorted(alias for alias in aliases if alias != spell)
-        lines.append(f'{spell} ({", ".join(aliases)})' if aliases else spell)
+        tag = ' [group-cast spell]' if spell in config.group_spells else ''
+        lines.append(f'{spell}{tag} ({", ".join(aliases)})' if aliases else f'{spell}{tag}')
     return '\n'.join(lines)
 
 
