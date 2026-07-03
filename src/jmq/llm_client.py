@@ -4,7 +4,7 @@ import threading
 import urllib.error
 import urllib.request
 
-from jmq import config, state, zones
+from jmq import config, state, zones, druid_spells
 from jmq.utils import write_to_log, write_conversation_history
 
 
@@ -216,6 +216,77 @@ def classify_spell_phrase(phrase, callback):
             f'coherence={coherence}'
         )
         callback(spell, confidence, coherence, None)
+
+    send_prompt(phrase, callback=_on_reply, system_prompt=system_prompt)
+
+
+DRUID_SPELL_CLASSIFIER_SYSTEM_PROMPT = (
+    "You are a message classifier for an EverQuest guild assistant bot. The player's message did "
+    "not match any known spell phrase. They may be trying to request one of the following druid "
+    "spells by its full in-game name, but misspelled or misworded it. Here is the list of valid "
+    "spell names:\n\n{options}\n\n"
+    "Decide which spell, if any, the player most likely meant. Be strict: a real word or common "
+    "English word that merely happens to share a few letters, a prefix, or a similar sound with a "
+    "spell name is NOT evidence of a match on its own - it's a coincidence, and should get spell "
+    "null and confidence 0. Only treat it as a match if it looks like a genuine typo, dropped/swapped "
+    "letter, missing space, phonetic misspelling, or well-known shorthand for that specific spell "
+    "name - i.e. something a human would recognize as clearly the same word gone wrong, not just a "
+    "lookalike.\n"
+    "Calibrate confidence to how close the match is:\n"
+    "90-100: near-identical to the spell name, or an unambiguous shorthand/nickname for it (single "
+    "typo, transposed letters, missing/extra letter, missing space).\n"
+    "Below 90: don't guess - respond with spell null and confidence 0 instead of a low-confidence "
+    "spell.\n\n"
+    "Respond with ONLY a JSON object, no other text, in the exact form {{\"spell\": "
+    "\"<exact_spell_name_or_null>\", \"confidence\": <integer 0-100>}}. The spell value must exactly "
+    "match one of the names in the list above, or be null."
+)
+
+
+def _druid_spell_options_text():
+    return '\n'.join(druid_spells.DRUID_SPELL_NAMES)
+
+
+def _parse_druid_spell_classification(reply):
+    match = re.search(r'\{.*\}', reply, re.DOTALL)
+    if not match:
+        return None, 0
+    try:
+        data = json.loads(match.group(0))
+    except (json.JSONDecodeError, TypeError):
+        return None, 0
+
+    spell_name = data.get('spell')
+    confidence = data.get('confidence')
+    if not isinstance(confidence, (int, float)):
+        confidence = 0
+    if spell_name not in druid_spells.DRUID_SPELL_NAMES:
+        return None, 0
+
+    spell = druid_spells.get_spell_key(spell_name)
+    if spell is None:
+        return None, 0
+    return spell, confidence
+
+
+def classify_druid_spell_phrase(phrase, callback):
+    """Ask the LLM whether an unrecognized phrase names a druid spell by its full in-game name,
+    using everquest_druid_spells.json as the spell reference (rather than the shorthand phrase map
+    used by classify_spell_phrase).
+
+    callback(spell, confidence, error) is invoked from a background thread once the
+    classification completes. spell is a config key from config.spells (or None), and confidence
+    is an integer 0-100.
+    """
+    system_prompt = DRUID_SPELL_CLASSIFIER_SYSTEM_PROMPT.format(options=_druid_spell_options_text())
+
+    def _on_reply(reply, error):
+        if error or not reply:
+            callback(None, 0, error)
+            return
+        spell, confidence = _parse_druid_spell_classification(reply)
+        _log(f'druid spell classification for {phrase!r}: spell={spell!r}, confidence={confidence}')
+        callback(spell, confidence, None)
 
     send_prompt(phrase, callback=_on_reply, system_prompt=system_prompt)
 

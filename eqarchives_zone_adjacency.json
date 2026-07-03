@@ -712,13 +712,14 @@
             "short_name": "lfaydark",
             "adjacent_zones": [
                 "Greater Faydark",
-                "Mistmoore Castle"
+                "Mistmoore Castle",
+                "Steamfont Mountains"
             ],
-            "nearest_druid_port_zone": "Butcherblock Mountains",
+            "nearest_druid_port_zone": "Steamfont Mountains",
             "nearest_druid_port_hops": 2,
             "nearest_druid_port_spells": [
-                "bb",
-                "gbb"
+                "gsteamfont",
+                "steamfont"
             ]
         },
         {
@@ -740,11 +741,11 @@
             "adjacent_zones": [
                 "Lesser Faydark"
             ],
-            "nearest_druid_port_zone": "Butcherblock Mountains",
+            "nearest_druid_port_zone": "Steamfont Mountains",
             "nearest_druid_port_hops": 3,
             "nearest_druid_port_spells": [
-                "bb",
-                "gbb"
+                "gsteamfont",
+                "steamfont"
             ]
         },
         {
@@ -1542,11 +1543,11 @@
             "adjacent_zones": [
                 "Western Wastes"
             ],
-            "nearest_druid_port_zone": "Wakening Land",
+            "nearest_druid_port_zone": "Cobalt Scar",
             "nearest_druid_port_hops": 2,
             "nearest_druid_port_spells": [
-                "gwl",
-                "wl"
+                "gcs",
+                "cs"
             ]
         },
         {

@@ -1,0 +1,767 @@
+[
+  {
+    "name": "Ancient: Legacy of Blades",
+    "type": "buff",
+    "config_keys": [
+      "blades"
+    ],
+    "group": false
+  },
+  {
+    "name": "Bind Affinity",
+    "type": "buff",
+    "config_keys": [
+      "ba"
+    ],
+    "group": true
+  },
+  {
+    "name": "Bladecoat",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Blessing of Replenishment",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Blessing of the Nine",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Brackencoat",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Camouflage",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Chloroplast",
+    "type": "buff",
+    "config_keys": [
+      "chloro"
+    ],
+    "group": false
+  },
+  {
+    "name": "Circle of Seasons",
+    "type": "buff",
+    "config_keys": [
+      "cos"
+    ],
+    "group": false
+  },
+  {
+    "name": "Circle of Summer",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Circle of Winter",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Cure Disease",
+    "type": "buff",
+    "config_keys": [
+      "counteractdisease"
+    ],
+    "group": false
+  },
+  {
+    "name": "Cure Poison",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Endure Cold",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Endure Disease",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Endure Fire",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Endure Magic",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Endure Poison",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Enduring Breath",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Everlasting Breath",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Flight of Eagles",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Foliage Shield",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Form of the Great Wolf",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Form of the Howler",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Form of the Hunter",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Greater Healing",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Improved Superior Camouflage",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Invisibility versus Animals",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Karana's Renewal",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Legacy of Bracken",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Legacy of Spike",
+    "type": "buff",
+    "config_keys": [
+      "gthorns"
+    ],
+    "group": false
+  },
+  {
+    "name": "Legacy of Thorn",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Levitate",
+    "type": "buff",
+    "config_keys": [
+      "lev"
+    ],
+    "group": false
+  },
+  {
+    "name": "Levitation",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Light Healing",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Mask of the Forest",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Mask of the Hunter",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Mask of the Stalker",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Minor Healing",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Nature's Infusion",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Nature's Might",
+    "type": "buff",
+    "config_keys": [
+      "nmight"
+    ],
+    "group": false
+  },
+  {
+    "name": "Nature's Recovery",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Nature's Touch",
+    "type": "buff",
+    "config_keys": [
+      "heal"
+    ],
+    "group": false
+  },
+  {
+    "name": "Natureskin",
+    "type": "buff",
+    "config_keys": [
+      "natureskin"
+    ],
+    "group": false
+  },
+  {
+    "name": "Pack Chloroplast",
+    "type": "buff",
+    "config_keys": [
+      "gchloro"
+    ],
+    "group": false
+  },
+  {
+    "name": "Pack Regeneration",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Pack Spirit",
+    "type": "buff",
+    "config_keys": [
+      "gsow"
+    ],
+    "group": false
+  },
+  {
+    "name": "Protection of Diamond",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Protection of Nature",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Protection of Rock",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Protection of Seasons",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Protection of Steel",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Protection of Wood",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Protection of the Cabbage",
+    "type": "buff",
+    "config_keys": [
+      "potc"
+    ],
+    "group": false
+  },
+  {
+    "name": "Protection of the Glades",
+    "type": "buff",
+    "config_keys": [
+      "potg"
+    ],
+    "group": false
+  },
+  {
+    "name": "Protection of the Nine",
+    "type": "buff",
+    "config_keys": [
+      "pot9"
+    ],
+    "group": false
+  },
+  {
+    "name": "Regeneration",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Regrowth",
+    "type": "buff",
+    "config_keys": [
+      "regrowth"
+    ],
+    "group": false
+  },
+  {
+    "name": "Regrowth of the Grove",
+    "type": "buff",
+    "config_keys": [
+      "gregrowth"
+    ],
+    "group": false
+  },
+  {
+    "name": "Replenishment",
+    "type": "buff",
+    "config_keys": [
+      "replenishment"
+    ],
+    "group": false
+  },
+  {
+    "name": "Resist Cold",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Resist Disease",
+    "type": "buff",
+    "config_keys": [
+      "resistdisease"
+    ],
+    "group": false
+  },
+  {
+    "name": "Resist Fire",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Resist Magic",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Resist Poison",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Scale of Wolf",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Share Form of the Great Wolf",
+    "type": "buff",
+    "config_keys": [
+      "dena"
+    ],
+    "group": true
+  },
+  {
+    "name": "Share Wolf Form",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Shield of Blades",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Shield of Bracken",
+    "type": "buff",
+    "config_keys": [
+      "bracken"
+    ],
+    "group": false
+  },
+  {
+    "name": "Shield of Brambles",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Shield of Spikes",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Shield of Thistles",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Shield of Thorns",
+    "type": "buff",
+    "config_keys": [
+      "thorns"
+    ],
+    "group": false
+  },
+  {
+    "name": "Skin like Diamond",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Skin like Nature",
+    "type": "buff",
+    "config_keys": [
+      "sln"
+    ],
+    "group": false
+  },
+  {
+    "name": "Skin like Rock",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Skin like Steel",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Skin like Wood",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Spirit of Cheetah",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Spirit of Eagle",
+    "type": "buff",
+    "config_keys": [
+      "soe"
+    ],
+    "group": false
+  },
+  {
+    "name": "Spirit of Oak",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Spirit of Scale",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Spirit of Wolf",
+    "type": "buff",
+    "config_keys": [
+      "sow"
+    ],
+    "group": false
+  },
+  {
+    "name": "Storm Strength",
+    "type": "buff",
+    "config_keys": [
+      "stormstrength"
+    ],
+    "group": false
+  },
+  {
+    "name": "Strength of Earth",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Strength of Stone",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Superior Camouflage",
+    "type": "buff",
+    "config_keys": [
+      "invis"
+    ],
+    "group": true
+  },
+  {
+    "name": "Superior Healing",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Wolf Form",
+    "type": "buff",
+    "group": false
+  },
+  {
+    "name": "Circle of Butcher",
+    "type": "port",
+    "config_keys": [
+      "bb",
+      "gbb"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of Cobalt Scar",
+    "type": "port",
+    "config_keys": [
+      "cs",
+      "gcs"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of Commons",
+    "type": "port",
+    "config_keys": [
+      "cl",
+      "gcl"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of Dawnshroud",
+    "type": "port",
+    "config_keys": [
+      "dawn",
+      "gdawn"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of Feerrott",
+    "type": "port",
+    "config_keys": [
+      "feerrott",
+      "gfear"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of Great Divide",
+    "type": "port",
+    "config_keys": [
+      "gd",
+      "ggd"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of Grimling",
+    "type": "port",
+    "config_keys": [
+      "grim",
+      "ggrim"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of Iceclad",
+    "type": "port",
+    "config_keys": [
+      "ic",
+      "gic"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of Karana",
+    "type": "port",
+    "config_keys": [
+      "nk",
+      "gkarana"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of Knowledge",
+    "type": "port",
+    "config_keys": [
+      "pok"
+    ],
+    "group": false
+  },
+  {
+    "name": "Circle of Lavastorm",
+    "type": "port",
+    "config_keys": [
+      "lava",
+      "glava"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of Misty",
+    "type": "port",
+    "config_keys": [
+      "misty",
+      "gmisty"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of Ro",
+    "type": "port",
+    "config_keys": [
+      "ro",
+      "gro"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of Steamfont",
+    "type": "port",
+    "config_keys": [
+      "steamfont",
+      "gsteamfont"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of Surefall Glade",
+    "type": "port",
+    "config_keys": [
+      "sfg",
+      "gsfg"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of Toxxulia",
+    "type": "port",
+    "config_keys": [
+      "toxx",
+      "gtoxx"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of Twilight",
+    "type": "port",
+    "config_keys": [
+      "twi",
+      "gtwi"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of Wakening Lands",
+    "type": "port",
+    "config_keys": [
+      "wl",
+      "gwl"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of the Combines",
+    "type": "port",
+    "config_keys": [
+      "dl",
+      "gdl"
+    ],
+    "group": true
+  },
+  {
+    "name": "Circle of the Nexus",
+    "type": "port",
+    "config_keys": [
+      "nexus"
+    ],
+    "group": false
+  },
+  {
+    "name": "Egress",
+    "type": "port",
+    "group": false
+  },
+  {
+    "name": "Lesser Succor",
+    "type": "port",
+    "group": false
+  },
+  {
+    "name": "Succor",
+    "type": "port",
+    "group": false
+  },
+  {
+    "name": "Succor: Butcher",
+    "type": "port",
+    "group": false
+  },
+  {
+    "name": "Succor: East",
+    "type": "port",
+    "group": false
+  },
+  {
+    "name": "Succor: Lavastorm",
+    "type": "port",
+    "group": false
+  },
+  {
+    "name": "Succor: North",
+    "type": "port",
+    "group": false
+  },
+  {
+    "name": "Succor: Ro",
+    "type": "port",
+    "group": false
+  },
+  {
+    "name": "Wind of the North",
+    "type": "port",
+    "config_keys": [
+      "sf"
+    ],
+    "group": true
+  },
+  {
+    "name": "Wind of the South",
+    "type": "port",
+    "config_keys": [
+      "ej"
+    ],
+    "group": true
+  }
+]
