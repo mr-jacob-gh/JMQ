@@ -49,7 +49,6 @@ class PersonaTemplate:
     trait_intensity: Dict[str, int] = field(default_factory=dict)
     pet_peeves: List[str] = field(default_factory=list)
     delights: List[str] = field(default_factory=list)
-    verbal_tics: List[str] = field(default_factory=list)
 
     # -- Emotional dynamics ------------------------------------------------
     baseline_tone: str = ""
@@ -124,8 +123,6 @@ class PersonaTemplate:
             personality_bits.append('Pet peeves: ' + ', '.join(self.pet_peeves) + '.')
         if self.delights:
             personality_bits.append('What she enjoys: ' + ', '.join(self.delights) + '.')
-        if self.verbal_tics:
-            personality_bits.append('Verbal tics: ' + ', '.join(self.verbal_tics) + '.')
         if personality_bits:
             sections['personality'] = '\n'.join(personality_bits)
 
