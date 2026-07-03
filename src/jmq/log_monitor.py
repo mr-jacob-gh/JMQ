@@ -285,6 +285,19 @@ def resolve_confirmed_suggestion(line, phrase, name, timestamp, q):
     return True
 
 
+def handle_unmatched_line(line, timestamp, q):
+    phrase = extract_phrase(line)
+    name = extract_name(line)
+    if (
+        phrase is not None
+        and name in state.roster.get('names')
+        and (name).lower() not in state.ignore_list
+    ):
+        if not resolve_confirmed_suggestion(line, phrase, name, timestamp, q):
+            resolve_unrecognized_phrase(line, phrase, name, timestamp, q)
+            print('resolving unrecognized phrase: ' + phrase)
+
+
 def monitor_log(filepath, q):
     block_roster = False
     with open(filepath, 'r', encoding="utf-8", errors="replace") as f:
@@ -297,7 +310,10 @@ def monitor_log(filepath, q):
                 print(failure)
                 state.failure_events.append({'timestamp': timestamp, 'failure': failure, 'line': line})
             if match is not None:
-                process_match(line, match, timestamp, q)
+                if "group" in line.lower():
+                    handle_unmatched_line(line, timestamp, q)
+                else
+                    process_match(line, match, timestamp, q)
             elif 'has joined your guild' in line or 'no longer a member of your guild' in line:
                 q.put({'type': 'updateroster', 'phrase': None, 'name': None})
             elif 'updateroster' in line and block_roster is False:
@@ -354,13 +370,4 @@ def monitor_log(filepath, q):
                     write_to_log(f'ignore list updated: added {target}')
                     print('ignore list updated: ' + str(state.ignore_list))
             else:
-                phrase = extract_phrase(line)
-                name = extract_name(line)
-                if (
-                    phrase is not None
-                    and name in state.roster.get('names')
-                    and (name).lower() not in state.ignore_list
-                ):
-                    if not resolve_confirmed_suggestion(line, phrase, name, timestamp, q):
-                        resolve_unrecognized_phrase(line, phrase, name, timestamp, q)
-                        print('resolving unrecognized phrase: ' + phrase)
+                handle_unmatched_line(line, timestamp, q)
