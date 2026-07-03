@@ -22,6 +22,28 @@ def sanitize_for_typing(text):
     return text.strip()
 
 
+_SENTENCE_SPLIT_RE = re.compile(r'[^.!?]+(?:[.!?]+|$)')
+
+
+def clamp_reply_length(text, max_sentences=2, max_words=30):
+    """Deterministic backstop for the persona's sentence/word formatting rules
+    (see zlem_persona.py formatting_constraints) - the LLM doesn't always obey
+    them, so trim any overrun here rather than sending it to a player as-is.
+    """
+    text = text.strip()
+    if not text:
+        return text
+
+    sentences = [s.strip() for s in _SENTENCE_SPLIT_RE.findall(text) if s.strip()]
+    clamped = ' '.join(sentences[:max_sentences])
+
+    words = clamped.split(' ')
+    if len(words) > max_words:
+        clamped = ' '.join(words[:max_words])
+
+    return clamped
+
+
 _PERSONA_BREAK_PATTERNS = [
     re.compile(pattern, re.IGNORECASE) for pattern in [
         r"\bas an ai\b",

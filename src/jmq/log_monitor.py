@@ -7,6 +7,7 @@ from pathlib import Path
 from jmq import config, state, zones
 from jmq.utils import (
     write_to_log, write_priority_queue, write_ignore_list, sanitize_for_typing, looks_like_persona_break,
+    clamp_reply_length,
 )
 from jmq.queue_manager import add_item_to_queue, already_in_queue
 from jmq.llm_client import send_prompt_for, classify_spell_phrase, classify_zone_phrase
@@ -203,7 +204,7 @@ def send_persona_reply(phrase, name, timestamp, q):
             write_to_log(f'persona break filtered for {name}: {reply!r}')
             add_item_to_queue('tell', random.choice(PERSONA_BREAK_REPLIES), name, timestamp)
         else:
-            add_item_to_queue('tell', sanitize_for_typing(reply), name, timestamp)
+            add_item_to_queue('tell', clamp_reply_length(sanitize_for_typing(reply)), name, timestamp)
 
     system_prompt = zlem.render(context=build_persona_context(name))
     send_prompt_for(name, phrase, callback=on_reply, system_prompt=system_prompt)
