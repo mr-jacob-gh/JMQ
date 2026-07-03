@@ -4,7 +4,7 @@ import threading
 import urllib.error
 import urllib.request
 
-from jmq import config, state
+from jmq import config, state, zones
 from jmq.utils import write_to_log, write_conversation_history
 
 
@@ -216,5 +216,69 @@ def classify_spell_phrase(phrase, callback):
             f'coherence={coherence}'
         )
         callback(spell, confidence, coherence, None)
+
+    send_prompt(phrase, callback=_on_reply, system_prompt=system_prompt)
+
+
+ZONE_CLASSIFIER_SYSTEM_PROMPT = (
+    "You are a message classifier for an EverQuest guild assistant bot. The player's message did "
+    "not match any known spell request. Work out whether they are instead naming or describing an "
+    "EverQuest zone, likely asking for a port/travel there. Here is the list of valid zone names:\n\n"
+    "{options}\n\n"
+    "Decide which zone, if any, the player most likely meant. Be strict: only pick a zone if the "
+    "message clearly names it, a common abbreviation/nickname for it, or a close misspelling of it - "
+    "a coincidental shared word or letters is NOT evidence of a match. If nothing plausibly names a "
+    "zone, respond with zone null and confidence 0.\n"
+    "Calibrate confidence to how close the match is:\n"
+    "90-100: the exact zone name, a well-known nickname/abbreviation, or a single-typo variant.\n"
+    "70-89: clearly the same zone once you account for shorthand or a missing word (e.g. 'ro' could "
+    "be either desert of ro zone - only use this range if genuinely ambiguous).\n"
+    "Below 70: don't guess - respond with zone null and confidence 0 instead of a low-confidence "
+    "zone.\n\n"
+    "Respond with ONLY a JSON object, no other text, in the exact form {{\"zone\": "
+    "\"<exact_zone_name_or_null>\", \"confidence\": <integer 0-100>}}. The zone value must exactly "
+    "match one of the names in the list above, or be null."
+)
+
+
+def _zone_options_text():
+    return '\n'.join(zones.ZONE_NAMES)
+
+
+def _parse_zone_classification(reply):
+    match = re.search(r'\{.*\}', reply, re.DOTALL)
+    if not match:
+        return None, 0
+    try:
+        data = json.loads(match.group(0))
+    except (json.JSONDecodeError, TypeError):
+        return None, 0
+
+    zone = data.get('zone')
+    confidence = data.get('confidence')
+    if not isinstance(confidence, (int, float)):
+        confidence = 0
+    if zone not in zones.ZONE_NAMES:
+        zone = None
+    return zone, confidence
+
+
+def classify_zone_phrase(phrase, callback):
+    """Ask the LLM whether an unrecognized phrase (that didn't match a spell) is naming an
+    EverQuest zone the player wants a port to.
+
+    callback(zone, confidence, error) is invoked from a background thread once the
+    classification completes. zone is an exact name from zones.ZONE_NAMES (or None), and
+    confidence is an integer 0-100.
+    """
+    system_prompt = ZONE_CLASSIFIER_SYSTEM_PROMPT.format(options=_zone_options_text())
+
+    def _on_reply(reply, error):
+        if error or not reply:
+            callback(None, 0, error)
+            return
+        zone, confidence = _parse_zone_classification(reply)
+        _log(f'zone classification for {phrase!r}: zone={zone!r}, confidence={confidence}')
+        callback(zone, confidence, None)
 
     send_prompt(phrase, callback=_on_reply, system_prompt=system_prompt)

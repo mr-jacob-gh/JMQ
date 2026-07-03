@@ -4,14 +4,15 @@ import re
 import time
 from pathlib import Path
 
-from jmq import config, state
+from jmq import config, state, zones
 from jmq.utils import write_to_log, write_priority_queue, write_ignore_list, sanitize_for_typing
 from jmq.queue_manager import add_item_to_queue, already_in_queue
-from jmq.llm_client import send_prompt_for, classify_spell_phrase
+from jmq.llm_client import send_prompt_for, classify_spell_phrase, classify_zone_phrase
 from jmq.zlem_persona import zlem
 
 SPELL_MATCH_HIGH_CONFIDENCE = 90
 SPELL_MATCH_LOW_CONFIDENCE = 75
+ZONE_MATCH_CONFIDENCE = 90
 COHERENCE_THRESHOLD = 30
 SUGGESTION_TTL_SECONDS = 120
 
@@ -208,13 +209,40 @@ def resolve_unrecognized_phrase(line, phrase, name, timestamp, q):
             state.pending_suggestions[name] = {'spell': spell, 'timestamp': timestamp}
             suggestion = sanitize_for_typing(f"didn't catch that, did you mean '{spell}'?")
             add_item_to_queue('tell', suggestion, name, timestamp)
-        elif coherence < COHERENCE_THRESHOLD:
+        else:
+            resolve_zone_phrase(phrase, name, timestamp, q, coherence)
+
+    classify_spell_phrase(phrase, on_classified)
+
+
+def resolve_zone_phrase(phrase, name, timestamp, q, coherence):
+    def on_zone_classified(zone, confidence, error):
+        if not error and zone and confidence > ZONE_MATCH_CONFIDENCE:
+            port = zones.get_nearest_druid_port(zone, castable_spells=config.spells)
+            if port:
+                spell = port['spell']
+                write_to_log(
+                    f'zone correction: suggesting port "{spell}" toward "{zone}" for "{phrase}" '
+                    f'({confidence}% confident)'
+                )
+                state.pending_suggestions[name] = {'spell': spell, 'timestamp': timestamp}
+                if port['hops'] == 0:
+                    suggestion = f"no spell match, but sounds like you want a port to {zone}? closest is '{spell}', want it?"
+                else:
+                    suggestion = (
+                        f"no spell match, but sounds like you want to get to {zone}? closest port is "
+                        f"'{spell}' to {port['port_zone']}, want it?"
+                    )
+                add_item_to_queue('tell', sanitize_for_typing(suggestion), name, timestamp)
+                return
+
+        if coherence < COHERENCE_THRESHOLD:
             write_to_log(f'phrase "{phrase}" deemed incoherent ({coherence}% coherence), sending canned reply')
             add_item_to_queue('tell', random.choice(CONFUSION_REPLIES), name, timestamp)
         else:
             send_persona_reply(phrase, name, timestamp, q)
 
-    classify_spell_phrase(phrase, on_classified)
+    classify_zone_phrase(phrase, on_zone_classified)
 
 
 def is_confirmation(phrase):

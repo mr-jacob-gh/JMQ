@@ -1,0 +1,2192 @@
+{
+    "source": "https://www.eqarchives.com/zones/",
+    "generated_at": "2026-07-02",
+    "notes": "Best-effort zone adjacency list assembled from EQ Archives zone pages and their Adjacent Zones field. Entries use display names from EQ Archives where possible.",
+    "zones": [
+        {
+            "name": "Commonlands",
+            "short_name": "commons",
+            "adjacent_zones": [
+                "Kithicor Forest",
+                "Befallen",
+                "West Freeport",
+                "Nektulos Forest",
+                "Northern Desert of Ro"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "cl",
+                "gcl"
+            ]
+        },
+        {
+            "name": "West Freeport",
+            "short_name": "freportw",
+            "adjacent_zones": [
+                "Commonlands",
+                "East Freeport"
+            ],
+            "nearest_druid_port_zone": "Commonlands",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "cl",
+                "gcl"
+            ]
+        },
+        {
+            "name": "East Freeport",
+            "short_name": "freporte",
+            "adjacent_zones": [
+                "West Freeport",
+                "Ocean of Tears"
+            ],
+            "nearest_druid_port_zone": "Commonlands",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "cl",
+                "gcl"
+            ]
+        },
+        {
+            "name": "Nektulos Forest",
+            "short_name": "nektulos",
+            "adjacent_zones": [
+                "Commonlands",
+                "Lavastorm Mountains",
+                "Neriak - Foreign Quarter"
+            ],
+            "nearest_druid_port_zone": "Commonlands",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "cl",
+                "gcl"
+            ]
+        },
+        {
+            "name": "Neriak - Foreign Quarter",
+            "short_name": "neriaka",
+            "adjacent_zones": [
+                "Nektulos Forest",
+                "Neriak - Commons"
+            ],
+            "nearest_druid_port_zone": "Commonlands",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "cl",
+                "gcl"
+            ]
+        },
+        {
+            "name": "Neriak - Commons",
+            "short_name": "neriakb",
+            "adjacent_zones": [
+                "Neriak - Foreign Quarter",
+                "Neriak - 3rd Gate"
+            ],
+            "nearest_druid_port_zone": "Commonlands",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "cl",
+                "gcl"
+            ]
+        },
+        {
+            "name": "Neriak - 3rd Gate",
+            "short_name": "neriakc",
+            "adjacent_zones": [
+                "Neriak - Commons"
+            ],
+            "nearest_druid_port_zone": "Commonlands",
+            "nearest_druid_port_hops": 4,
+            "nearest_druid_port_spells": [
+                "cl",
+                "gcl"
+            ]
+        },
+        {
+            "name": "Northern Desert of Ro",
+            "short_name": "nro",
+            "adjacent_zones": [
+                "Commonlands",
+                "Southern Desert of Ro",
+                "Iceclad Ocean"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "gro",
+                "ro"
+            ]
+        },
+        {
+            "name": "Southern Desert of Ro",
+            "short_name": "sro",
+            "adjacent_zones": [
+                "Northern Desert of Ro",
+                "Innothule Swamp"
+            ],
+            "nearest_druid_port_zone": "Northern Desert of Ro",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gro",
+                "ro"
+            ]
+        },
+        {
+            "name": "Innothule Swamp",
+            "short_name": "innothule",
+            "adjacent_zones": [
+                "Southern Desert of Ro",
+                "The Feerrott",
+                "Grobb",
+                "Guk"
+            ],
+            "nearest_druid_port_zone": "The Feerrott",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "feerrott",
+                "gfear"
+            ]
+        },
+        {
+            "name": "Grobb",
+            "short_name": "grobb",
+            "adjacent_zones": [
+                "Innothule Swamp"
+            ],
+            "nearest_druid_port_zone": "The Feerrott",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "feerrott",
+                "gfear"
+            ]
+        },
+        {
+            "name": "The Feerrott",
+            "short_name": "feerrott",
+            "adjacent_zones": [
+                "Innothule Swamp",
+                "Oggok",
+                "Rathe Mountains",
+                "Cazic Thule"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "feerrott",
+                "gfear"
+            ]
+        },
+        {
+            "name": "Oggok",
+            "short_name": "oggok",
+            "adjacent_zones": [
+                "The Feerrott"
+            ],
+            "nearest_druid_port_zone": "The Feerrott",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "feerrott",
+                "gfear"
+            ]
+        },
+        {
+            "name": "Rathe Mountains",
+            "short_name": "rathemtn",
+            "adjacent_zones": [
+                "The Feerrott",
+                "Lake Rathetear"
+            ],
+            "nearest_druid_port_zone": "The Feerrott",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "feerrott",
+                "gfear"
+            ]
+        },
+        {
+            "name": "Lake Rathetear",
+            "short_name": "lakerathe",
+            "adjacent_zones": [
+                "Rathe Mountains",
+                "Southern Karana",
+                "The Arena"
+            ],
+            "nearest_druid_port_zone": "The Feerrott",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "feerrott",
+                "gfear"
+            ]
+        },
+        {
+            "name": "Southern Karana",
+            "short_name": "southkarana",
+            "adjacent_zones": [
+                "Lake Rathetear",
+                "Northern Karana",
+                "Splitpaw Lair"
+            ],
+            "nearest_druid_port_zone": "Northern Karana",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gkarana",
+                "nk"
+            ]
+        },
+        {
+            "name": "Northern Karana",
+            "short_name": "northkarana",
+            "adjacent_zones": [
+                "Southern Karana",
+                "Eastern Karana",
+                "Western Karana"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "gkarana",
+                "nk"
+            ]
+        },
+        {
+            "name": "Eastern Karana",
+            "short_name": "eastkarana",
+            "adjacent_zones": [
+                "Northern Karana",
+                "Highpass Hold"
+            ],
+            "nearest_druid_port_zone": "Northern Karana",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gkarana",
+                "nk"
+            ]
+        },
+        {
+            "name": "Western Karana",
+            "short_name": "qey2hh1",
+            "adjacent_zones": [
+                "Northern Karana",
+                "Qeynos Hills"
+            ],
+            "nearest_druid_port_zone": "Northern Karana",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gkarana",
+                "nk"
+            ]
+        },
+        {
+            "name": "Qeynos Hills",
+            "short_name": "qeytoqrg",
+            "adjacent_zones": [
+                "Western Karana",
+                "North Qeynos",
+                "Surefall Glade",
+                "Blackburrow"
+            ],
+            "nearest_druid_port_zone": "Surefall Glade",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gsfg",
+                "sfg"
+            ]
+        },
+        {
+            "name": "North Qeynos",
+            "short_name": "qeynos2",
+            "adjacent_zones": [
+                "Qeynos Hills",
+                "South Qeynos",
+                "Qeynos Aqueducts"
+            ],
+            "nearest_druid_port_zone": "Surefall Glade",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "gsfg",
+                "sfg"
+            ]
+        },
+        {
+            "name": "South Qeynos",
+            "short_name": "qeynos",
+            "adjacent_zones": [
+                "North Qeynos",
+                "Qeynos Aqueducts"
+            ],
+            "nearest_druid_port_zone": "Surefall Glade",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "gsfg",
+                "sfg"
+            ]
+        },
+        {
+            "name": "Qeynos Aqueducts",
+            "short_name": "qcat",
+            "adjacent_zones": [
+                "North Qeynos",
+                "South Qeynos"
+            ],
+            "nearest_druid_port_zone": "Surefall Glade",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "gsfg",
+                "sfg"
+            ]
+        },
+        {
+            "name": "Surefall Glade",
+            "short_name": "qrg",
+            "adjacent_zones": [
+                "Qeynos Hills"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "gsfg",
+                "sfg"
+            ]
+        },
+        {
+            "name": "Blackburrow",
+            "short_name": "blackburrow",
+            "adjacent_zones": [
+                "Qeynos Hills",
+                "Everfrost Peaks"
+            ],
+            "nearest_druid_port_zone": "Surefall Glade",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "gsfg",
+                "sfg"
+            ]
+        },
+        {
+            "name": "Everfrost Peaks",
+            "short_name": "everfrost",
+            "adjacent_zones": [
+                "Blackburrow",
+                "Halas",
+                "Permafrost"
+            ],
+            "nearest_druid_port_zone": "Surefall Glade",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "gsfg",
+                "sfg"
+            ]
+        },
+        {
+            "name": "Halas",
+            "short_name": "halas",
+            "adjacent_zones": [
+                "Everfrost Peaks"
+            ],
+            "nearest_druid_port_zone": "Surefall Glade",
+            "nearest_druid_port_hops": 4,
+            "nearest_druid_port_spells": [
+                "gsfg",
+                "sfg"
+            ]
+        },
+        {
+            "name": "Permafrost",
+            "short_name": "permafrost",
+            "adjacent_zones": [
+                "Everfrost Peaks"
+            ],
+            "nearest_druid_port_zone": "Surefall Glade",
+            "nearest_druid_port_hops": 4,
+            "nearest_druid_port_spells": [
+                "gsfg",
+                "sfg"
+            ]
+        },
+        {
+            "name": "Highpass Hold",
+            "short_name": "highpass",
+            "adjacent_zones": [
+                "Eastern Karana",
+                "Kithicor Forest",
+                "High Keep"
+            ],
+            "nearest_druid_port_zone": "Northern Karana",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "gkarana",
+                "nk"
+            ]
+        },
+        {
+            "name": "High Keep",
+            "short_name": "highkeep",
+            "adjacent_zones": [
+                "Highpass Hold"
+            ],
+            "nearest_druid_port_zone": "Northern Karana",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "gkarana",
+                "nk"
+            ]
+        },
+        {
+            "name": "Kithicor Forest",
+            "short_name": "kithicor",
+            "adjacent_zones": [
+                "Highpass Hold",
+                "Rivervale"
+            ],
+            "nearest_druid_port_zone": "Commonlands",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "cl",
+                "gcl"
+            ]
+        },
+        {
+            "name": "Rivervale",
+            "short_name": "rivervale",
+            "adjacent_zones": [
+                "Kithicor Forest",
+                "Misty Thicket"
+            ],
+            "nearest_druid_port_zone": "Misty Thicket",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gmisty",
+                "misty"
+            ]
+        },
+        {
+            "name": "Misty Thicket",
+            "short_name": "misty",
+            "adjacent_zones": [
+                "Rivervale",
+                "Runnyeye Citadel"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "gmisty",
+                "misty"
+            ]
+        },
+        {
+            "name": "Runnyeye Citadel",
+            "short_name": "runnyeye",
+            "adjacent_zones": [
+                "Misty Thicket",
+                "Beholder's Maze"
+            ],
+            "nearest_druid_port_zone": "Misty Thicket",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gmisty",
+                "misty"
+            ]
+        },
+        {
+            "name": "Beholder's Maze (Gorge of King Xorbb)",
+            "short_name": "beholder",
+            "adjacent_zones": [
+                "Runnyeye Citadel",
+                "East Karana"
+            ],
+            "nearest_druid_port_zone": "Misty Thicket",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "gmisty",
+                "misty"
+            ]
+        },
+        {
+            "name": "Befallen",
+            "short_name": "befallen",
+            "adjacent_zones": [
+                "Commonlands"
+            ],
+            "nearest_druid_port_zone": "Commonlands",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "cl",
+                "gcl"
+            ]
+        },
+        {
+            "name": "Cazic Thule",
+            "short_name": "cazicthule",
+            "adjacent_zones": [
+                "The Feerrott"
+            ],
+            "nearest_druid_port_zone": "The Feerrott",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "feerrott",
+                "gfear"
+            ]
+        },
+        {
+            "name": "Guk",
+            "short_name": "guktop",
+            "adjacent_zones": [
+                "Innothule Swamp",
+                "Ruins of Old Guk"
+            ],
+            "nearest_druid_port_zone": "The Feerrott",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "feerrott",
+                "gfear"
+            ]
+        },
+        {
+            "name": "Ruins of Old Guk",
+            "short_name": "gukbottom",
+            "adjacent_zones": [
+                "Guk"
+            ],
+            "nearest_druid_port_zone": "The Feerrott",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "feerrott",
+                "gfear"
+            ]
+        },
+        {
+            "name": "Solusek's Eye",
+            "short_name": "soldunga",
+            "adjacent_zones": [
+                "Lavastorm Mountains",
+                "Nagafen's Lair"
+            ],
+            "nearest_druid_port_zone": "Lavastorm Mountains",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "glava",
+                "lava"
+            ]
+        },
+        {
+            "name": "Nagafen's Lair",
+            "short_name": "soldungb",
+            "adjacent_zones": [
+                "Solusek's Eye"
+            ],
+            "nearest_druid_port_zone": "Lavastorm Mountains",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "glava",
+                "lava"
+            ]
+        },
+        {
+            "name": "Lavastorm Mountains",
+            "short_name": "lavastorm",
+            "adjacent_zones": [
+                "Nektulos Forest",
+                "Najena",
+                "Solusek's Eye",
+                "Temple of Solusek Ro"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "glava",
+                "lava"
+            ]
+        },
+        {
+            "name": "Najena",
+            "short_name": "najena",
+            "adjacent_zones": [
+                "Lavastorm Mountains"
+            ],
+            "nearest_druid_port_zone": "Lavastorm Mountains",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "glava",
+                "lava"
+            ]
+        },
+        {
+            "name": "Temple of Solusek Ro",
+            "short_name": "soltemple",
+            "adjacent_zones": [
+                "Lavastorm Mountains"
+            ],
+            "nearest_druid_port_zone": "Lavastorm Mountains",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "glava",
+                "lava"
+            ]
+        },
+        {
+            "name": "Ocean of Tears",
+            "short_name": "oot",
+            "adjacent_zones": [
+                "East Freeport",
+                "Butcherblock Mountains"
+            ],
+            "nearest_druid_port_zone": "Butcherblock Mountains",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "bb",
+                "gbb"
+            ]
+        },
+        {
+            "name": "Butcherblock Mountains",
+            "short_name": "butcher",
+            "adjacent_zones": [
+                "Ocean of Tears",
+                "Dagnor's Cauldron",
+                "Greater Faydark",
+                "Kaladim"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "bb",
+                "gbb"
+            ]
+        },
+        {
+            "name": "Dagnor's Cauldron",
+            "short_name": "cauldron",
+            "adjacent_zones": [
+                "Butcherblock Mountains",
+                "Kedge Keep",
+                "The Estate of Unrest"
+            ],
+            "nearest_druid_port_zone": "Butcherblock Mountains",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "bb",
+                "gbb"
+            ]
+        },
+        {
+            "name": "Kedge Keep",
+            "short_name": "kedge",
+            "adjacent_zones": [
+                "Dagnor's Cauldron"
+            ],
+            "nearest_druid_port_zone": "Butcherblock Mountains",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "bb",
+                "gbb"
+            ]
+        },
+        {
+            "name": "The Estate of Unrest",
+            "short_name": "unrest",
+            "adjacent_zones": [
+                "Dagnor's Cauldron"
+            ],
+            "nearest_druid_port_zone": "Butcherblock Mountains",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "bb",
+                "gbb"
+            ]
+        },
+        {
+            "name": "Greater Faydark",
+            "short_name": "gfaydark",
+            "adjacent_zones": [
+                "Butcherblock Mountains",
+                "Lesser Faydark",
+                "Crushbone",
+                "Kelethin",
+                "Felwithe",
+                "Ak'Anon",
+                "Steamfont Mountains"
+            ],
+            "nearest_druid_port_zone": "Butcherblock Mountains",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "bb",
+                "gbb"
+            ]
+        },
+        {
+            "name": "Lesser Faydark",
+            "short_name": "lfaydark",
+            "adjacent_zones": [
+                "Greater Faydark",
+                "Mistmoore Castle"
+            ],
+            "nearest_druid_port_zone": "Butcherblock Mountains",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "bb",
+                "gbb"
+            ]
+        },
+        {
+            "name": "Crushbone",
+            "short_name": "crushbone",
+            "adjacent_zones": [
+                "Greater Faydark"
+            ],
+            "nearest_druid_port_zone": "Butcherblock Mountains",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "bb",
+                "gbb"
+            ]
+        },
+        {
+            "name": "Mistmoore Castle",
+            "short_name": "mistmoore",
+            "adjacent_zones": [
+                "Lesser Faydark"
+            ],
+            "nearest_druid_port_zone": "Butcherblock Mountains",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "bb",
+                "gbb"
+            ]
+        },
+        {
+            "name": "Ak'Anon",
+            "short_name": "akanon",
+            "adjacent_zones": [
+                "Steamfont Mountains"
+            ],
+            "nearest_druid_port_zone": "Steamfont Mountains",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gsteamfont",
+                "steamfont"
+            ]
+        },
+        {
+            "name": "Steamfont Mountains",
+            "short_name": "steamfont",
+            "adjacent_zones": [
+                "Ak'Anon",
+                "Greater Faydark"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "gsteamfont",
+                "steamfont"
+            ]
+        },
+        {
+            "name": "Northern Felwithe",
+            "short_name": "felwithea",
+            "adjacent_zones": [
+                "Greater Faydark",
+                "Southern Felwithe"
+            ],
+            "nearest_druid_port_zone": "Butcherblock Mountains",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "bb",
+                "gbb"
+            ]
+        },
+        {
+            "name": "Southern Felwithe",
+            "short_name": "felwitheb",
+            "adjacent_zones": [
+                "Northern Felwithe"
+            ],
+            "nearest_druid_port_zone": "Butcherblock Mountains",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "bb",
+                "gbb"
+            ]
+        },
+        {
+            "name": "South Kaladim",
+            "short_name": "kaladima",
+            "adjacent_zones": [
+                "Butcherblock Mountains",
+                "North Kaladim"
+            ],
+            "nearest_druid_port_zone": "Butcherblock Mountains",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "bb",
+                "gbb"
+            ]
+        },
+        {
+            "name": "North Kaladim",
+            "short_name": "kaladimb",
+            "adjacent_zones": [
+                "South Kaladim"
+            ],
+            "nearest_druid_port_zone": "Butcherblock Mountains",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "bb",
+                "gbb"
+            ]
+        },
+        {
+            "name": "Erudin",
+            "short_name": "erudnext",
+            "adjacent_zones": [
+                "Erudin Palace",
+                "Erud's Crossing"
+            ],
+            "nearest_druid_port_zone": "Toxxulia Forest",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "gtoxx",
+                "toxx"
+            ]
+        },
+        {
+            "name": "Erudin Palace",
+            "short_name": "erudnint",
+            "adjacent_zones": [
+                "Erudin"
+            ],
+            "nearest_druid_port_zone": "Toxxulia Forest",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "gtoxx",
+                "toxx"
+            ]
+        },
+        {
+            "name": "Erud's Crossing",
+            "short_name": "erudsxing",
+            "adjacent_zones": [
+                "Erudin",
+                "Toxxulia Forest"
+            ],
+            "nearest_druid_port_zone": "Toxxulia Forest",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gtoxx",
+                "toxx"
+            ]
+        },
+        {
+            "name": "Toxxulia Forest",
+            "short_name": "tox",
+            "adjacent_zones": [
+                "Erud's Crossing",
+                "Paineel",
+                "The Hole",
+                "Kerra Island"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "gtoxx",
+                "toxx"
+            ]
+        },
+        {
+            "name": "Paineel",
+            "short_name": "paineel",
+            "adjacent_zones": [
+                "Toxxulia Forest",
+                "The Warrens"
+            ],
+            "nearest_druid_port_zone": "Toxxulia Forest",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gtoxx",
+                "toxx"
+            ]
+        },
+        {
+            "name": "The Hole",
+            "short_name": "hole",
+            "adjacent_zones": [
+                "Toxxulia Forest"
+            ],
+            "nearest_druid_port_zone": "Toxxulia Forest",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gtoxx",
+                "toxx"
+            ]
+        },
+        {
+            "name": "Kerra Island",
+            "short_name": "kerraridge",
+            "adjacent_zones": [
+                "Toxxulia Forest"
+            ],
+            "nearest_druid_port_zone": "Toxxulia Forest",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gtoxx",
+                "toxx"
+            ]
+        },
+        {
+            "name": "The Warrens",
+            "short_name": "warrens",
+            "adjacent_zones": [
+                "Stonebrunt Mountains",
+                "Paineel"
+            ],
+            "nearest_druid_port_zone": "Toxxulia Forest",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "gtoxx",
+                "toxx"
+            ]
+        },
+        {
+            "name": "Stonebrunt Mountains",
+            "short_name": "stonebrunt",
+            "adjacent_zones": [
+                "The Warrens"
+            ],
+            "nearest_druid_port_zone": "Toxxulia Forest",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "gtoxx",
+                "toxx"
+            ]
+        },
+        {
+            "name": "Field of Bone",
+            "short_name": "fieldofbone",
+            "adjacent_zones": [
+                "East Cabilis",
+                "West Cabilis",
+                "Kurn's Tower",
+                "Warsliks Woods",
+                "Swamp of No Hope",
+                "Kaesora"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "East Cabilis",
+            "short_name": "cabeast",
+            "adjacent_zones": [
+                "Field of Bone",
+                "West Cabilis"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 4,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "West Cabilis",
+            "short_name": "cabwest",
+            "adjacent_zones": [
+                "East Cabilis",
+                "Field of Bone"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 4,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "Kurn's Tower",
+            "short_name": "kurn",
+            "adjacent_zones": [
+                "Field of Bone"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 4,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "Warsliks Woods",
+            "short_name": "warslikswood",
+            "adjacent_zones": [
+                "Field of Bone",
+                "Lake of Ill Omen",
+                "Mines of Nurga",
+                "Temple of Droga"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "Lake of Ill Omen",
+            "short_name": "lakeofillomen",
+            "adjacent_zones": [
+                "Warsliks Woods",
+                "Frontier Mountains",
+                "Swamp of No Hope"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "Swamp of No Hope",
+            "short_name": "swampofnohope",
+            "adjacent_zones": [
+                "Field of Bone",
+                "Lake of Ill Omen",
+                "Firiona Vie",
+                "Trakanon's Teeth"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "Firiona Vie",
+            "short_name": "firiona",
+            "adjacent_zones": [
+                "Swamp of No Hope",
+                "Dreadlands",
+                "Lake of Ill Omen"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "Frontier Mountains",
+            "short_name": "frontiermtns",
+            "adjacent_zones": [
+                "Lake of Ill Omen",
+                "Dreadlands",
+                "Burning Wood",
+                "Temple of Droga"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "Dreadlands",
+            "short_name": "dreadlands",
+            "adjacent_zones": [
+                "Firiona Vie",
+                "Frontier Mountains",
+                "Burning Wood",
+                "Karnor's Castle"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "Burning Wood",
+            "short_name": "burningwood",
+            "adjacent_zones": [
+                "Dreadlands",
+                "Frontier Mountains",
+                "Skyfire Mountains",
+                "Chardok"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "Skyfire Mountains",
+            "short_name": "skyfire",
+            "adjacent_zones": [
+                "Burning Wood",
+                "The Overthere",
+                "Veeshan's Peak"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "sf"
+            ]
+        },
+        {
+            "name": "The Overthere",
+            "short_name": "overthere",
+            "adjacent_zones": [
+                "Skyfire Mountains",
+                "Timorous Deep"
+            ],
+            "nearest_druid_port_zone": "Skyfire Mountains",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "sf"
+            ]
+        },
+        {
+            "name": "Timorous Deep",
+            "short_name": "timorous",
+            "adjacent_zones": [
+                "The Overthere",
+                "Firiona Vie"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "Trakanon's Teeth",
+            "short_name": "trakanon",
+            "adjacent_zones": [
+                "Swamp of No Hope",
+                "Emerald Jungle",
+                "Old Sebilis",
+                "City of Mist"
+            ],
+            "nearest_druid_port_zone": "Emerald Jungle",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "ej"
+            ]
+        },
+        {
+            "name": "Emerald Jungle",
+            "short_name": "emeraldjungle",
+            "adjacent_zones": [
+                "Trakanon's Teeth",
+                "The Overthere"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "ej"
+            ]
+        },
+        {
+            "name": "Old Sebilis",
+            "short_name": "sebilis",
+            "adjacent_zones": [
+                "Trakanon's Teeth"
+            ],
+            "nearest_druid_port_zone": "Emerald Jungle",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "ej"
+            ]
+        },
+        {
+            "name": "City of Mist",
+            "short_name": "citymist",
+            "adjacent_zones": [
+                "Emerald Jungle",
+                "Trakanon's Teeth"
+            ],
+            "nearest_druid_port_zone": "Emerald Jungle",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "ej"
+            ]
+        },
+        {
+            "name": "Kaesora",
+            "short_name": "kaesora",
+            "adjacent_zones": [
+                "Field of Bone"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 4,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "Karnor's Castle",
+            "short_name": "karnor",
+            "adjacent_zones": [
+                "Dreadlands"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "Chardok",
+            "short_name": "chardok",
+            "adjacent_zones": [
+                "Burning Wood"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "Mines of Nurga",
+            "short_name": "nurga",
+            "adjacent_zones": [
+                "Warsliks Woods"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 4,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "Temple of Droga",
+            "short_name": "droga",
+            "adjacent_zones": [
+                "Warsliks Woods",
+                "Frontier Mountains"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "Dalnir",
+            "short_name": "dalnir",
+            "adjacent_zones": [
+                "Warsliks Woods"
+            ],
+            "nearest_druid_port_zone": "Dreadlands",
+            "nearest_druid_port_hops": 4,
+            "nearest_druid_port_spells": [
+                "dl",
+                "gdl"
+            ]
+        },
+        {
+            "name": "Howling Stones",
+            "short_name": "charasis",
+            "adjacent_zones": [
+                "The Overthere"
+            ],
+            "nearest_druid_port_zone": "Skyfire Mountains",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "sf"
+            ]
+        },
+        {
+            "name": "Veeshan's Peak",
+            "short_name": "veeshan",
+            "adjacent_zones": [
+                "Skyfire Mountains"
+            ],
+            "nearest_druid_port_zone": "Skyfire Mountains",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "sf"
+            ]
+        },
+        {
+            "name": "Iceclad Ocean",
+            "short_name": "iceclad",
+            "adjacent_zones": [
+                "Eastern Wastes",
+                "Tower of Frozen Shadow",
+                "Northern Desert of Ro"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "gic",
+                "ic"
+            ]
+        },
+        {
+            "name": "Tower of Frozen Shadow",
+            "short_name": "frozenshadow",
+            "adjacent_zones": [
+                "Iceclad Ocean"
+            ],
+            "nearest_druid_port_zone": "Iceclad Ocean",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gic",
+                "ic"
+            ]
+        },
+        {
+            "name": "Eastern Wastes",
+            "short_name": "eastwastes",
+            "adjacent_zones": [
+                "Iceclad Ocean",
+                "The Great Divide",
+                "Kael Drakkal",
+                "Crystal Caverns"
+            ],
+            "nearest_druid_port_zone": "Iceclad Ocean",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gic",
+                "ic"
+            ]
+        },
+        {
+            "name": "The Great Divide",
+            "short_name": "greatdivide",
+            "adjacent_zones": [
+                "Eastern Wastes",
+                "Thurgadin",
+                "Velketor's Labyrinth"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "gd",
+                "ggd"
+            ]
+        },
+        {
+            "name": "Thurgadin",
+            "short_name": "thurgadina",
+            "adjacent_zones": [
+                "The Great Divide",
+                "Icewell Keep"
+            ],
+            "nearest_druid_port_zone": "The Great Divide",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gd",
+                "ggd"
+            ]
+        },
+        {
+            "name": "Icewell Keep",
+            "short_name": "thurgadinb",
+            "adjacent_zones": [
+                "Thurgadin"
+            ],
+            "nearest_druid_port_zone": "The Great Divide",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "gd",
+                "ggd"
+            ]
+        },
+        {
+            "name": "Kael Drakkal",
+            "short_name": "kael",
+            "adjacent_zones": [
+                "Eastern Wastes",
+                "Wakening Land",
+                "Western Wastes"
+            ],
+            "nearest_druid_port_zone": "Wakening Land",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gwl",
+                "wl"
+            ]
+        },
+        {
+            "name": "Wakening Land",
+            "short_name": "wakening",
+            "adjacent_zones": [
+                "Kael Drakkal",
+                "Skyshrine",
+                "Plane of Growth",
+                "Western Wastes"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "gwl",
+                "wl"
+            ]
+        },
+        {
+            "name": "Skyshrine",
+            "short_name": "skyshrine",
+            "adjacent_zones": [
+                "Wakening Land",
+                "Cobalt Scar"
+            ],
+            "nearest_druid_port_zone": "Wakening Land",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gwl",
+                "wl"
+            ]
+        },
+        {
+            "name": "Cobalt Scar",
+            "short_name": "cobaltscar",
+            "adjacent_zones": [
+                "Skyshrine",
+                "Siren's Grotto"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "cs",
+                "gcs"
+            ]
+        },
+        {
+            "name": "Siren's Grotto",
+            "short_name": "sirens",
+            "adjacent_zones": [
+                "Cobalt Scar",
+                "Western Wastes"
+            ],
+            "nearest_druid_port_zone": "Cobalt Scar",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "cs",
+                "gcs"
+            ]
+        },
+        {
+            "name": "Western Wastes",
+            "short_name": "westwastes",
+            "adjacent_zones": [
+                "Kael Drakkal",
+                "Wakening Land",
+                "Siren's Grotto",
+                "Dragon Necropolis"
+            ],
+            "nearest_druid_port_zone": "Wakening Land",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gwl",
+                "wl"
+            ]
+        },
+        {
+            "name": "Dragon Necropolis",
+            "short_name": "necropolis",
+            "adjacent_zones": [
+                "Western Wastes"
+            ],
+            "nearest_druid_port_zone": "Wakening Land",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "gwl",
+                "wl"
+            ]
+        },
+        {
+            "name": "Velketor's Labyrinth",
+            "short_name": "velketor",
+            "adjacent_zones": [
+                "The Great Divide"
+            ],
+            "nearest_druid_port_zone": "The Great Divide",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gd",
+                "ggd"
+            ]
+        },
+        {
+            "name": "Crystal Caverns",
+            "short_name": "crystal",
+            "adjacent_zones": [
+                "Eastern Wastes"
+            ],
+            "nearest_druid_port_zone": "Iceclad Ocean",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "gic",
+                "ic"
+            ]
+        },
+        {
+            "name": "Sleeper's Tomb",
+            "short_name": "sleeper",
+            "adjacent_zones": [
+                "Eastern Wastes"
+            ],
+            "nearest_druid_port_zone": "Iceclad Ocean",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "gic",
+                "ic"
+            ]
+        },
+        {
+            "name": "Temple of Veeshan",
+            "short_name": "templeveeshan",
+            "adjacent_zones": [
+                "Western Wastes"
+            ],
+            "nearest_druid_port_zone": "Wakening Land",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "gwl",
+                "wl"
+            ]
+        },
+        {
+            "name": "Plane of Growth",
+            "short_name": "growthplane",
+            "adjacent_zones": [
+                "Wakening Land"
+            ],
+            "nearest_druid_port_zone": "Wakening Land",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gwl",
+                "wl"
+            ]
+        },
+        {
+            "name": "Plane of Mischief",
+            "short_name": "mischiefplane",
+            "adjacent_zones": [
+                "Great Divide"
+            ]
+        },
+        {
+            "name": "The Nexus",
+            "short_name": "nexus",
+            "adjacent_zones": [
+                "Shadow Haven",
+                "The Bazaar"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "nexus"
+            ]
+        },
+        {
+            "name": "The Bazaar",
+            "short_name": "bazaar",
+            "adjacent_zones": [
+                "The Nexus",
+                "Shadow Haven"
+            ],
+            "nearest_druid_port_zone": "The Nexus",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "nexus"
+            ]
+        },
+        {
+            "name": "Shadow Haven",
+            "short_name": "shadowhaven",
+            "adjacent_zones": [
+                "The Nexus",
+                "The Bazaar",
+                "Echo Caverns",
+                "Paludal Caverns"
+            ],
+            "nearest_druid_port_zone": "The Nexus",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "nexus"
+            ]
+        },
+        {
+            "name": "Echo Caverns",
+            "short_name": "echo",
+            "adjacent_zones": [
+                "Shadow Haven",
+                "The Fungus Grove",
+                "The Deep"
+            ],
+            "nearest_druid_port_zone": "The Nexus",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "nexus"
+            ]
+        },
+        {
+            "name": "The Fungus Grove",
+            "short_name": "fungusgrove",
+            "adjacent_zones": [
+                "Echo Caverns",
+                "Netherbian Lair"
+            ],
+            "nearest_druid_port_zone": "Dawnshroud Peaks",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "dawn",
+                "gdawn"
+            ]
+        },
+        {
+            "name": "The Deep",
+            "short_name": "thedeep",
+            "adjacent_zones": [
+                "Echo Caverns"
+            ],
+            "nearest_druid_port_zone": "The Nexus",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "nexus"
+            ]
+        },
+        {
+            "name": "Netherbian Lair",
+            "short_name": "netherbian",
+            "adjacent_zones": [
+                "Dawnshroud Peaks",
+                "Marus Seru",
+                "The Fungus Grove"
+            ],
+            "nearest_druid_port_zone": "Dawnshroud Peaks",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "dawn",
+                "gdawn"
+            ]
+        },
+        {
+            "name": "Dawnshroud Peaks",
+            "short_name": "dawnshroud",
+            "adjacent_zones": [
+                "Netherbian Lair",
+                "Grimling Forest",
+                "Hollowshade Moor",
+                "Maiden's Eye"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "dawn",
+                "gdawn"
+            ]
+        },
+        {
+            "name": "Grimling Forest",
+            "short_name": "grimling",
+            "adjacent_zones": [
+                "Dawnshroud Peaks",
+                "Acrylia Caverns",
+                "Tenebrous Mountains"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "ggrim",
+                "grim"
+            ]
+        },
+        {
+            "name": "Acrylia Caverns",
+            "short_name": "acrylia",
+            "adjacent_zones": [
+                "Grimling Forest"
+            ],
+            "nearest_druid_port_zone": "Grimling Forest",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "ggrim",
+                "grim"
+            ]
+        },
+        {
+            "name": "Hollowshade Moor",
+            "short_name": "hollowshade",
+            "adjacent_zones": [
+                "Dawnshroud Peaks",
+                "Shadeweaver's Thicket",
+                "Paludal Caverns"
+            ],
+            "nearest_druid_port_zone": "Dawnshroud Peaks",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "dawn",
+                "gdawn"
+            ]
+        },
+        {
+            "name": "Shadeweaver's Thicket",
+            "short_name": "shadeweaver",
+            "adjacent_zones": [
+                "Shar Vahl",
+                "Hollowshade Moor",
+                "Paludal Caverns"
+            ],
+            "nearest_druid_port_zone": "Dawnshroud Peaks",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "dawn",
+                "gdawn"
+            ]
+        },
+        {
+            "name": "Shar Vahl",
+            "short_name": "sharvahl",
+            "adjacent_zones": [
+                "Shadeweaver's Thicket"
+            ],
+            "nearest_druid_port_zone": "Dawnshroud Peaks",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "dawn",
+                "gdawn"
+            ]
+        },
+        {
+            "name": "Paludal Caverns",
+            "short_name": "paludal",
+            "adjacent_zones": [
+                "Shadow Haven",
+                "Hollowshade Moor",
+                "Shadeweaver's Thicket"
+            ],
+            "nearest_druid_port_zone": "The Nexus",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "nexus"
+            ]
+        },
+        {
+            "name": "Maiden's Eye",
+            "short_name": "maiden",
+            "adjacent_zones": [
+                "Dawnshroud Peaks",
+                "Umbral Plains",
+                "Akheva Ruins"
+            ],
+            "nearest_druid_port_zone": "Dawnshroud Peaks",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "dawn",
+                "gdawn"
+            ]
+        },
+        {
+            "name": "Akheva Ruins",
+            "short_name": "akheva",
+            "adjacent_zones": [
+                "Maiden's Eye"
+            ],
+            "nearest_druid_port_zone": "Dawnshroud Peaks",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "dawn",
+                "gdawn"
+            ]
+        },
+        {
+            "name": "Umbral Plains",
+            "short_name": "umbral",
+            "adjacent_zones": [
+                "Maiden's Eye",
+                "Vex Thal"
+            ],
+            "nearest_druid_port_zone": "Dawnshroud Peaks",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "dawn",
+                "gdawn"
+            ]
+        },
+        {
+            "name": "Vex Thal",
+            "short_name": "vexthal",
+            "adjacent_zones": [
+                "Umbral Plains"
+            ],
+            "nearest_druid_port_zone": "Dawnshroud Peaks",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "dawn",
+                "gdawn"
+            ]
+        },
+        {
+            "name": "Marus Seru",
+            "short_name": "mseru",
+            "adjacent_zones": [
+                "Netherbian Lair",
+                "Mons Letalis",
+                "Sanctus Seru"
+            ],
+            "nearest_druid_port_zone": "Dawnshroud Peaks",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "dawn",
+                "gdawn"
+            ]
+        },
+        {
+            "name": "Mons Letalis",
+            "short_name": "letalis",
+            "adjacent_zones": [
+                "Marus Seru",
+                "The Grey"
+            ],
+            "nearest_druid_port_zone": "Dawnshroud Peaks",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "dawn",
+                "gdawn"
+            ]
+        },
+        {
+            "name": "The Grey",
+            "short_name": "thegrey",
+            "adjacent_zones": [
+                "Mons Letalis",
+                "Scarlet Desert",
+                "Ssraeshza Temple"
+            ],
+            "nearest_druid_port_zone": "Twilight Sea",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "gtwi",
+                "twi"
+            ]
+        },
+        {
+            "name": "Scarlet Desert",
+            "short_name": "scarlet",
+            "adjacent_zones": [
+                "The Grey",
+                "Twilight Sea"
+            ],
+            "nearest_druid_port_zone": "Twilight Sea",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gtwi",
+                "twi"
+            ]
+        },
+        {
+            "name": "Twilight Sea",
+            "short_name": "twilight",
+            "adjacent_zones": [
+                "Scarlet Desert",
+                "Katta Castellum"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "gtwi",
+                "twi"
+            ]
+        },
+        {
+            "name": "Katta Castellum",
+            "short_name": "katta",
+            "adjacent_zones": [
+                "Twilight Sea",
+                "Tenebrous Mountains"
+            ],
+            "nearest_druid_port_zone": "Twilight Sea",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "gtwi",
+                "twi"
+            ]
+        },
+        {
+            "name": "Tenebrous Mountains",
+            "short_name": "tenebrous",
+            "adjacent_zones": [
+                "Katta Castellum",
+                "Grimling Forest"
+            ],
+            "nearest_druid_port_zone": "Grimling Forest",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "ggrim",
+                "grim"
+            ]
+        },
+        {
+            "name": "Sanctus Seru",
+            "short_name": "sseru",
+            "adjacent_zones": [
+                "Marus Seru"
+            ],
+            "nearest_druid_port_zone": "Dawnshroud Peaks",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "dawn",
+                "gdawn"
+            ]
+        },
+        {
+            "name": "Ssraeshza Temple",
+            "short_name": "ssratemple",
+            "adjacent_zones": [
+                "The Grey"
+            ],
+            "nearest_druid_port_zone": "Twilight Sea",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "gtwi",
+                "twi"
+            ]
+        },
+        {
+            "name": "Plane of Knowledge",
+            "short_name": "poknowledge",
+            "adjacent_zones": [
+                "Plane of Tranquility"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "pok"
+            ]
+        },
+        {
+            "name": "Plane of Tranquility",
+            "short_name": "potranquility",
+            "adjacent_zones": [
+                "Plane of Knowledge",
+                "Plane of Nightmare",
+                "Plane of Disease",
+                "Plane of Innovation",
+                "Plane of Justice",
+                "Plane of Storms",
+                "Plane of Valor",
+                "Plane of Torment",
+                "Crypt of Decay"
+            ],
+            "druid_port": true,
+            "druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Plane of Nightmare",
+            "short_name": "ponightmare",
+            "adjacent_zones": [
+                "Plane of Tranquility",
+                "Lair of Terris Thule"
+            ],
+            "nearest_druid_port_zone": "Plane of Tranquility",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Lair of Terris Thule",
+            "short_name": "nightmareb",
+            "adjacent_zones": [
+                "Plane of Nightmare"
+            ],
+            "nearest_druid_port_zone": "Plane of Tranquility",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Plane of Disease",
+            "short_name": "podisease",
+            "adjacent_zones": [
+                "Plane of Tranquility",
+                "Crypt of Decay"
+            ],
+            "nearest_druid_port_zone": "Plane of Tranquility",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Plane of Innovation",
+            "short_name": "poinnovation",
+            "adjacent_zones": [
+                "Plane of Tranquility",
+                "Plane of Tactics"
+            ],
+            "nearest_druid_port_zone": "Plane of Tranquility",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Plane of Justice",
+            "short_name": "pojustice",
+            "adjacent_zones": [
+                "Plane of Tranquility"
+            ],
+            "nearest_druid_port_zone": "Plane of Tranquility",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Plane of Storms",
+            "short_name": "postorms",
+            "adjacent_zones": [
+                "Plane of Tranquility",
+                "Bastion of Thunder"
+            ],
+            "nearest_druid_port_zone": "Plane of Tranquility",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Plane of Valor",
+            "short_name": "povalor",
+            "adjacent_zones": [
+                "Plane of Tranquility",
+                "Halls of Honor"
+            ],
+            "nearest_druid_port_zone": "Plane of Tranquility",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Plane of Torment",
+            "short_name": "potorment",
+            "adjacent_zones": [
+                "Plane of Tranquility",
+                "Plane of Time"
+            ],
+            "nearest_druid_port_zone": "Plane of Tranquility",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Crypt of Decay",
+            "short_name": "codecay",
+            "adjacent_zones": [
+                "Plane of Tranquility",
+                "Plane of Disease"
+            ],
+            "nearest_druid_port_zone": "Plane of Tranquility",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Halls of Honor",
+            "short_name": "hohonora",
+            "adjacent_zones": [
+                "Plane of Valor",
+                "Temple of Marr"
+            ],
+            "nearest_druid_port_zone": "Plane of Tranquility",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Temple of Marr",
+            "short_name": "hohonorb",
+            "adjacent_zones": [
+                "Halls of Honor"
+            ],
+            "nearest_druid_port_zone": "Plane of Tranquility",
+            "nearest_druid_port_hops": 3,
+            "nearest_druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Bastion of Thunder",
+            "short_name": "bothunder",
+            "adjacent_zones": [
+                "Plane of Storms"
+            ],
+            "nearest_druid_port_zone": "Plane of Tranquility",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Plane of Tactics",
+            "short_name": "potactics",
+            "adjacent_zones": [
+                "Plane of Innovation"
+            ],
+            "nearest_druid_port_zone": "Plane of Tranquility",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Plane of Time",
+            "short_name": "potimea",
+            "adjacent_zones": [
+                "Plane of Tranquility",
+                "Plane of Time B"
+            ],
+            "nearest_druid_port_zone": "Plane of Tranquility",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Plane of Time B",
+            "short_name": "potimeb",
+            "adjacent_zones": [
+                "Plane of Time",
+                "Plane of Tranquility",
+                "Plane of Nightmare",
+                "Plane of Torment",
+                "Plane of Tactics",
+                "Plane of Disease",
+                "Plane of Fear"
+            ],
+            "nearest_druid_port_zone": "Plane of Tranquility",
+            "nearest_druid_port_hops": 1,
+            "nearest_druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Plane of Fear",
+            "short_name": "fearplane",
+            "adjacent_zones": [],
+            "nearest_druid_port_zone": "Plane of Tranquility",
+            "nearest_druid_port_hops": 2,
+            "nearest_druid_port_spells": [
+                "pot"
+            ]
+        },
+        {
+            "name": "Plane of Hate",
+            "short_name": "hateplane",
+            "adjacent_zones": []
+        },
+        {
+            "name": "Plane of Sky",
+            "short_name": "airplane",
+            "adjacent_zones": []
+        }
+    ]
+}
