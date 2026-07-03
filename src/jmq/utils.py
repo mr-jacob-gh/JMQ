@@ -25,7 +25,7 @@ def sanitize_for_typing(text):
 _SENTENCE_SPLIT_RE = re.compile(r'[^.!?]+(?:[.!?]+|$)')
 
 
-def clamp_reply_length(text, max_sentences=2, max_words=30):
+def clamp_reply_length(text, max_sentences=3, max_words=40):
     """Deterministic backstop for the persona's sentence/word formatting rules
     (see zlem_persona.py formatting_constraints) - the LLM doesn't always obey
     them, so trim any overrun here rather than sending it to a player as-is.
