@@ -16,8 +16,8 @@ from jmq.llm_client import send_prompt_for, classify_spell_phrase, classify_zone
 #   from jmq.zlem_persona import zlem
 from jmq.zlem_persona_v3 import zlem_v3 as zlem
 
-SPELL_MATCH_HIGH_CONFIDENCE = 80
-ZONE_MATCH_CONFIDENCE = 80
+SPELL_MATCH_HIGH_CONFIDENCE = 75
+ZONE_MATCH_CONFIDENCE = 75
 COHERENCE_THRESHOLD = 30
 SUGGESTION_TTL_SECONDS = 120
 
