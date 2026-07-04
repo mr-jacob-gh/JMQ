@@ -11,7 +11,10 @@ from jmq.utils import (
 )
 from jmq.queue_manager import add_item_to_queue, already_in_queue
 from jmq.llm_client import send_prompt_for, classify_spell_phrase, classify_zone_phrase
-from jmq.zlem_persona import zlem
+# Swapped to the markdown-based persona template (v3). To roll back to the
+# old PersonaTemplate-based persona, change this back to:
+#   from jmq.zlem_persona import zlem
+from jmq.zlem_persona_v3 import zlem_v3 as zlem
 
 SPELL_MATCH_HIGH_CONFIDENCE = 90
 ZONE_MATCH_CONFIDENCE = 90
