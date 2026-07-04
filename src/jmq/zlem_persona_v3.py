@@ -4,7 +4,7 @@ from pathlib import Path
 # render() interface so this is a drop-in replacement for zlem_persona.zlem
 # at the call site in log_monitor.py. To switch back to the old
 # PersonaTemplate-based persona, just change that import back.
-_TEMPLATE_PATH = Path(__file__).resolve().parents[2] / 'zlem_everquest_druid_persona_template_v3.md'
+_TEMPLATE_PATH = Path(__file__).resolve().parents[2] / 'zlem_everquest_druid_persona_template_v4.md'
 ZLEM_SYSTEM_PROMPT = _TEMPLATE_PATH.read_text(encoding='utf-8')
 
 
