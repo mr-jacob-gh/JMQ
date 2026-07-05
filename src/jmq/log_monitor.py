@@ -216,7 +216,8 @@ def send_persona_reply(phrase, name, timestamp, q):
 def resolve_unrecognized_phrase(phrase, name, timestamp, q):
     def on_classified(spell, confidence, coherence, error):
         if error:
-            send_persona_reply(phrase, name, timestamp, q)
+            # send_persona_reply(phrase, name, timestamp, q)
+            write_to_log(f'error classified for {phrase}: {error!r}')
             return
 
         if spell and confidence >= SPELL_MATCH_HIGH_CONFIDENCE:
@@ -254,8 +255,8 @@ def resolve_zone_phrase(phrase, name, timestamp, q, coherence):
         if coherence < COHERENCE_THRESHOLD:
             write_to_log(f'phrase "{phrase}" deemed incoherent ({coherence}% coherence), sending canned reply')
             add_item_to_queue('tell', random.choice(CONFUSION_REPLIES), name, timestamp)
-        else:
-            send_persona_reply(phrase, name, timestamp, q)
+        # else:
+        #     send_persona_reply(phrase, name, timestamp, q)
 
     classify_zone_phrase(phrase, on_zone_classified)
 
